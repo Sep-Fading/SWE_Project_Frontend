@@ -14,7 +14,7 @@ const Navigation: React.FC = () => {
         <nav className="bg-black border-t-4 border-blue">
             <div className="flex items-center justify-between px-4 pb-1">
                 <div className="flex items-center">
-                    <Link href="/">
+                    <Link href="/HomePage">
                         <Image src="/FDM-Group.svg" alt="FDM" width={90} height={90} priority/>
                     </Link>
                 </div>
