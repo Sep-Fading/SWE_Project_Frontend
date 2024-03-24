@@ -1,7 +1,5 @@
 import React from 'react';
-import ApproveClaimButton from './ApproveClaimButton';
-import RejectClaimButton from './RejectClaimButton';
-import ViewDescriptionButton from './ViewDescriptionButton';
+import Button from './Button';
 
 const ClaimInfoBox: React.FC = () => {
 
@@ -22,9 +20,9 @@ const ClaimInfoBox: React.FC = () => {
             </div>
 
             <div className='flex flex-col justify-evenly'>
-                <ApproveClaimButton />
-                <RejectClaimButton />
-                <ViewDescriptionButton />
+                <Button text='Approve Claim' />
+                <Button text='Reject Claim' />
+                <Button text='View Description' />
 
             </div>
 
