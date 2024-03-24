@@ -2,13 +2,13 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface link {
+interface Link {
     title: string;
     href: string;
 }
 
 interface NavigationProps {
-    links: link[];
+    links: Link[];
 }
 
 const Navigation: React.FC<NavigationProps> = ({links}) => {

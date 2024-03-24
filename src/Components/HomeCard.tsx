@@ -6,7 +6,7 @@ interface HomeCardProps {
   href: string;
   image: string;
   text: string;
-  layout: string;
+  layout?: string;
 }
 
 const HomeCard: React.FC<HomeCardProps> = ({ href, image, text, layout }) => {
