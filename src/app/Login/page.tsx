@@ -3,6 +3,7 @@
 import { useState } from "react";
 import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
+import Header from "@/Components/Header";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <Header title="Login" />
       <form onSubmit={handleSubmit}>
       <InputField
         label="Email"
