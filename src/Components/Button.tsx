@@ -1,15 +1,13 @@
-import React from "react";
-
 interface ButtonProps {
   onClick?: () => void;
   text: string;
   type?: "submit" | "button" | "reset";
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, text, type }) => {
+const Button = ({ onClick, text, type }: ButtonProps) => {
   return (
     <button
-      className="my-2 rounded-sm text-center bg-fdm-gradient text-white w-[200px] h-[35px]"
+      className="my-2 rounded-sm text-center bg-fdm-gradient text-white w-[200px] h-[40px]"
       type={type}
       onClick={onClick}
     >

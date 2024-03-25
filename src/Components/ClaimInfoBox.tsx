@@ -1,7 +1,6 @@
-import React from "react";
 import Button from "./Button";
 
-const ClaimInfoBox: React.FC = () => {
+const ClaimInfoBox = () => {
   const headingsData = [
     { title: "Claim Date: " },
     { title: "Claim Amount: " },

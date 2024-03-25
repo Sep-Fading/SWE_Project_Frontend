@@ -1,9 +1,8 @@
-import React from "react";
 import Navigation from "@/Components/Navigation";
 import ClaimInfoBox from "@/Components/ClaimInfoBox";
 import Header from "@/Components/Header";
 
-const LineManagerPendingClaims: React.FC = () => {
+const LineManagerPendingClaims = () => {
   return (
     <div className="flex flex-col mx-[20%]">
       <Header title="Pending Claims" />

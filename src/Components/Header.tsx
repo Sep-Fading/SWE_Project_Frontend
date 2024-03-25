@@ -1,10 +1,8 @@
-import React from "react";
-
 interface HeaderProps {
   title: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+const Header = ({ title }: HeaderProps) => {
   return (
     <header className="mb-5 mt-8">
       <h1 className="text-2xl text-blue">{title}</h1>

@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,7 +8,7 @@ interface HomeCardProps {
   layout?: string;
 }
 
-const HomeCard: React.FC<HomeCardProps> = ({ href, image, text, layout }) => {
+const HomeCard = ({ href, image, text, layout }: HomeCardProps) => {
   return (
     <Link
       href={href}
