@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 
 interface InputProps {
@@ -10,17 +9,19 @@ interface InputProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputField: React.FC<InputProps> = ({
+const InputField = ({
   label,
   icon,
   type,
   value,
   placeholder,
   handleChange,
-}) => {
+}: InputProps) => {
   return (
     <div className="flex flex-col relative">
-      <label className="mb-1">{label}</label>
+      <label htmlFor={label} className="mb-1 font-medium">
+        {label}
+      </label>
       <Image
         src={`/${icon}.svg`}
         alt="Login"
@@ -29,6 +30,7 @@ const InputField: React.FC<InputProps> = ({
         className="absolute my-9 w-5 ml-3"
       />
       <input
+        id={label}
         type={type}
         placeholder={placeholder}
         value={value}

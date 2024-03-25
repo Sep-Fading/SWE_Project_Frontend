@@ -4,18 +4,19 @@ import { useState } from "react";
 import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
-import Link from "next/link";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
+const NewPassword = () => {
   const [password, setPassword] = useState("");
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  const [reTypepassword, setReTypePassword] = useState("");
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleReTypePasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setReTypePassword(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -28,47 +29,36 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-evenly items-start mx-[20%]">
-      <Header title="Login" />
+    <div className="flex flex-col justify-evenly mx-[20%]">
+      <Header title="Forgotten Password" />
       <form
         onSubmit={handleSubmit}
         className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-[100%] min-w-[400px] h-[55vh] shadow-md"
       >
         <div className="w-[70%]">
           <InputField
-            label="Email"
-            icon={"user"}
-            type="email"
-            placeholder="Type your email"
-            value={email}
-            handleChange={handleEmailChange}
-          />
-        </div>
-        <div className="flex flex-col w-[70%]">
-          <InputField
-            label="Password"
+            label="New password"
             icon={"password"}
             type="password"
-            placeholder="Type your password"
+            placeholder="Type your new password"
             value={password}
             handleChange={handlePasswordChange}
           />
-          <Link
-            href="/login/forgot_password"
-            className="underline text-xs self-end"
-          >
-            Forgot password?
-          </Link>
         </div>
-        <Button
-          type="submit"
-          text="Login"
-          onClick={onClick}
-          style="w-[200px]"
-        />
+        <div className="w-[70%]">
+          <InputField
+            label="Confirm new password"
+            icon={"password"}
+            type="password"
+            placeholder="Re-type your new password"
+            value={reTypepassword}
+            handleChange={handlePasswordChange}
+          />
+        </div>
+        <Button type="submit" text="Reset Password" style="w-[200px]" onClick={onClick} />
       </form>
     </div>
   );
 };
 
-export default Login;
+export default NewPassword;
