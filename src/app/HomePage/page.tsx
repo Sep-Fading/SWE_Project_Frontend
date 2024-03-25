@@ -5,7 +5,6 @@ import HomeCard from "@/Components/HomeCard";
 export default function Home() {
   return (
     <div>
-      <Navigation links={[]} />
       <div className="grid grid-cols-2 gap-6 p-10">
         <HomeCard
           href="/new_claim"

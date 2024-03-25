@@ -6,7 +6,6 @@ import Header from "@/Components/Header";
 const LineManagerPendingClaims: React.FC = () => {
   return (
     <div>
-      <Navigation links={[]} />
       <Header title="Pending Claims" />
       <ClaimInfoBox />
     </div>

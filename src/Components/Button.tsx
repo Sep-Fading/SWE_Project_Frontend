@@ -6,10 +6,11 @@ interface ButtonProps {
   type?: "submit" | "button" | "reset";
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, text }) => {
+const Button: React.FC<ButtonProps> = ({ onClick, text, type }) => {
   return (
     <button
       className="my-2 rounded-sm text-center bg-fdm-gradient text-white w-[200px] h-[35px]"
+      type={type}
       onClick={onClick}
     >
       {text}

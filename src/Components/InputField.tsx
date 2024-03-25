@@ -19,7 +19,7 @@ const InputField: React.FC<InputProps> = ({
   handleChange,
 }) => {
   return (
-    <div className="flex flex-col relative">
+    <div className="flex flex-col w-[70%]  relative">
       <label className="mb-1">{label}</label>
       <Image
         src={`/${icon}.svg`}
