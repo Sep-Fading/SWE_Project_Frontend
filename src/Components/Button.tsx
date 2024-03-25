@@ -2,12 +2,13 @@ interface ButtonProps {
   onClick?: () => void;
   text: string;
   type?: "submit" | "button" | "reset";
+  style?: string;
 }
 
-const Button = ({ onClick, text, type }: ButtonProps) => {
+const Button = ({ onClick, text, type, style }: ButtonProps) => {
   return (
     <button
-      className="my-2 rounded-sm text-center bg-fdm-gradient text-white w-[200px] h-[40px]"
+      className={`my-2 rounded-sm text-center bg-fdm-gradient text-white h-[40px] ${style}`}
       type={type}
       onClick={onClick}
     >

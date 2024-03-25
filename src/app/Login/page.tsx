@@ -60,7 +60,12 @@ const Login = () => {
             Forgot password?
           </Link>
         </div>
-        <Button type="submit" text="Login" onClick={onClick} />
+        <Button
+          type="submit"
+          text="Login"
+          onClick={onClick}
+          style="w-[200px]"
+        />
       </form>
     </div>
   );

@@ -17,9 +17,9 @@ const ClaimInfoBox = () => {
       </div>
 
       <div className="flex flex-col justify-evenly">
-        <Button text="Approve Claim" />
-        <Button text="Reject Claim" />
-        <Button text="View Description" />
+        <Button text="Approve Claim" style="w-[200px]" />
+        <Button text="Reject Claim" style="w-[200px]" />
+        <Button text="View Description" style="w-[200px]" />
       </div>
     </div>
   );

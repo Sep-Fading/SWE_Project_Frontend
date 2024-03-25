@@ -55,7 +55,7 @@ const NewPassword = () => {
             handleChange={handlePasswordChange}
           />
         </div>
-        <Button type="submit" text="Reset Password" onClick={onClick} />
+        <Button type="submit" text="Reset Password" style="w-[200px]" onClick={onClick} />
       </form>
     </div>
   );

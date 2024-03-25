@@ -1,4 +1,3 @@
-import Navigation from "@/Components/Navigation";
 import ClaimInfoBox from "@/Components/ClaimInfoBox";
 import Header from "@/Components/Header";
 

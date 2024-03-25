@@ -19,7 +19,9 @@ const InputField = ({
 }: InputProps) => {
   return (
     <div className="flex flex-col relative">
-      <label htmlFor={label} className="mb-1">{label}</label>
+      <label htmlFor={label} className="mb-1 font-medium">
+        {label}
+      </label>
       <Image
         src={`/${icon}.svg`}
         alt="Login"

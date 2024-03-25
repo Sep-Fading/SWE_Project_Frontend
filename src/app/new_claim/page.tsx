@@ -8,6 +8,7 @@ import Button from "@/Components/Button";
 
 const ExpenseClaim = () => {
   const [amount, setAmount] = useState("");
+  const [currency, setCurrency] = useState("GBP"); // ["GBP", "USD", "EUR"]
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [acknowledgement, setAcknowledgement] = useState(false);
@@ -20,7 +21,9 @@ const ExpenseClaim = () => {
     setType(e.target.value);
   };
 
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setDescription(e.target.value);
   };
 
@@ -38,56 +41,83 @@ const ExpenseClaim = () => {
       <Header title="Expense Claim" />
       <form
         onSubmit={handleSubmit}
-        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-[100%] min-w-[400px] h-[95vh] shadow-md"
+        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded h-[125vh] shadow-md"
       >
-        <div className="flex gap-10">
+        <div className="flex justify-between w-[80%]">
           <div>
-            <h2>First Name</h2>
+            <h2 className="font-medium">First Name</h2>
             <p>John</p>
           </div>
           <div>
-            <h2>Last Name</h2>
+            <h2 className="font-medium">Last Name</h2>
             <p>Doe</p>
           </div>
           <div>
-            <h2>Email</h2>
+            <h2 className="font-medium">Email</h2>
             <p>johndoe@email.com</p>
           </div>
           <div>
-            <h2>Phone Number</h2>
+            <h2 className="font-medium">Phone Number</h2>
             <p>0123456789</p>
           </div>
         </div>
-        <div className="flex flex-col relative w-[80%]">
-          <label className="mb-1">Amount</label>
-          <input
-            type="text"
-            placeholder="Value"
-            value={amount}
-            onChange={handleAmountChange}
-            className="pl-2 border-2 border-b-4 border-black rounded-sm shadow-sm py-1"
-          />
+        <div className="w-[80%]">
+          <label htmlFor="amount" className="font-medium">
+            Amount
+          </label>
+          <div className="relative">
+            <input
+              id="amount"
+              type="text"
+              placeholder="Value"
+              value={amount}
+              onChange={handleAmountChange}
+              className="pl-2 py-1 border-2 border-b-4 border-black rounded-sm shadow w-[100%]"
+            />
+            <label htmlFor="currency" className="sr-only">
+              Currency
+            </label>
+            <select
+              id="currency"
+              name="currency"
+              onChange={(e) => setCurrency(e.target.value)}
+              value={currency}
+              className="bg-transparent absolute my-2 ml-[-35px] focus:outline-none"
+            >
+              <option value="GBP">£</option>
+              <option value="USD">$</option>
+              <option value="EUR">€</option>
+              <option value="JPY">¥</option>
+              <option value="MXN">₱</option>
+              <option value="INR">₹</option>
+              <option value="CHF">₣</option>
+            </select>
+          </div>
         </div>
         <div className="w-[80%]">
-          <label>Type of claim</label>
-          <select className="w-[100%] border-2 border-b-4 border-black rounded-sm shadow-sm py-1">
+          <label htmlFor="type" className="font-medium">
+            Type of claim
+          </label>
+          <select
+            id="type"
+            className="pl-1 py-1 border-2 border-b-4 border-black rounded-sm shadow w-[100%]"
+          >
             <option value="" disabled selected>
-              Select Options
+              --Select Option--
             </option>
-            <option value="type">Type</option>
-            <option value="type">Type</option>
-            <option value="type">Type</option>
-            <option value="type">Type</option>
+            <option value="travel">Travel</option>
+            <option value="meal">Meal</option>
+            <option value="stay">Night Stay</option>
+            <option value="gift">Gift</option>
           </select>
         </div>
-        <div className="flex flex-col relative w-[80%]">
-          <label className="mb-1">Description</label>
-          <input
-            type="text"
+        <div className="flex flex-col w-[80%]">
+          <label className="font-medium">Description</label>
+          <textarea
             placeholder="Enter your text here"
             value={description}
             onChange={handleDescriptionChange}
-            className="pl-2 border-2 border-b-4 border-black rounded-sm shadow-sm py-1"
+            className="pl-2 py-1 border-2 border-b-4 border-black rounded-sm shadow min-h-[100px]"
           />
         </div>
         <div className="grid grid-rows-2 auto-cols-auto gap-1 w-[80%]">
@@ -132,7 +162,7 @@ const ExpenseClaim = () => {
             performance of my official duties.
           </label>
         </div>
-        <Button type="submit" text="Submit" onClick={onClick} />
+        <Button type="submit" text="Submit" style="w-[80%]" onClick={onClick} />
       </form>
     </div>
   );
