@@ -1,27 +1,26 @@
-import Button from "./Button";
+import Button from './Button';
 
-const ClaimInfoBox = () => {
-  const headingsData = [
-    { title: "Claim Date: " },
-    { title: "Claim Amount: " },
-    { title: "Employee Claiming: " },
-    { title: "Uploaded Files: " },
-  ];
 
-  return (
-    <div className="flex flex-row justify-between p-[0.5rem] border-2 border-black rounded-md min-w-[350px]">
-      <div className="flex flex-col justify-evenly">
-        {headingsData.map((heading, index) => (
-          <h2 key={index}>{heading.title}</h2>
-        ))}
-      </div>
+interface ClaimInfoBoxProps {
+    headingText: string[];
+    buttonText: string[];
+}
 
-      <div className="flex flex-col justify-evenly">
-        <Button text="Approve Claim" style="w-[200px]" />
-        <Button text="Reject Claim" style="w-[200px]" />
-        <Button text="View Description" style="w-[200px]" />
-      </div>
-    </div>
-  );
+const ClaimInfoBox = ({headingText, buttonText}: ClaimInfoBoxProps) => {
+
+    return(
+        <div className='flex flex-row justify-between p-[0.5rem] border-2 border-black rounded-md min-w-[350px]'>
+            <div className='flex flex-col justify-evenly'>
+                {headingText.map((heading, index) => (
+                    <h2 key={index}>{heading} :</h2>
+                ))}
+            </div>
+            <div className='flex flex-col justify-evenly'>
+                {buttonText.map((text, index) => (
+                    <Button key={index} text={text} style="w-[200px]/>
+                ))}
+            </div>
+        </div>
+    );
 };
 export default ClaimInfoBox;
