@@ -5,16 +5,18 @@ import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
+const NewPassword = () => {
   const [password, setPassword] = useState("");
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  const [reTypepassword, setReTypePassword] = useState("");
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleReTypePasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setReTypePassword(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -28,31 +30,31 @@ const Login = () => {
 
   return (
     <div className="flex flex-col justify-evenly items-start mx-[20%]">
-      <Header title="Login" />
+      <Header title="Forgotten Password" />
       <form
         onSubmit={handleSubmit}
         className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-[100%] min-w-[400px] h-[55vh] shadow-md"
       >
         <InputField
-          label="Email"
-          icon={"user"}
-          type="email"
-          placeholder="Type your email"
-          value={email}
-          handleChange={handleEmailChange}
-        />
-        <InputField
-          label="Password"
+          label="New password"
           icon={"password"}
           type="password"
-          placeholder="Type your password"
+          placeholder="Type your new password"
           value={password}
           handleChange={handlePasswordChange}
         />
-        <Button type="submit" text="Login" onClick={onClick} />
+        <InputField
+          label="Confirm new password"
+          icon={"password"}
+          type="password"
+          placeholder="Re-type your new password"
+          value={reTypepassword}
+          handleChange={handlePasswordChange}
+        />
+        <Button type="submit" text="Reset Password" onClick={onClick} />
       </form>
     </div>
   );
 };
 
-export default Login;
+export default NewPassword;

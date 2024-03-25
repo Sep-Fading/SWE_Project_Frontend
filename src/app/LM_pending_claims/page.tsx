@@ -5,7 +5,7 @@ import Header from "@/Components/Header";
 
 const LineManagerPendingClaims: React.FC = () => {
   return (
-    <div>
+    <div className="flex flex-col mx-[20%]">
       <Header title="Pending Claims" />
       <ClaimInfoBox />
     </div>
