@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import Header from "@/Components/Header";
-import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 
 const ExpenseClaim = () => {
