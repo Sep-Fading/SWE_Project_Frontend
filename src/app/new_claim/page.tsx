@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Header from "@/Components/Header";
 import Button from "@/Components/Button";
+import TextArea from "@/Components/TextArea";
 
 const ExpenseClaim = () => {
   const [amount, setAmount] = useState("");
@@ -110,15 +111,12 @@ const ExpenseClaim = () => {
             <option value="gift">Gift</option>
           </select>
         </div>
-        <div className="flex flex-col w-[80%]">
-          <label className="font-medium">Description</label>
-          <textarea
-            placeholder="Enter your text here"
-            value={description}
-            onChange={handleDescriptionChange}
-            className="pl-2 py-1 border-2 border-b-4 border-black rounded-sm shadow min-h-[100px]"
-          />
-        </div>
+        <TextArea
+          label="Description"
+          placeholder="Enter description"
+          value={description}
+          handleChange={handleDescriptionChange}
+        />
         <div className="grid grid-rows-2 auto-cols-auto gap-1 w-[80%]">
           <label
             htmlFor="file-upload"
