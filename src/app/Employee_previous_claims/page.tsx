@@ -1,14 +1,16 @@
 import Header from "@/Components/Header";
 import ClaimInfoBox from "@/Components/ClaimInfoBox";
+import Navigation from "@/Components/Navigation";
 
 const EmployeePreviousClaims = () => {
-  const headings = ["Amount", "Type", "Description", "Date"];
+  const headings = ["Amount", "Type", "Date", "Status"];
 
-  const buttons = ["View VAT Receipt"];
+  const buttons = ["View Description", "View VAT Receipt"];
 
   return (
     <div>
-      <Header title="Previous Claims" />
+      <Navigation links={[]}/>
+      <Header title="Claims" />
       <ClaimInfoBox headingText={headings} buttonText={buttons} />
     </div>
   );
