@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navigation links={[]} />
+        <Navigation links={[]} home={"/"} />
         {children}
       </body>
     </html>

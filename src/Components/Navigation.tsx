@@ -9,14 +9,15 @@ interface Link {
 
 interface NavigationProps {
   links: Link[];
+  home: string;
 }
 
-const Navigation = ({ links }: NavigationProps) => {
+const Navigation = ({ links, home }: NavigationProps) => {
   return (
     <nav className="bg-black border-t-4 border-blue">
       <div className="flex items-center justify-between px-4 pb-1">
         <div className="flex items-center">
-          <Link href="/home">
+          <Link href={home}>
             <Image src="/FDM.svg" alt="FDM" width={90} height={90} priority />
           </Link>
         </div>
