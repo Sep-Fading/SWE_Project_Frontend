@@ -36,6 +36,7 @@ const InputField = ({
         value={value}
         onChange={handleChange}
         className="pl-9 border-2 border-b-4 border-black rounded-sm shadow-sm py-1"
+        required
       />
     </div>
   );

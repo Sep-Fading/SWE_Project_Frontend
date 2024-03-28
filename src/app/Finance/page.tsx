@@ -1,19 +1,18 @@
 import HomeCard from "@/Components/HomeCard";
 
 export default function Home() {
-
   return (
     <div className="grid grid-cols-2 gap-4 my-7">
       <HomeCard
-        href="/new_claim"
-        image="/new.svg"
-        text="New Claim"
+        href="/Finance/pending_claims"
+        image="/edit.svg"
+        text="Process Claims"
         layout="col-span-2 place-self-center w-[520px]"
       />
       <HomeCard
-        href="/view_claims"
+        href="/Finance/processed_claims"
         image="/view.svg"
-        text="View Claims"
+        text="Processed Claims"
         layout="place-self-end row-start-2 w-[250px]"
       />
       <HomeCard
