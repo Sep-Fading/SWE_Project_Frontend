@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import exp from "constants";
 
 interface Link {
   title: string;

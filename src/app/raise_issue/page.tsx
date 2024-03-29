@@ -1,24 +1,29 @@
 "use client";
-import { useState } from "react";
-import InputField from "@/Components/InputField";
+import { useState, ChangeEvent, FormEvent } from "react";
 import Header from "@/Components/Header";
 import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
 
+interface FormData {
+  title: string;
+  description: string;
+}
+
 const Issue = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    title: "",
+    description: "",
+  });
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-  const handleDescriptionChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setDescription(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Add your login logic here
   };
@@ -41,16 +46,17 @@ const Issue = () => {
             id="title"
             type="text"
             placeholder="Enter title"
-            value={title}
-            onChange={handleTitleChange}
+            value={formData.title}
+            onChange={handleChange}
             className="pl-2 border-2 border-b-4 border-black rounded-sm shadow-sm py-1"
           />
         </div>
         <TextArea
           label="Description"
+          name="description"
           placeholder="Enter description"
-          value={description}
-          handleChange={handleDescriptionChange}
+          value={formData.description}
+          onChange={handleChange}
         />
         <Button type="submit" text="Submit" style="w-[80%]" onClick={onClick} />
       </form>
