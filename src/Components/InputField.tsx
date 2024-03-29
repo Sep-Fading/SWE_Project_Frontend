@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import Image from "next/image";
 
 interface InputProps {
@@ -6,7 +7,8 @@ interface InputProps {
   type: string;
   placeholder: string;
   value: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  name: string;
 }
 
 const InputField = ({
@@ -15,11 +17,12 @@ const InputField = ({
   type,
   value,
   placeholder,
-  handleChange,
+  onChange,
+  name,
 }: InputProps) => {
   return (
     <div className="flex flex-col relative">
-      <label htmlFor={label} className="mb-1 font-medium">
+      <label htmlFor={name} className="mb-1 font-medium">
         {label}
       </label>
       <Image
@@ -30,11 +33,12 @@ const InputField = ({
         className="absolute my-9 w-5 ml-3"
       />
       <input
-        id={label}
+        id={name}
+        name={name}
         type={type}
         placeholder={placeholder}
         value={value}
-        onChange={handleChange}
+        onChange={onChange}
         className="pl-9 border-2 border-b-4 border-black rounded-sm shadow-sm py-1"
         required
       />

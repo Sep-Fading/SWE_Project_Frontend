@@ -1,25 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
 
+interface FormData {
+  password: string;
+  confirmPassword: string;
+}
+
 const NewPassword = () => {
-  const [password, setPassword] = useState("");
-  const [reTypepassword, setReTypePassword] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    password: "",
+    confirmPassword: "",
+  });
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handleReTypePasswordChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setReTypePassword(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Add your login logic here
   };
@@ -40,9 +45,10 @@ const NewPassword = () => {
             label="New password"
             icon={"password"}
             type="password"
-            placeholder="Type your new password"
-            value={password}
-            handleChange={handlePasswordChange}
+            name="password"
+            placeholder="Enter your new password"
+            value={formData.password}
+            onChange={handleChange}
           />
         </div>
         <div className="w-[70%]">
@@ -50,9 +56,10 @@ const NewPassword = () => {
             label="Confirm new password"
             icon={"password"}
             type="password"
-            placeholder="Re-type your new password"
-            value={reTypepassword}
-            handleChange={handlePasswordChange}
+            name="confirmPassword"
+            placeholder="Confirm your new password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
           />
         </div>
         <Button type="submit" text="Reset Password" style="w-[200px]" onClick={onClick} />

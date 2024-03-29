@@ -1,24 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
 import Link from "next/link";
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    password: "",
+  });
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Add your login logic here
   };
@@ -39,9 +46,10 @@ const Login = () => {
             label="Email"
             icon={"user"}
             type="email"
+            name="email"
             placeholder="Type your email"
-            value={email}
-            handleChange={handleEmailChange}
+            value={formData.email}
+            onChange={handleChange}
           />
         </div>
         <div className="flex flex-col w-[70%]">
@@ -49,9 +57,10 @@ const Login = () => {
             label="Password"
             icon={"password"}
             type="password"
+            name="password"
             placeholder="Type your password"
-            value={password}
-            handleChange={handlePasswordChange}
+            value={formData.password}
+            onChange={handleChange}
           />
           <Link
             href="/login/forgot_password"
