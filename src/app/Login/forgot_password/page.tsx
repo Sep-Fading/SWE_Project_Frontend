@@ -25,6 +25,9 @@ const NewPassword = () => {
   };
 
   const handleSubmit = (e: FormEvent) => {
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+    }
     e.preventDefault();
     // Add your login logic here
   };
