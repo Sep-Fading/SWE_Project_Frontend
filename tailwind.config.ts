@@ -13,6 +13,7 @@ const config: Config = {
       },
       backgroundImage: {
         'fdm-gradient': 'linear-gradient(40deg, rgba(21, 65, 200, 1) 0%, rgba(136, 32, 187, 1) 100%)',
+        'red-gradient': 'linear-gradient(40deg, #D32F2F 0%, #B71C1C 100%)',
       },
       colors: {
         blue: "#1daded",
