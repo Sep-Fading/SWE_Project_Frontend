@@ -7,7 +7,7 @@ interface ClaimInfoBoxProps {
 
 const ClaimInfoBox = ({ headingText, buttonText }: ClaimInfoBoxProps) => {
   return (
-    <div className="flex flex-row justify-between p-[0.5rem] border-2 border-black rounded-md min-w-[350px]">
+    <div className="flex">
       <div className="flex flex-col justify-evenly">
         {headingText.map((heading, index) => (
           <h2 key={index}>{heading} :</h2>
