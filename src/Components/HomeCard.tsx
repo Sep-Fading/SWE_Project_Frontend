@@ -14,8 +14,8 @@ const HomeCard = ({ href, image, text, layout }: HomeCardProps) => {
       href={href}
       className={`flex flex-col items-center justify-center gap-3 bg-fdm-gradient size-[210px] rounded-md shadow-3xl hover:scale-105 transition-transform duration-300 text-white ${layout}`}
     >
-      <Image src={image} alt="Link" width={65} height={65} priority />
-      <h1>{text}</h1>
+      <Image src={image} alt={text} width={65} height={65} priority />
+      <h1 className="font-semibold">{text}</h1>
     </Link>
   );
 };

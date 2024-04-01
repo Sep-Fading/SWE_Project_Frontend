@@ -31,7 +31,7 @@ const ExpenseClaim = () => {
       ...prevState,
       // Use a ternary operator to handle the checkbox separately
       [name]:
-        type === "checkbox" ? (e.target as HTMLInputElement).checked : value ,
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
@@ -154,7 +154,7 @@ const ExpenseClaim = () => {
             htmlFor="file-upload"
             className="cursor-pointer row-span-2 col-start-2 justify-self-end place-self-center"
           >
-            <Image src={"/file.svg"} alt="Login" width={50} height={50} />
+            <Image src={"/upload.svg"} alt="Login" width={50} height={50} />
           </label>
         </div>
         <div className="flex items-center w-[80%]">
