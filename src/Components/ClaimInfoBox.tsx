@@ -1,3 +1,4 @@
+// Imports the button element
 import Button from "./Button";
 
 interface ClaimInfoBoxProps {
@@ -5,6 +6,7 @@ interface ClaimInfoBoxProps {
   buttonText: string[];
 }
 
+// The ClaimInfoBox element takes the headings and the text in the buttons as props as arrays - the data inside of these arrays are mapped into HTML elements (buttons and headings)
 const ClaimInfoBox = ({ headingText, buttonText }: ClaimInfoBoxProps) => {
   return (
     <div className="flex">

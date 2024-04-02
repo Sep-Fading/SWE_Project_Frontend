@@ -1,7 +1,12 @@
+
 interface HeaderProps {
   title: string;
   style?: string;
 }
+
+// The header component takes title and style props but the style is not required
+
+// A header is an h1 element with an hr element
 
 const Header = ({ title, style }: HeaderProps) => {
   return (
