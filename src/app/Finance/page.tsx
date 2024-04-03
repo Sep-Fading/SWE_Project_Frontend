@@ -7,19 +7,19 @@ export default function Home() {
         href="/Finance/pending_claims"
         image="/approve.svg"
         text="Process Claims"
-        layout="col-span-2 place-self-center w-[520px]"
+        layout="sm: w-[365px] col-span-2 place-self-center md:w-[520px]"
       />
       <HomeCard
         href="/Finance/processed_claims"
         image="/list.svg"
         text="Processed Claims"
-        layout="place-self-end row-start-2 w-[250px]"
+        layout="sm: w-[175px] place-self-end row-start-2 md:w-[250px]"
       />
       <HomeCard
         href="/request_help"
         image="/request.svg"
         text="Request Help"
-        layout="place-self-start row-start-2 w-[250px]"
+        layout="sm: w-[175px] place-self-start row-start-2 md:w-[250px]"
       />
     </div>
   );

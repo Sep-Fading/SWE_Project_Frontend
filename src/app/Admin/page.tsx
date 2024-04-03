@@ -7,19 +7,19 @@ export default function Home() {
         href="/Admin/view_users"
         image="/user_list.svg"
         text="View Users"
-        layout="col-span-2 place-self-center w-[520px]"
+        layout="sm: w-[365px] col-span-2 place-self-center md:w-[520px]"
       />
       <HomeCard
         href="/Admin/add_user"
         image="/add_user.svg"
         text="Add User"
-        layout="place-self-end row-start-2 w-[250px]"
+        layout="sm: w-[175px] place-self-end row-start-2 md:w-[250px]"
       />
       <HomeCard
         href="/Admin/resolve_issues"
         image="/request.svg"
         text="Resolve Issues"
-        layout="place-self-start row-start-2 w-[250px]"
+        layout="sm: w-[175px] place-self-start row-start-2 md:w-[250px]"
       />
     </div>
   );
