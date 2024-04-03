@@ -83,7 +83,7 @@ const ExpenseClaim = () => {
               placeholder="Value"
               value={formData.amount}
               onChange={handleChange}
-              className="pl-2 py-1 border-2 border-b-4 border-black rounded-sm shadow w-[100%]"
+              className="pl-2 py-1 border-2 border-b-4 border-black rounded-sm shadow w-full"
             />
             <label htmlFor="currency" className="sr-only">
               Currency
@@ -114,7 +114,7 @@ const ExpenseClaim = () => {
             name="type"
             value={formData.type}
             onChange={handleChange}
-            className="pl-1 py-1 border-2 border-b-4 border-black rounded-sm shadow w-[100%]"
+            className="pl-1 py-1 border-2 border-b-4 border-black rounded-sm shadow w-full"
           >
             <option value="" disabled>
               --Select Option--
