@@ -41,7 +41,7 @@ const NewPassword = () => {
       <Header title="Forgotten Password" />
       <form
         onSubmit={handleSubmit}
-        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-[100%] min-w-[400px] h-[55vh] shadow-md"
+        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-full min-w-[400px] h-[55vh] shadow-md"
       >
         <div className="w-[70%]">
           <InputField
