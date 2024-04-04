@@ -22,7 +22,7 @@ const Filter = ({ onFilterChange, title, filters }: FilterProps) => {
   };
 
   return (
-    <div className="">
+    <>
       <button
         className="flex justify-between items-center w-full border-b py-2 px-1 text-lg"
         onClick={() => setIsOpen(!isOpen)}
@@ -30,8 +30,12 @@ const Filter = ({ onFilterChange, title, filters }: FilterProps) => {
         {title}
         <span>{isOpen ? "−" : "+"}</span>
       </button>
-      <div className={`${isOpen ? "" : "hidden"} flex flex-col items-center gap-2 border-b py-3`}>
-        {filters.map((filter) => ( 
+      <div
+        className={`${
+          isOpen ? "" : "hidden"
+        } flex flex-col items-center gap-2 border-b py-3`}
+      >
+        {filters.map((filter) => (
           <div key={filter} className="flex items-center w-full">
             <input
               type="checkbox"
@@ -47,7 +51,7 @@ const Filter = ({ onFilterChange, title, filters }: FilterProps) => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

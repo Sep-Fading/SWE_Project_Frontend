@@ -8,7 +8,7 @@ import Expense from "@/Components/Expense";
 import FilterMenu from "@/Components/FilterMenu";
 
 const EmployeeClaims = () => {
-  const handleFilterChange = (filters: Record<string, boolean>) => {
+  const handleFilterChange = (filters: Record<string, boolean | number[] | number>) => {
     // Filter claims based on the selected filters
     console.log(filters);
   };
