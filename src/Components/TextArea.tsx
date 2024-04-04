@@ -16,7 +16,7 @@ const InputField = ({
   onChange,
 }: InputProps) => {
   return (
-    <div className="flex flex-col w-[80%]">
+    <div className="flex flex-col w-[90%] md:w-[80%]">
       <label htmlFor={name} className="font-medium">
         {label}
       </label>

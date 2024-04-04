@@ -2,7 +2,7 @@ import HomeCard from "@/Components/HomeCard";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center gap-4 my-7 md:grid md:grid-cols-2">
+    <div className="flex flex-col items-center gap-4 my-7 md:grid md:grid-cols-3">
       <HomeCard
         href="/new_claim"
         image="/add.svg"
