@@ -1,26 +1,25 @@
 import HomeCard from "@/Components/HomeCard";
 
 export default function Home() {
-
   return (
-    <div className="grid grid-cols-2 gap-4 my-7">
+    <div className="flex flex-col items-center gap-4 my-7 md:grid md:grid-cols-2">
       <HomeCard
         href="/new_claim"
         image="/add.svg"
         text="New Claim"
-        layout="sm: w-[365px] col-span-2 place-self-center md:w-[520px]"
+        layout="w-[90%] min-w-44 md:col-span-2 md:place-self-center md:w-[520px]"
       />
       <HomeCard
         href="/view_claims"
         image="/list.svg"
         text="View Claims"
-        layout="sm: w-[175px] place-self-end row-start-2 md:w-[250px]"
+        layout="w-[90%] min-w-44 md:place-self-end md:row-start-2 md:w-[250px]"
       />
       <HomeCard
         href="/raise_issue"
         image="/request.svg"
         text="Request Help"
-        layout=" sm: w-[175px] place-self-start row-start-2 md:w-[250px]"
+        layout="w-[90%] min-w-44 md:place-self-start md:row-start-2 md:w-[250px]"
       />
     </div>
   );
