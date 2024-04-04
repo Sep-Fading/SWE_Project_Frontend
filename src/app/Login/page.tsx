@@ -35,13 +35,19 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-evenly items-start mx-[20%]">
-      <Header title="Login" />
+    <div className="flex flex-col  my-[25%] md:my-0 md:mx-[20%]">
+      <Header title="Login" divStyle="hidden md:inline" />
       <form
         onSubmit={handleSubmit}
-        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-full min-w-[400px] h-[55vh] shadow-md"
+        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-full min-w-[400px] min-h-[350px] shadow-md h-[55vh]"
       >
-        <div className="w-[70%]">
+        <Header
+          title="Login"
+          divStyle="md:hidden"
+          style="text-center"
+          hrStyle="hidden"
+        />
+        <div className="w-[90%] md:w-[70%]">
           <InputField
             label="Email"
             icon={"user"}
@@ -52,7 +58,7 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="flex flex-col w-[70%]">
+        <div className="flex flex-col w-[90%] md:w-[70%]">
           <InputField
             label="Password"
             icon={"password"}
@@ -69,12 +75,7 @@ const Login = () => {
             Forgot password?
           </Link>
         </div>
-        <Button
-          type="submit"
-          text="Login"
-          onClick={onClick}
-          style="w-[200px]"
-        />
+        <Button type="submit" text="Login" onClick={onClick} style="w-48" />
       </form>
     </div>
   );
