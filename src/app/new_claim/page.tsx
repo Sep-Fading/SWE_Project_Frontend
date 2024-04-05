@@ -50,7 +50,7 @@ const ExpenseClaim = () => {
         //integates frontend to backend which handles the 
         Axios 
         //This is backend url 
-            .post("http://localhost:8000/api/employeeFormModel/", { 
+            .post("http://localhost:8000/api/employeeformmodel/", { 
               amount: formData.amount,
                 currency: formData.currency,
                 typeClaim: formData.type,
