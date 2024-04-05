@@ -6,11 +6,16 @@ import Header from "@/Components/Header";
 import Button from "@/Components/Button";
 import Expense from "@/Components/Expense";
 import FilterMenu from "@/Components/FilterMenu";
+import SearchBar from "@/Components/SearchBar";
 
 const EmployeeClaims = () => {
   const handleFilterChange = (filters: Record<string, boolean | number[] | number>) => {
     // Filter claims based on the selected filters
     console.log(filters);
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Add search logic here
   };
 
   return (
@@ -21,6 +26,7 @@ const EmployeeClaims = () => {
       <main className="flex flex-col gap-4 w-full">
         <div className="flex flex-row items-baseline justify-between mx-2">
           <Header title="Claims" />
+          <SearchBar placeholder="Search Claims" value="" handleChange={handleSearch} divStyle="w-[40%]" />
           <div className="relative w-[40%]">
             <input
               type="search"
