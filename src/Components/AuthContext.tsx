@@ -1,19 +1,21 @@
+"use client";
 // This handles authorization across pages.
 import React,
     { createContext, useContext,
-    useState, useEffect, ReactNode} from 'react';
+    useState, useEffect, ReactNode, FC} from 'react';
 
 // Creating our Type for user context,
 // Can be a string if there is a permission set 
 // other wise it defaults to null.
 interface AuthContextType {
     userPermission: string | null;
+    setUserPermission: (permission: string | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
-    children; ReactNode;
+    children: ReactNode;
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
@@ -24,7 +26,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setUserPermission(permission);
     }, []);
 
-    return <AuthContext.Provider value={{ userPermission }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ userPermission, setUserPermission }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = (): AuthContextType => {
