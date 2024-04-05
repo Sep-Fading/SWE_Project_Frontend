@@ -5,6 +5,7 @@ import Image from "next/image";
 import Header from "@/Components/Header";
 import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
+import Axios from "axios";
 
 interface FormData {
   amount: number;
@@ -40,9 +41,29 @@ const ExpenseClaim = () => {
   };
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+
     // Add your login logic here
-  };
+
+
+    e.preventDefault(); 
+  
+        //integates frontend to backend which handles the 
+        Axios 
+        //This is backend url 
+            .post("http://localhost:8000/api/employeeFormModel/", { 
+              amount: formData.amount,
+                currency: formData.currency,
+                typeClaim: formData.type,
+                description: formData.description,
+                acknowledgement: formData.acknowledgement,
+            }) 
+           
+             
+            .catch((err) => {}); 
+       
+    };
+             
+
 
   return (
     <div className="flex flex-col justify-evenly mx-[10%]">
@@ -179,6 +200,6 @@ const ExpenseClaim = () => {
       </form>
     </div>
   );
-};
+  };
 
 export default ExpenseClaim;
