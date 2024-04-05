@@ -1,3 +1,4 @@
+import './globals.css';
 import HomeCard from "@/Components/HomeCard";
 
 export default function Home() {

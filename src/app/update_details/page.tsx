@@ -8,7 +8,7 @@ import SearchBar from "@/Components/SearchBar"
 import UserInfoBox from "@/Components/UserInfoBox";
 import InfoHeader from "@/Components/InfoHeader";
 
-const updateDetails = () => {
+const UpdateDetails = () => {
   const header = "User Details";
   const headings = ["First Name", "Last Name", "Email", "Address", "Bank Details"];
   const group = ["Account Number", "Sort Code"]
@@ -43,4 +43,4 @@ const updateDetails = () => {
     </div>
   )
 };
-export default updateDetails;
+export default UpdateDetails;
