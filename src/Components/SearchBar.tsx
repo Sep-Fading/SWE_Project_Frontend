@@ -1,39 +1,30 @@
 import Image from "next/image";
 
 interface SearchBarProps {
-  label: string;
-  icon: string;
+  divStyle?: string;
   placeholder: string;
   value: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const SearchBar = ({
-  label,
-  icon,
+  divStyle,
   placeholder,
   value,
   handleChange,
 }: SearchBarProps) => {
   return (
-    <div className="flex flex-col relative">
-      <label htmlFor={label} className="mb-1 font-medium">
-        {label}
-      </label>
+    <div className={`relative ${divStyle}`}>
       <input
-        id={label}
+        type="text"
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
-        className="pl-2 border-2 border-b-4 border-black rounded-sm shadow-sm py-1"
+        className="rounded-md w-full py-2 pl-2 pr-10 shadow-md bg-[#D9D9D9]"
       />
-      <Image
-        src={`/${icon}.svg`}
-        alt="Login"
-        width={35}
-        height={35}
-        className="absolute float-right my-9 w-5 place-self-end mr-3"
-      />
+      <div className="absolute inset-y-0 right-0 flex items-center pr-2">
+        <Image src={`/search.svg`} alt="Search" width={28} height={28} />
+      </div>
     </div>
   );
 };
