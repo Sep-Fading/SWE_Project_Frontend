@@ -5,6 +5,8 @@ import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
+
 
 interface FormData {
   email: string;
@@ -12,27 +14,75 @@ interface FormData {
 }
 
 const Login = () => {
-  const [formData, setFormData] = useState<FormData>({
-    email: "",
-    password: "",
-  });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+    // Sepehr - Backend Integration.
+    // For Role-based routing.
+    const router = useRouter();
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    // Add your login logic here
-  };
+    // Calling the accounts model API 
+    const login = async (email: string, password: string): Promise<string> => {
+            const response = await fetch('http://localhost:8000/accounts/api/token/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
 
-  const onClick = () => {
-    // Add your login logic here
-  };
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('token', data.access);
+
+            return data.user_permission;
+        }
+        else {
+            throw new Error('Failed to login');
+        }
+    };
+
+    const [formData, setFormData] = useState<FormData>({
+        email: "",
+        password: "",
+    });
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+    
+    // Calling the API with our login details.
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        // Add your login logic here
+        const email = (event.currentTarget.elements.namedItem(
+            'email') as HTMLInputElement).value;
+        const password = (event.currentTarget.elements.namedItem(
+            'password') as HTMLInputElement).value;
+
+        try {
+            const userPermission = await login(email, password);
+            switch (userPermission) {
+                case 'EMPLOYEE':
+                    router.push('/employeePage');
+                    break;
+                case 'FINANCE':
+                    router.push('/financePage');
+                    break;
+                // MORE CASES HERE FOR ADMIN/ LINE MANAGER.
+                default:
+                    console.error('Permission Denied');
+            }
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
+        }
+    };
+
 
   return (
     <div className="flex flex-col  my-[25%] md:my-0 md:mx-[20%]">
@@ -75,7 +125,7 @@ const Login = () => {
             Forgot password?
           </Link>
         </div>
-        <Button type="submit" text="Login" onClick={onClick} style="w-48" />
+        <Button type="submit" text="Login" style="w-48" />
       </form>
     </div>
   );
