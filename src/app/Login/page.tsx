@@ -69,7 +69,7 @@ const Login = () => {
             onChange={handleChange}
           />
           <Link
-            href="/login/forgot_password"
+            href="/Login/forgot_password"
             className="underline text-xs self-end"
           >
             Forgot password?
