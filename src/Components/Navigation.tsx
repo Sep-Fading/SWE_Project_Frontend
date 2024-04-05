@@ -37,7 +37,7 @@ const Navigation = ({ links, home }: NavigationProps) => {
               priority
             />
           </Link>
-          <Link href="/login">
+          <Link href="/Login">
             <Image
               src="/user_circle.svg"
               alt="Login"

@@ -16,7 +16,7 @@ export default function Home() {
         layout="w-[90%] min-w-44 md:place-self-end md:row-start-2 md:w-[250px]"
       />
       <HomeCard
-        href="/request_help"
+        href="/raise_issue"
         image="/request.svg"
         text="Request Help"
         layout="w-[90%] min-w-44 order-last md:place-self-start md:row-start-2 md:w-[250px]"
