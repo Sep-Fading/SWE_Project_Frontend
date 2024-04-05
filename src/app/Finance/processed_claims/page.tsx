@@ -11,7 +11,7 @@ const FinanceProcessedClaims = () => {
 
   return (
     <div className="mx-[20%]">
-      <Header title="Processed Claims" />
+      <Header title="Processed Claims" divStyle="mb-5 mt-5" hrStyle="w-[17rem]"/>
       <ClaimInfoBox headingText={headings} buttonText={buttons} />
     </div>
   );
