@@ -32,6 +32,7 @@ const Login = () => {
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem('token', data.access);
+            localStorage.setItem('userPermission', data.user_permission);
 
             return data.user_permission;
         }
@@ -66,7 +67,7 @@ const Login = () => {
             const userPermission = await login(email, password);
             switch (userPermission) {
                 case 'EMPLOYEE':
-                    router.push('/employeePage');
+                    router.push('/new_claim');
                     break;
                 case 'FINANCE':
                     router.push('/financePage');
