@@ -5,6 +5,9 @@ import Image from "next/image";
 import Header from "@/Components/Header";
 import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from '../../useProtectedRoute';
+
 
 interface FormData {
   amount: number;
@@ -15,6 +18,10 @@ interface FormData {
 }
 
 const ExpenseClaim = () => {
+    
+  // LOGIN AUTH - SEPEHR
+  useProtectedRoute('EMPLOYEE');
+  
   const [formData, setFormData] = useState<FormData>({
     amount: 0.0,
     currency: "GBP",

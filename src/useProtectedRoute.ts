@@ -14,7 +14,7 @@ const UseProtectedRoute = (requiredPermission: string) => {
             router.push('/Login');
         }
         else if (requiredPermission !== userPermission) {
-            router.push('/unauthorized';
+            router.push('/unauthorized');
         }
     }, [userPermission, requiredPermission, router]);
 
