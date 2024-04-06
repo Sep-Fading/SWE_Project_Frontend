@@ -32,8 +32,11 @@ const LoginPage = () => {
         });
 
         if (response.ok) {
+            localStorage.clear();
             const data = await response.json();
+            const expiryTime = new Date().getTime() + (30*60*1000); // 30 Minutes Expiry time.
             localStorage.setItem('token', data.access);
+            localStorage.setItem('tokenExpiry', expiryTime.toString());
             localStorage.setItem('userPermission', data.user_permission);
             setUserPermission(data.user_permission);
             return data.user_permission;
