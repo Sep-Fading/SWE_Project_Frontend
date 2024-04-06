@@ -75,7 +75,13 @@ const LoginPage = () => {
                     router.push('/new_claim');
                     break;
                 case 'FINANCE':
-                    router.push('/financePage');
+                    router.push('/Finance');
+                    break;
+                case 'LINEMANAGER':
+                    router.push('/LineManager');
+                    break;
+                case 'ADMIN':
+                    router.push('/Admin');
                     break;
                 // MORE CASES HERE FOR ADMIN/ LINE MANAGER.
                 default:

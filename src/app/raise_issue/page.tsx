@@ -4,6 +4,9 @@ import Header from "@/Components/Header";
 import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
 import InputField from "@/Components/InputField";
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from '../../useProtectedRoute';
+
 
 interface FormData {
   title: string;
@@ -11,6 +14,9 @@ interface FormData {
 }
 
 const Issue = () => {
+  // AUTH
+  useProtectedRoute(['EMPLOYEE', 'LINEMANAGER', 'FINANCE']);
+
   const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",

@@ -5,8 +5,14 @@ import Header from "@/Components/Header";
 import SearchBar from "@/Components/SearchBar";
 import Button from "@/Components/Button";
 import UserInfoBox from "@/Components/UserInfoBox";
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from '../../../useProtectedRoute';
+
 
 const ViewUsers = () => {
+  // AUTH
+  useProtectedRoute('ADMIN');
+
   const [search, setSearch] = useState<string>("");
   const headings = [
     "First Name",
