@@ -11,6 +11,11 @@ import {
   Plugin,
 } from "chart.js";
 
+interface DoughnutChartProps {
+    labels: string[];
+    data: number[];
+  }
+
 // Unique registration inside the component to avoid conflicts
 const registerChartJS = () => {
   ChartJS.register(ArcElement, Tooltip, Legend, Title);
@@ -55,17 +60,17 @@ const useTotalExpensesPlugin = () => {
   }, []);
 };
 
-const PieChart = () => {
+const PieChart = ({labels, data}: DoughnutChartProps) => {
   // Ensuring the registration of Chart.js components and plugins is scoped properly
   registerChartJS();
   useTotalExpensesPlugin();
 
-  const data = {
-    labels: ["Travel", "Meal", "Night Stay", "Gift"],
+  const dataset = {
+    labels: labels,
     datasets: [
       {
         label: "My First Dataset",
-        data: [300, 50, 100, 150],
+        data: data,
         backgroundColor: [
           "#FF6384",
           "#36A2EB",
@@ -81,6 +86,7 @@ const PieChart = () => {
   };
 
   const chartOptions: ChartOptions<"doughnut"> = {
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "right",
@@ -97,7 +103,7 @@ const PieChart = () => {
           label: function (context) {
             let label = context.label || "";
             if (context.parsed !== null) {
-              label += ": " + context.parsed + " USD";
+              label += ": " + context.parsed + " £";
             }
             return label;
           },
@@ -106,13 +112,7 @@ const PieChart = () => {
     },
   };
 
-  return (
-    <div className="bg-white shadow-lg px-4 rounded-lg">
-      <div className="">
-        <Doughnut data={data} options={chartOptions} />
-      </div>
-    </div>
-  );
+  return <Doughnut data={dataset} options={chartOptions}/>;
 };
 
 export default PieChart;

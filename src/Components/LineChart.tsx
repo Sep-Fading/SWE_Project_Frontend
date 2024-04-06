@@ -12,6 +12,11 @@ import {
   ChartOptions,
 } from "chart.js";
 
+interface LineChartProps {
+  labels: string[];
+  data: number[];
+}
+
 // Unique registration inside the component to avoid conflicts
 const registerChartJS = () => {
   ChartJS.register(
@@ -25,15 +30,15 @@ const registerChartJS = () => {
   );
 };
 
-const LineChart = () => {
+const LineChart = ({labels, data}: LineChartProps) => {
   registerChartJS();
 
-  const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+  const dataset = {
+    labels: labels,
     datasets: [
       {
-        label: "My Dataset",
-        data: [65, 59, 80, 150, 56, 55, 45],
+        label: "Monthly Expenses",
+        data: data,
         fill: false,
         borderColor: "rgb(75, 192, 192)",
         tension: 0.2,
@@ -44,6 +49,17 @@ const LineChart = () => {
 
   const options: ChartOptions<"line"> = {
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            let label = context.label || "";
+            if (context.parsed.y !== null) {
+              label += ": " + context.parsed.y + " £";
+            }
+            return label;
+          },
+        },
+      },
       p1: false,
     },
     maintainAspectRatio: false,
@@ -64,13 +80,7 @@ const LineChart = () => {
     },
   };
 
-  return (
-    <div className="bg-white shadow-lg p-4 rounded-lg">
-      <div className="h-full w-full">
-        <Line data={data} options={options} />
-      </div>
-    </div>
-  );
+  return <Line data={dataset} options={options} />;
 };
 
 export default LineChart;

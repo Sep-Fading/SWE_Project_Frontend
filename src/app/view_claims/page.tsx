@@ -27,16 +27,6 @@ const EmployeeClaims = () => {
         <div className="flex flex-row items-baseline justify-between mx-2">
           <Header title="Claims" />
           <SearchBar placeholder="Search Claims" value="" handleChange={handleSearch} divStyle="w-[40%]" />
-          <div className="relative w-[40%]">
-            <input
-              type="search"
-              placeholder="Search Claims"
-              className="rounded-md w-full py-2 pl-2 pr-10 shadow-md bg-[#D9D9D9]"
-            />
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <Image src={`/search.svg`} alt="Search" width={28} height={28} />
-            </div>
-          </div>
         </div>
         <Expense
           amount={500}

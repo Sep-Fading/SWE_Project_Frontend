@@ -4,6 +4,20 @@ import PieChart from "@/Components/PieChart";
 import LineChart from "@/Components/LineChart";
 
 const Page = () => {
+  const categories = ["Travel", "Meal", "Night Stay", "Gift"];
+  const expenses = [300, 50, 100, 150];
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+  ];
+  const monthlyExpenses = [65, 59, 80, 159, 56, 55, 40];
+
   return (
     <div className="grid grid-cols-2 gap-3 p-3 bg-[#D9D9D9]">
       <div className="bg-white shadow-lg rounded col-span-2 px-4 py-2">
@@ -41,8 +55,12 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <PieChart />
-      <LineChart />
+      <div className="bg-white shadow-lg p-3 rounded-lg h-80">
+        <PieChart labels={categories} data={expenses} />
+      </div>
+      <div className="bg-white shadow-lg p-4 rounded-lg h-80">
+        <LineChart labels={months} data={monthlyExpenses} />
+      </div>
     </div>
   );
 };
