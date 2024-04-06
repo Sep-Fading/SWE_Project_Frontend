@@ -1,11 +1,17 @@
+"use client";
 // Imports the components
 import IssueBox from "@/Components/IssueBox";
 import Header from "@/Components/Header";
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from '../../../useProtectedRoute';
 
 // Predefined headings, text for buttons and the date are passed into the component IssueBox and returned on the page as HTML
 // The header component creates the heading for the page and the title of the page is passed into the component
 
 const Issues = () => {
+  // AUTH
+  useProtectedRoute('ADMIN');
+
   const buttons = ["Mark as Resolved"];
   const date = "Tue 12 Mar 2023";
   const user = "John Doe"

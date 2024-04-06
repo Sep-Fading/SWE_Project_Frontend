@@ -20,7 +20,7 @@ interface FormData {
 const ExpenseClaim = () => {
     
   // LOGIN AUTH - SEPEHR
-  useProtectedRoute('EMPLOYEE');
+  useProtectedRoute(['EMPLOYEE', 'LINEMANAGER', 'FINANCE']);
   
   const [formData, setFormData] = useState<FormData>({
     amount: 0.0,

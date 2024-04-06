@@ -14,7 +14,7 @@ const validateToken = (): boolean => {
     return token !== null && tokenExpiry !== null && new Date().getTime() <= parseInt(tokenExpiry);
 };
 
-const UseProtectedRoute = (requiredPermission: string) => {
+const UseProtectedRoute = (requiredPermission: string | string[]) => {
     const { userPermission, setUserPermission } = useAuth();
     const router = useRouter();
 
@@ -32,16 +32,19 @@ const UseProtectedRoute = (requiredPermission: string) => {
             router.push('/Login');
         }
         else {
-            const userPermission = localStorage.getItem('userPermission');
-            setUserPermission(userPermission);
-            if (!userPermission) {
-                router.push('/Login');
-            }
-            else if (requiredPermission !== userPermission) {
+            // Check if userPermission matches any of the required perms.
+            const userPermissionFromStorage = localStorage.getItem('userPermission');
+            setUserPermission(userPermissionFromStorage);
+
+            const permissionIsValid = userPermissionFromStorage && Array.isArray(requiredPermission)
+                ? requiredPermission.includes(userPermissionFromStorage)
+                : requiredPermission === userPermissionFromStorage;
+
+            if (!userPermissionFromStorage || !permissionIsValid) {
                 router.push('/unauthorized');
             }
         }
-    }, [userPermission, requiredPermission, router]);
+    }, [router, setUserPermission, requiredPermission]);
 
     return { userPermission };
 };

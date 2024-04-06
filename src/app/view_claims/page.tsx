@@ -7,8 +7,14 @@ import Button from "@/Components/Button";
 import Expense from "@/Components/Expense";
 import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from '../../useProtectedRoute';
+
 
 const EmployeeClaims = () => {
+  // AUTH
+  useProtectedRoute(['EMPLOYEE', 'FINANCE', 'LINEMANAGER']);
+
   const handleFilterChange = (filters: Record<string, boolean | number[] | number>) => {
     // Filter claims based on the selected filters
     console.log(filters);
