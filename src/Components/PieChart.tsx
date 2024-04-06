@@ -12,9 +12,9 @@ import {
 } from "chart.js";
 
 interface DoughnutChartProps {
-    labels: string[];
-    data: number[];
-  }
+  labels: string[];
+  data: number[];
+}
 
 // Unique registration inside the component to avoid conflicts
 const registerChartJS = () => {
@@ -44,7 +44,6 @@ const useTotalExpensesPlugin = () => {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText("Total Expenses", centerX, centerY - 20);
-
         ctx.fillStyle = "black";
         ctx.font = "600 25px Roboto, sans-serif";
         ctx.fillText(`${totalExpenses} £`, centerX, centerY + 15);
@@ -60,7 +59,7 @@ const useTotalExpensesPlugin = () => {
   }, []);
 };
 
-const PieChart = ({labels, data}: DoughnutChartProps) => {
+const PieChart = ({ labels, data }: DoughnutChartProps) => {
   // Ensuring the registration of Chart.js components and plugins is scoped properly
   registerChartJS();
   useTotalExpensesPlugin();
@@ -112,7 +111,7 @@ const PieChart = ({labels, data}: DoughnutChartProps) => {
     },
   };
 
-  return <Doughnut data={dataset} options={chartOptions}/>;
+  return <Doughnut data={dataset} options={chartOptions} />;
 };
 
 export default PieChart;

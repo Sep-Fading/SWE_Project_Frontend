@@ -34,20 +34,19 @@ const Expense = ({ amount, currency, type, status, date }: ExpenseProps) => {
   }, [status]);
 
   return (
-    <article className="flex justify-between items-center shadow-lg rounded-md bg-[#D9D9D9] p-2 mx-3">
+    <article className="flex justify-between items-center shadow-lg rounded-md bg-[#D9D9D9] p-2">
       <div className="">
         <h2 className="text-[1.75rem]">{type}</h2>
-        <h3>
-          Status: <span className={`text-${statusColor}-600 font-medium`}>{status}</span>
-        </h3>
+        <h3 className="text-m text-blue">{date}</h3>
       </div>
       <h1 className="text-[2.5rem] font-medium">
         {currency}
         {amount}
       </h1>
       <div className="flex flex-col items-center">
-        <h3 className="text-m text-blue">{date}</h3>
-        <Button text="View VAT Receipt" style="w-[10rem]" />
+      <h3 className={`text-${statusColor}-600 font-medium`}>{status}</h3>
+        
+        <Button text="VAT Receipts" style="w-28 md:w-40" />
       </div>
     </article>
   );

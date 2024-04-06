@@ -8,8 +8,8 @@ interface FilterMenuProps {
 
 const FilterMenu = ({ onFilterChange }: FilterMenuProps) => {
   return (
-    <div className="sticky top-4 mt-2">
-      <h1 className="text-2xl text-blue ml-1">Filter by</h1>
+    <div className="sticky top-4 md:mt-2">
+      <h1 className="hidden text-2xl text-blue ml-1 md:inline">Filter by</h1>
       <Filter
         title="Status"
         filters={["Pending", "Approved", "Completed", "Rejected"]}

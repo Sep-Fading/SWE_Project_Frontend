@@ -9,7 +9,9 @@ import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
 
 const EmployeeClaims = () => {
-  const handleFilterChange = (filters: Record<string, boolean | number[] | number>) => {
+  const handleFilterChange = (
+    filters: Record<string, boolean | number[] | number>
+  ) => {
     // Filter claims based on the selected filters
     console.log(filters);
   };
@@ -19,91 +21,96 @@ const EmployeeClaims = () => {
   };
 
   return (
-    <div className="flex">
-      <aside className="border-r-black border-2 w-[20%]">
+    <div className="flex flex-col gap-2 my-2 md:my-0 md:gap-0 md:grid md:grid-cols-[auto_1fr]">
+      <aside className="border-t md:border-r-black md:min-w-[160px] md:max-w-[200px] md:border-2 md:row-start-1 md:row-span-2 md:col-start-1">
         <FilterMenu onFilterChange={handleFilterChange} />
       </aside>
-      <main className="flex flex-col gap-4 w-full">
-        <div className="flex flex-row items-baseline justify-between mx-2">
-          <Header title="Claims" />
-          <SearchBar placeholder="Search Claims" value="" handleChange={handleSearch} divStyle="w-[40%]" />
-        </div>
+      <div className="order-first flex flex-row gap-4 items-baseline justify-between mx-1 md:col-start-2">
+        <Header title="Claims" divStyle="hidden md:block" />
+        <SearchBar
+          placeholder="Search Claims"
+          value=""
+          handleChange={handleSearch}
+          divStyle="w-full md:w-[40%]"
+        />
+      </div>
+      <main className="flex flex-col gap-4 order-last mx-1 md:mx-3 md:col-start-2">
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
         <Expense
           amount={500}
           currency="£"
           type="Travel"
           status="Rejected"
-          date="Tue, 12 Mar. 2023"
+          date="12 March"
         />
       </main>
     </div>

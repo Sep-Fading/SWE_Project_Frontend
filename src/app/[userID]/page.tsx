@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import PieChart from "@/Components/PieChart";
 import LineChart from "@/Components/LineChart";
 
@@ -8,6 +9,9 @@ const Page = () => {
   const expenses = [300, 50, 100, 150];
 
   const months = [
+    "October",
+    "November",
+    "December",
     "January",
     "February",
     "March",
@@ -16,7 +20,7 @@ const Page = () => {
     "June",
     "July",
   ];
-  const monthlyExpenses = [65, 59, 80, 159, 56, 55, 40];
+  const monthlyExpenses = [65, 59, 80, 159, 56, 55, 40, 34, 430, 100];
 
   return (
     <div className="grid grid-cols-2 gap-3 p-3 bg-[#D9D9D9]">
@@ -55,11 +59,25 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white shadow-lg p-3 rounded-lg h-80">
-        <PieChart labels={categories} data={expenses} />
+      <div className="flex flex-col bg-white shadow-lg px-3 py-2 rounded-lg h-[480px]">
+        <div className="flex">
+          <h1 className="text-lg font-medium">
+            Expenses Breakdown - April 2024
+          </h1>
+          <Image src="/expand.svg" alt="chart" width={24} height={24} />
+        </div>
+        <div className="grow">
+          <PieChart labels={categories} data={expenses} />
+        </div>
       </div>
-      <div className="bg-white shadow-lg p-4 rounded-lg h-80">
-        <LineChart labels={months} data={monthlyExpenses} />
+      <div className="flex flex-col bg-white shadow-lg px-3 py-2 rounded-lg h-[480px]">
+        <div className="flex">
+          <h1 className="text-lg font-medium">Monthly Expenses</h1>
+          <Image src="/expand.svg" alt="chart" width={24} height={24} />
+        </div>
+        <div className="grow">
+          <LineChart labels={months} data={monthlyExpenses} />
+        </div>
       </div>
     </div>
   );

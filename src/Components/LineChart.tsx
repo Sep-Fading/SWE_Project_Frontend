@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
   ChartOptions,
+  Plugin,
 } from "chart.js";
 
 interface LineChartProps {
@@ -30,7 +31,14 @@ const registerChartJS = () => {
   );
 };
 
-const LineChart = ({labels, data}: LineChartProps) => {
+const totalExpensesPlugin: Plugin<"doughnut"> = {
+  id: "totalExpensesPlugin", // Unique ID
+  beforeDraw: (chart) => {
+    console.log(chart);
+  },
+};
+
+const LineChart = ({ labels, data }: LineChartProps) => {
   registerChartJS();
 
   const dataset = {
