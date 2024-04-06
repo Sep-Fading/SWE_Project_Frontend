@@ -11,14 +11,20 @@ const FinancePendingClaims = () => {
   //AUTH
   useProtectedRoute('FINANCE');
 
-  const headings = ["Claim Amount", "Employee Claiming", "Approved By"];
-
+  const headings = "Approved By:";
   const buttons = ["Process Claim", "Reject Claim"];
+  const employee = "John Doe";
+  const amount = "500";
 
   return (
     <div className="mx-[20%]">
       <Header title="Pending Claims" divStyle="mb-5 mt-5"/>
-      <ClaimInfoBox headingText={headings} buttonText={buttons}/>
+      <ClaimInfoBox 
+        headingText={headings} 
+        buttonText={buttons} 
+        employeeName={employee} 
+        claimAmount={amount}
+      />
     </div>
   );
 };

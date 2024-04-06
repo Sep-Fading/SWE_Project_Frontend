@@ -13,14 +13,21 @@ const FinanceProcessedClaims = () => {
   //AUTH
   useProtectedRoute('FINANCE');
 
-  const headings = ["Claim Amount", "Employee Claiming", "Processed On"];
-
   const buttons = ["More Info"];
+
+  const employee = "John Doe";
+  const amount = "500";
+  const date = "Tue 12 Mar. 2023";
 
   return (
     <div className="mx-[20%]">
       <Header title="Processed Claims" divStyle="mb-5 mt-5" hrStyle="w-[17rem]"/>
-      <ClaimInfoBox headingText={headings} buttonText={buttons} />
+      <ClaimInfoBox 
+        buttonText={buttons} 
+        employeeName={employee} 
+        claimAmount={amount} 
+        date={date}
+      />
     </div>
   );
 };

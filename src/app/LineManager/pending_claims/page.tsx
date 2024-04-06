@@ -13,13 +13,22 @@ const LineManagerPendingClaims = () => {
   //AUTH
   useProtectedRoute('LINEMANAGER');
 
-  const headings = ["Claim Date", "Claim Amount", "Employee Claiming", "Uploaded Files"];
+  const headings = "Uploaded Files:";
+  const employee = "John Doe";
+  const amount = "500";
+  const date = "Tue 12 Mar. 2023";
   const buttons = ["Approve Claim", "Reject Claim", "View Description"];
 
   return (
     <div className="flex flex-col mx-[20%]">
       <Header title="Pending Claims" divStyle="mb-5 mt-5"/>
-      <ClaimInfoBox headingText={headings} buttonText={buttons}/>
+      <ClaimInfoBox 
+        headingText={headings} 
+        buttonText={buttons} 
+        employeeName={employee} 
+        claimAmount={amount}
+        date = {date}
+      />
     </div>
   );
 };
