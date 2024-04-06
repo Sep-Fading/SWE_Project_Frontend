@@ -13,7 +13,7 @@ interface NavigationProps {
 
 const Navigation = ({ links, home }: NavigationProps) => {
   return (
-    <nav className="bg-black border-t-4 border-blue">
+    <nav className="bg-black border-t-4 border-blue w-auto">
       <div className="flex items-center justify-between px-4 pb-1">
         <div className="flex items-center">
           <Link href={home}>
@@ -37,7 +37,7 @@ const Navigation = ({ links, home }: NavigationProps) => {
               priority
             />
           </Link>
-          <Link href="/login">
+          <Link href="/Login">
             <Image
               src="/user_circle.svg"
               alt="Login"

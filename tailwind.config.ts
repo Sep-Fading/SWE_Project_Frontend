@@ -25,4 +25,6 @@ const config: Config = {
   },
   plugins: [],
 };
+
+console.log("Tailwind Compiled!!!");
 export default config;

@@ -29,9 +29,9 @@ const InputField = ({
         <Image
           src={`/${icon}.svg`}
           alt="Login"
-          width={35}
-          height={35}
-          className="absolute my-9 w-5 ml-3"
+          width={25}
+          height={25}
+          className="absolute my-9 ml-3"
         />
       ) : null}
       <input

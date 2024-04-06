@@ -1,25 +1,32 @@
+"use client";
+
 import HomeCard from "@/Components/HomeCard";
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from '../../useProtectedRoute';
 
 export default function Home() {
+  //AUTH
+  useProtectedRoute('FINANCE');
+
   return (
-    <div className="grid grid-cols-2 gap-4 my-7">
+    <div className="flex flex-col items-center gap-4 my-7 md:grid md:grid-cols-2">
       <HomeCard
         href="/Finance/pending_claims"
         image="/approve.svg"
         text="Process Claims"
-        layout="col-span-2 place-self-center w-[520px]"
+        layout="w-[90%] min-w-44 md:col-span-2 md:place-self-center md:w-[520px]"
       />
       <HomeCard
         href="/Finance/processed_claims"
         image="/list.svg"
         text="Processed Claims"
-        layout="place-self-end row-start-2 w-[250px]"
+        layout="w-[90%] min-w-44 md:place-self-end md:row-start-2 md:w-[250px]"
       />
       <HomeCard
         href="/request_help"
         image="/request.svg"
         text="Request Help"
-        layout="place-self-start row-start-2 w-[250px]"
+        layout="w-[90%] min-w-44 md:place-self-start md:row-start-2 md:w-[250px]"
       />
     </div>
   );

@@ -1,11 +1,15 @@
 "use client";
 
-import { useState, useEffect, ChangeEvent, FormEvent, use } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import Image from "next/image";
 import Header from "@/Components/Header";
 import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
+
 import Axios from "axios";
+
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from '../../useProtectedRoute';
 
 interface FormData {
   amount: number;
@@ -16,6 +20,10 @@ interface FormData {
 }
 
 const ExpenseClaim = () => {
+    
+  // LOGIN AUTH - SEPEHR
+  useProtectedRoute(['EMPLOYEE', 'LINEMANAGER', 'FINANCE']);
+  
   const [formData, setFormData] = useState<FormData>({
     amount: 0.0,
     currency: "GBP",
@@ -66,13 +74,19 @@ const ExpenseClaim = () => {
 
 
   return (
-    <div className="flex flex-col justify-evenly mx-[10%]">
-      <Header title="Expense Claim" />
+    <div className="flex flex-col justify-evenly md:mx-[10%]">
+      <Header title="Expense Claim" divStyle="hidden md:inline" />
       <form
         onSubmit={handleSubmit}
-        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded h-[125vh] shadow-md"
+        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded  shadow-md h-[110vh] md:h-[125vh]"
       >
-        <div className="flex justify-between w-[80%]">
+        <Header
+          title="Expense Claim"
+          divStyle="md:hidden"
+          style="text-center"
+          hrStyle="hidden"
+        />
+        <div className="grid grid-cols-2 w-[90%] md:flex md:justify-between md:w-[80%]">
           <div>
             <h2 className="font-medium">First Name</h2>
             <p>John</p>
@@ -81,7 +95,7 @@ const ExpenseClaim = () => {
             <h2 className="font-medium">Last Name</h2>
             <p>Doe</p>
           </div>
-          <div>
+          <div className="order-last">
             <h2 className="font-medium">Email</h2>
             <p>johndoe@email.com</p>
           </div>
@@ -90,7 +104,7 @@ const ExpenseClaim = () => {
             <p>0123456789</p>
           </div>
         </div>
-        <div className="w-[80%]">
+        <div className="w-[90%] md:w-[80%]">
           <label htmlFor="amount" className="font-medium">
             Amount
           </label>
@@ -104,7 +118,7 @@ const ExpenseClaim = () => {
               placeholder="Value"
               value={formData.amount}
               onChange={handleChange}
-              className="pl-2 py-1 border-2 border-b-4 border-black rounded-sm shadow w-[100%]"
+              className="pl-2 py-1 border-2 border-b-4 border-black rounded-sm shadow w-full"
             />
             <label htmlFor="currency" className="sr-only">
               Currency
@@ -126,7 +140,7 @@ const ExpenseClaim = () => {
             </select>
           </div>
         </div>
-        <div className="w-[80%]">
+        <div className="w-[90%] md:w-[80%]">
           <label htmlFor="type" className="font-medium">
             Type of claim
           </label>
@@ -135,7 +149,7 @@ const ExpenseClaim = () => {
             name="type"
             value={formData.type}
             onChange={handleChange}
-            className="pl-1 py-1 border-2 border-b-4 border-black rounded-sm shadow w-[100%]"
+            className="pl-1 py-1 border-2 border-b-4 border-black rounded-sm shadow w-full"
           >
             <option value="" disabled>
               --Select Option--
@@ -153,7 +167,7 @@ const ExpenseClaim = () => {
           value={formData.description}
           onChange={handleChange}
         />
-        <div className="grid grid-rows-2 auto-cols-auto gap-1 w-[80%]">
+        <div className="grid grid-rows-2 auto-cols-auto gap-1 w-[90%] md:w-[80%]">
           <label
             htmlFor="file-upload"
             className="text-sm row-start-1 col-start-1"
@@ -178,7 +192,7 @@ const ExpenseClaim = () => {
             <Image src={"/upload.svg"} alt="Login" width={50} height={50} />
           </label>
         </div>
-        <div className="flex items-center w-[80%]">
+        <div className="flex items-center w-[90%] md:w-[80%]">
           <input
             id="declaration"
             name="acknowledgement"
@@ -196,7 +210,12 @@ const ExpenseClaim = () => {
             performance of my official duties.
           </label>
         </div>
-        <Button type="submit" text="Submit" style="w-[80%]" onClick={onClick} />
+        <Button
+          type="submit"
+          text="Submit"
+          style="w-[90%] md:w-[80%]"
+          onClick={onClick}
+        />
       </form>
     </div>
   );

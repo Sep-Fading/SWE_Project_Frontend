@@ -3,6 +3,10 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import Header from "@/Components/Header";
 import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
+import InputField from "@/Components/InputField";
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from '../../useProtectedRoute';
+
 
 interface FormData {
   title: string;
@@ -10,12 +14,17 @@ interface FormData {
 }
 
 const Issue = () => {
+  // AUTH
+  useProtectedRoute(['EMPLOYEE', 'LINEMANAGER', 'FINANCE']);
+
   const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -32,23 +41,26 @@ const Issue = () => {
     // Add your login logic here
   };
   return (
-    <div className="flex flex-col justify-evenly mx-[10%]">
-      <Header title="Raise An Issue" />
+    <div className="flex flex-col  my-[25%] md:my-0 md:mx-[15%]">
+      <Header title="Raise An Issue" divStyle="hidden md:inline" />
       <form
         onSubmit={handleSubmit}
-        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded h-[65vh] pt-1 min-h-[380px] shadow-md"
+        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded h-[55vh] pt-1 min-h-[380px] shadow-md"
       >
-        <div className="flex flex-col w-[80%]">
-          <label htmlFor="title" className="mb-1 font-medium">
-            Title
-          </label>
-          <input
-            id="title"
+        <Header
+          title="Raise An Issue"
+          divStyle="md:hidden"
+          style="text-center"
+          hrStyle="hidden"
+        />
+        <div className="w-[90%] md:w-[80%]">
+          <InputField
+            label="Title"
+            name="title"
             type="text"
             placeholder="Enter title"
             value={formData.title}
             onChange={handleChange}
-            className="pl-2 border-2 border-b-4 border-black rounded-sm shadow-sm py-1"
           />
         </div>
         <TextArea

@@ -37,13 +37,19 @@ const NewPassword = () => {
   };
 
   return (
-    <div className="flex flex-col justify-evenly mx-[20%]">
-      <Header title="Forgotten Password" />
+    <div className="flex flex-col my-[25%] md:my-0 md:mx-[20%]">
+      <Header title="Forgotten Password" divStyle="hidden md:inline" />
       <form
         onSubmit={handleSubmit}
-        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-[100%] min-w-[400px] h-[55vh] shadow-md"
+        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-full min-w-[400px] min-h-[350px] shadow-md h-[55vh]"
       >
-        <div className="w-[70%]">
+        <Header
+          title="Forgotten Password"
+          divStyle="md:hidden"
+          style="text-center"
+          hrStyle="hidden"
+        />
+        <div className="w-[90%] md:w-[70%]">
           <InputField
             label="New password"
             icon={"password"}
@@ -54,7 +60,7 @@ const NewPassword = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="w-[70%]">
+        <div className="w-[90%] md:w-[70%]">
           <InputField
             label="Confirm new password"
             icon={"password"}
@@ -65,7 +71,12 @@ const NewPassword = () => {
             onChange={handleChange}
           />
         </div>
-        <Button type="submit" text="Reset Password" style="w-[200px]" onClick={onClick} />
+        <Button
+          type="submit"
+          text="Reset Password"
+          style="w-48"
+          onClick={onClick}
+        />
       </form>
     </div>
   );
