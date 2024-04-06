@@ -38,6 +38,8 @@ const LoginPage = () => {
             localStorage.setItem('token', data.access);
             localStorage.setItem('tokenExpiry', expiryTime.toString());
             localStorage.setItem('userPermission', data.user_permission);
+            localStorage.setItem('userEmail', data.user_email);
+            console.log(data);
             setUserPermission(data.user_permission);
             return data.user_permission;
         }

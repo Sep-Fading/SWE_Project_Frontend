@@ -26,6 +26,7 @@ const UseProtectedRoute = (requiredPermission: string | string[]) => {
             localStorage.removeItem('token');
             localStorage.removeItem('tokenExpiry');
             localStorage.removeItem('userPermission');
+            localStorage.removeItem('userEmail');
             setUserPermission(null);
 
             // Redirect to login page.
