@@ -5,17 +5,23 @@ import Header from "@/Components/Header";
 import SearchBar from "@/Components/SearchBar";
 import Button from "@/Components/Button";
 import UserInfoBox from "@/Components/UserInfoBox";
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from '../../../useProtectedRoute';
+
 
 const ViewUsers = () => {
+  // AUTH
+  useProtectedRoute('ADMIN');
+
   const [search, setSearch] = useState<string>("");
   const headings = [
     "First Name",
     "Last Name",
     "Email",
+    "Phone",
     "Address",
-    "Bank Details",
+    "Bank Details"
   ];
-  const group = ["Account Number", "Sort Code"];
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
@@ -25,7 +31,7 @@ const ViewUsers = () => {
   };
   return (
     <div className="flex flex-col justify-evenly mx-[10%]">
-      <Header title="Update Details" />
+      <Header title="View Users" />
       <SearchBar
         placeholder="Search Claims"
         value={search}
@@ -33,18 +39,20 @@ const ViewUsers = () => {
         divStyle="w-full mb-2"
       />
       <UserInfoBox
-        headerName=""
+        headerName="John Doe"
         headerUser="Line Manager"
-        headerId=""
-        headingText={headings}
-        groupText={group}
+        headerId="220523675"
+        firstName="John"
+        lastName="Doe"
+        email="johnDoe@email.com"
+        phone="0123456789"
+        address1="13 Lavender Avenue"
+        address2="E1 9JP, London"
+        address3="England"
+        accountNum="321242131413"
+        sortCode="43-65-87"
       />
-      <Button
-        type="submit"
-        text="Update User Details"
-        style="w-[20%]"
-        onClick={onClick}
-      />
+      
     </div>
   );
 };

@@ -8,10 +8,14 @@ interface InfoHeaderProps {
   
   const Header = ({ name, user, id, style, hrStyle }: InfoHeaderProps) => {
     return (
-      <header className="mb-5 mt-8">
-        <h1 className={`flex flex-row justify-between text-2xl text-blue space-x-30 ${style}`}>{name}{user}{id}</h1>
-        <hr className={`border-3 border-black w-[15rem] ${hrStyle}`} />
-      </header>
+      <div>
+      <div className="flex justify-between">
+        <h2 className="text-xl">{name}</h2>
+        <h1 className="text-xl font-semibold">{user}</h1>
+        <h2 className="text-xl">{id}</h2>
+      </div>
+      <hr className="border-3 border-black"></hr>
+      </div>
     );
   };
   

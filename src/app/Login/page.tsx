@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
+import { useRouter } from 'next/navigation';
+import { useAuth } from '../../Components/AuthContext';
 import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
 
 
 interface FormData {
@@ -13,14 +14,15 @@ interface FormData {
   password: string;
 }
 
-const Login = () => {
+const LoginPage = () => {
 
     // Sepehr - Backend Integration.
     // For Role-based routing.
     const router = useRouter();
+    const { setUserPermission } = useAuth();
 
     // Calling the accounts model API 
-    const login = async (email: string, password: string): Promise<string> => {
+    const Login = async (email: string, password: string): Promise<string> => {
             const response = await fetch('http://localhost:8000/accounts/api/token/', {
             method: 'POST',
             headers: {
@@ -30,9 +32,15 @@ const Login = () => {
         });
 
         if (response.ok) {
+            localStorage.clear();
             const data = await response.json();
+            const expiryTime = new Date().getTime() + (30*60*1000); // 30 Minutes Expiry time.
             localStorage.setItem('token', data.access);
-
+            localStorage.setItem('tokenExpiry', expiryTime.toString());
+            localStorage.setItem('userPermission', data.user_permission);
+            localStorage.setItem('userEmail', data.user_email);
+            console.log(data);
+            setUserPermission(data.user_permission);
             return data.user_permission;
         }
         else {
@@ -63,13 +71,19 @@ const Login = () => {
             'password') as HTMLInputElement).value;
 
         try {
-            const userPermission = await login(email, password);
+            const userPermission = await Login(email, password);
             switch (userPermission) {
                 case 'EMPLOYEE':
-                    router.push('/employeePage');
+                    router.push('/new_claim');
                     break;
                 case 'FINANCE':
-                    router.push('/financePage');
+                    router.push('/Finance');
+                    break;
+                case 'LINEMANAGER':
+                    router.push('/LineManager');
+                    break;
+                case 'ADMIN':
+                    router.push('/Admin');
                     break;
                 // MORE CASES HERE FOR ADMIN/ LINE MANAGER.
                 default:
@@ -88,10 +102,7 @@ const Login = () => {
     <div className="flex flex-col  my-[25%] md:my-0 md:mx-[20%]">
       <Header title="Login" divStyle="hidden md:inline" />
       <form
-        onSubmit={handleSubmit}
-        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-full min-w-[400px] min-h-[350px] shadow-md h-[55vh]"
-      >
-        <Header
+        onSubmit={handleSubmit} className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-full min-w-[400px] min-h-[350px] shadow-md h-[55vh]" > <Header
           title="Login"
           divStyle="md:hidden"
           style="text-center"
@@ -131,4 +142,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

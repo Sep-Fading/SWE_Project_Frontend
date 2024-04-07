@@ -3,13 +3,17 @@
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import Header from "@/Components/Header";
-import Button from "@/Components/Button";
 import Expense from "@/Components/Expense";
 import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from "../../useProtectedRoute";
 
 const EmployeeClaims = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // AUTH
+  useProtectedRoute(["EMPLOYEE", "FINANCE", "LINEMANAGER"]);
 
   const handleFilterChange = (
     filters: Record<string, boolean | number[] | number>

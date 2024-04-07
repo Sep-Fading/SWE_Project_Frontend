@@ -1,9 +1,12 @@
 import Filter from "./Filter";
 import React, { useState } from "react";
 import RangeSlider from "./RangeSlider/RangeSlider";
+import Button from "@/Components/Button";
 
 interface FilterMenuProps {
-  onFilterChange: (filters: Record<string, boolean | number[] | number>) => void;
+  onFilterChange: (
+    filters: Record<string, boolean | number[] | number>
+  ) => void;
 }
 
 const FilterMenu = ({ onFilterChange }: FilterMenuProps) => {
@@ -20,7 +23,17 @@ const FilterMenu = ({ onFilterChange }: FilterMenuProps) => {
         filters={["Travel", "Meal", "Night Stay", "Gift"]}
         onFilterChange={onFilterChange}
       />
-      <RangeSlider min={0} max={1000} title="Amount" onFilterChange={onFilterChange}/>
+      <RangeSlider
+        min={0}
+        max={1000}
+        title="Amount"
+        onFilterChange={onFilterChange}
+      />
+      <Button
+        onClick={() => onFilterChange({})}
+        text="Clear Filters"
+        style="w-full"
+      />
     </div>
   );
 };

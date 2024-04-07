@@ -6,6 +6,11 @@ import Header from "@/Components/Header";
 import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
 
+import Axios from "axios";
+
+// Sepehr's Addition - Login Auth
+import useProtectedRoute from '../../useProtectedRoute';
+
 interface FormData {
   amount: number;
   currency: string;
@@ -15,6 +20,10 @@ interface FormData {
 }
 
 const ExpenseClaim = () => {
+    
+  // LOGIN AUTH - SEPEHR
+  useProtectedRoute(['EMPLOYEE', 'LINEMANAGER', 'FINANCE']);
+  
   const [formData, setFormData] = useState<FormData>({
     amount: 0.0,
     currency: "GBP",
@@ -40,9 +49,29 @@ const ExpenseClaim = () => {
   };
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+
     // Add your login logic here
-  };
+
+
+    e.preventDefault(); 
+  
+        //integates frontend to backend which handles the 
+        Axios 
+        //This is backend url 
+            .post("http://localhost:8000/api/employeeformmodel/", { 
+              amount: formData.amount,
+                currency: formData.currency,
+                typeClaim: formData.type,
+                description: formData.description,
+                acknowledgement: formData.acknowledgement,
+            }) 
+           
+             
+            .catch((err) => {}); 
+       
+    };
+             
+
 
   return (
     <div className="flex flex-col justify-evenly md:mx-[10%]">
@@ -190,6 +219,6 @@ const ExpenseClaim = () => {
       </form>
     </div>
   );
-};
+  };
 
 export default ExpenseClaim;
