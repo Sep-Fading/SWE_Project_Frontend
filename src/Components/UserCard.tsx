@@ -40,8 +40,8 @@ const UserCard = ({ userDetails }: UserCardProps) => {
           className="ml-1"
         />
       </div>
-      <div className={`${isOpen ? "" : "hidden"} flex flex-col gap-2`}>
-        <div className="flex justify-between text-left mt-4 overflow-y-auto gap-4 whitespace-nowrap">
+      <div className={`${isOpen ? "" : "hidden"} flex flex-col `}>
+        <div className="flex justify-between text-left mt-1 py-3 overflow-y-auto gap-4 whitespace-nowrap">
           <div>
             <h2 className="font-medium">First Name</h2>
             <p>{userDetails.firstName}</p>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import PieChart from "@/Components/PieChart";
 import LineChart from "@/Components/LineChart";
+import Button from "@/Components/Button";
 
 const Page = () => {
   const categories = ["Travel", "Meal", "Night Stay", "Gift"];
@@ -79,6 +80,7 @@ const Page = () => {
           <LineChart labels={months} data={monthlyExpenses} />
         </div>
       </div>
+      <Button text="Logout" style="w-full col-span-2" />
     </div>
   );
 };
