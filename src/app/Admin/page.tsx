@@ -1,7 +1,7 @@
 "use client";
 import HomeCard from "@/Components/HomeCard";
 // Sepehr's Addition - Login Auth
-import useProtectedRoute from '../../useProtectedRoute';
+import { useProtectedRoute } from '../../useProtectedRoute';
 
 export default function Home() {
     // AUTH

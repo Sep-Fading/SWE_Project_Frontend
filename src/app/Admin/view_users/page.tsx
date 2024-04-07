@@ -6,7 +6,7 @@ import SearchBar from "@/Components/SearchBar";
 import Button from "@/Components/Button";
 import UserInfoBox from "@/Components/UserInfoBox";
 // Sepehr's Addition - Login Auth
-import useProtectedRoute from '../../../useProtectedRoute';
+import { useProtectedRoute } from '../../../useProtectedRoute';
 
 
 const ViewUsers = () => {

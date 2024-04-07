@@ -3,7 +3,7 @@
 import Header from "@/Components/Header";
 import ClaimInfoBox from "@/Components/ClaimInfoBox";
 // Sepehr's Addition - Login Auth
-import useProtectedRoute from '../../../useProtectedRoute';
+import { useProtectedRoute } from '../../../useProtectedRoute';
 
 // This page creates preset arrays of the headings and the text for the buttons
 // The page is composed of a header and then ClaimInfoBox components for the processed claims

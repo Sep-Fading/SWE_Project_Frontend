@@ -4,7 +4,7 @@
 import ClaimInfoBox from "@/Components/ClaimInfoBox";
 import Header from "@/Components/Header";
 // Sepehr's Addition - Login Auth
-import useProtectedRoute from '../../../useProtectedRoute';
+import { useProtectedRoute } from '../../../useProtectedRoute';
 
 // Predefined headings and text for buttons are passed into the component ClaimInfoBox and returned on the page as HTML
 // The header component creates the heading for the page and the title of the page is passed into the component
