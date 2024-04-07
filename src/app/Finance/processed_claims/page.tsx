@@ -26,21 +26,32 @@ const FinanceProcessedClaims = () => {
   //AUTH
   useProtectedRoute('FINANCE');
 
-  const buttons = ["More Info"];
-
   const employee = "John Doe";
   const amount = "500";
-  const date = "Tue 12 Mar. 2023";
+  const date = "5 April";
+  const type = "Travel";
+  const approval = "John Smith";
+  const buttons = [""];
+  const buttonsNeeded = false;
+  const description = "I am claiming for travel expenses on my recent business trip to Frankfurt.";
 
   return (
-    <div className="mx-[20%]">
-      <Header title="Processed Claims" divStyle="mb-5 mt-5"/>
-      <ClaimInfoBox 
-        buttonText={buttons} 
-        employeeName={employee} 
-        claimAmount={amount} 
-        date={date}
-      />
+    <div className="bg-gray-100 h-dvh grid gap-0 grid-cols-8 md:grid-cols-6 ">
+      <div className="col-start-2 col-end-8 md:col-end-6">
+          <Header title="Processed Claims" style="pt-[1rem] md:pt-0"/>
+          <ClaimInfoBox 
+            buttonText={buttons}
+            employeeName={employee} 
+            claimAmount={amount}
+            date = {date}
+            type = {type}
+            description={description}
+            approvedBy = {approval}
+            buttonsNeededVal = {buttonsNeeded}
+            showApprovedByVal = {true}
+            status = "completed"
+          />
+      </div>
     </div>
   );
 };

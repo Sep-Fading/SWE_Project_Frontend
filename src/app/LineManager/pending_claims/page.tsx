@@ -24,22 +24,29 @@ const LineManagerPendingClaims = () => {
   //AUTH
   useProtectedRoute('LINEMANAGER');
 
-  const headings = "Uploaded Files:";
   const employee = "John Doe";
+  const type = "Travel"
   const amount = "500";
-  const date = "Tue 12 Mar. 2023";
-  const buttons = ["Approve Claim", "Reject Claim", "View Description"];
+  const date = "5 April";
+  const buttons = ["Approve Claim", "Reject Claim"];
+  const description = "I am claiming for travel expenses on my recent business trip to Frankfurt.";
 
   return (
-    <div className="flex flex-col mx-[20%]">
-      <Header title="Pending Claims" divStyle="mb-5 mt-5"/>
-      <ClaimInfoBox 
-        headingText={headings} 
-        buttonText={buttons} 
-        employeeName={employee} 
-        claimAmount={amount}
-        date = {date}
-      />
+    <div className="bg-gray-100 h-dvh grid gap-0 grid-cols-8 md:grid-cols-6 ">
+      <div className="col-start-2 col-end-8 md:col-end-6">
+          <Header title="Pending Claims" style="pt-[1rem] md:pt-0"/>
+          <ClaimInfoBox 
+            buttonText={buttons} 
+            employeeName={employee} 
+            claimAmount={amount}
+            date = {date}
+            type = {type}
+            description = {description}
+            buttonsNeededVal = {true}
+            showApprovedByVal = {false}
+            status = {"pending"}
+          />
+      </div>
     </div>
   );
 };
