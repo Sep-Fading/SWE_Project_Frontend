@@ -7,7 +7,7 @@ import Header from "@/Components/Header";
 import SearchBar from "@/Components/SearchBar";
 import UserCard from "@/Components/UserCard";
 // Sepehr's Addition - Login Auth
-import useProtectedRoute from '../../../useProtectedRoute';
+import { useProtectedRoute } from '../../../useProtectedRoute';
 
 interface User {
   title: string;

@@ -9,7 +9,7 @@ import TextArea from "@/Components/TextArea";
 import Axios from "axios";
 
 // Sepehr's Addition - Login Auth
-import useProtectedRoute from '../../useProtectedRoute';
+import { useProtectedRoute } from '../../useProtectedRoute';
 
 interface UserDetails {
   firstName: string;

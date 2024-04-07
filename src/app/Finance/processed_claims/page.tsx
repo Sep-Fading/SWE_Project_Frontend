@@ -4,7 +4,7 @@ import { useState } from "react";
 import Header from "@/Components/Header";
 import ClaimInfoBox from "@/Components/ClaimInfoBox";
 // Sepehr's Addition - Login Auth
-import useProtectedRoute from '../../../useProtectedRoute';
+import { useProtectedRoute } from '../../../useProtectedRoute';
 
 interface Claim {
   employee: string;

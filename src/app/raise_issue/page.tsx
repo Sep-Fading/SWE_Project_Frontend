@@ -5,7 +5,7 @@ import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
 import InputField from "@/Components/InputField";
 // Sepehr's Addition - Login Auth
-import useProtectedRoute from '../../useProtectedRoute';
+import { useProtectedRoute } from '../../useProtectedRoute';
 
 
 interface FormData {

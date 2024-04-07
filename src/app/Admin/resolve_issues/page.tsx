@@ -4,7 +4,7 @@ import { useState } from "react";
 import IssueBox from "@/Components/IssueBox";
 import Header from "@/Components/Header";
 // Sepehr's Addition - Login Auth
-import useProtectedRoute from '../../../useProtectedRoute';
+import { useProtectedRoute } from '../../../useProtectedRoute';
 
 interface Issue {
   title: string;

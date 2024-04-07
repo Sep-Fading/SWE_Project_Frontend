@@ -7,7 +7,8 @@ import Expense from "@/Components/Expense";
 import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
 // Sepehr's Addition - Login Auth
-import useProtectedRoute from "../../useProtectedRoute";
+import { useProtectedRoute } from '../../useProtectedRoute';
+
 
 interface Claim {
   amount: number;

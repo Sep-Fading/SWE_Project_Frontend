@@ -1,53 +1,69 @@
-// This script makes sure that
-// users are not able to use
-// unauthorized web pages.
-import { useEffect } from 'react';
-import { useAuth } from './Components/AuthContext';
-import { useRouter } from 'next/navigation';
+/*
+ * -----------------------------------------
+ *  Author - Sepehr
+ *  This script performs the following:
+ *      1. Uses backend API to validate
+ *          the login session.
+ *      2. Uses the permissions received from the API
+ *          response, and checks them against the permissions
+ *          set for the page that called useProtectedRoute().
+ *      3. Authorises the user based on the results of 
+ *          the permission check.
+ *  -----------------------------------------
+ */
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios"; // For API Requests.
 
 
-// Ensures the validity of our token
-// and checks for it's expiry time.
-const validateToken = (): boolean => {
-    const token = localStorage.getItem('token');
-    const tokenExpiry = localStorage.getItem('tokenExpiry');
-    return token !== null && tokenExpiry !== null && new Date().getTime() <= parseInt(tokenExpiry);
-};
 
-const UseProtectedRoute = (requiredPermission: string | string[]) => {
-    const { userPermission, setUserPermission } = useAuth();
+// Creating an interface to hold
+// incoming data.
+interface SessionResponse {
+    isAuthenticated: boolean;
+    userPermission?: string;
+}
+
+export const useProtectedRoute = (requiredPermissions: string | string[]): void => {
+    // For handling url redirects.
     const router = useRouter();
 
     useEffect(() => {
-        const isAuth = validateToken();
+        const validateSession = async () => {
+            try {
+                const response = await axios.get<SessionResponse>(`${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/validate_session/`, {
+                    withCredentials: true,
+                });
 
-        if (!isAuth) {
-            // Clear data
-            localStorage.removeItem('token');
-            localStorage.removeItem('tokenExpiry');
-            localStorage.removeItem('userPermission');
-            localStorage.removeItem('userEmail');
-            setUserPermission(null);
+                const { isAuthenticated, userPermission } = response.data;
 
-            // Redirect to login page.
-            router.push('/Login');
-        }
-        else {
-            // Check if userPermission matches any of the required perms.
-            const userPermissionFromStorage = localStorage.getItem('userPermission');
-            setUserPermission(userPermissionFromStorage);
+                console.log(isAuthenticated, userPermission);
 
-            const permissionIsValid = userPermissionFromStorage && Array.isArray(requiredPermission)
-                ? requiredPermission.includes(userPermissionFromStorage)
-                : requiredPermission === userPermissionFromStorage;
+                if (!isAuthenticated) {
+                    // Redirect to Login page if not Auth
+                    router.push('/Login');
+                    return;
+                }
 
-            if (!userPermissionFromStorage || !permissionIsValid) {
-                router.push('/unauthorized');
+                const permissionCheck = Array.isArray(requiredPermissions)
+                    ? requiredPermissions.includes(userPermission!)
+                    : userPermission === requiredPermissions;
+
+                if (!permissionCheck) {
+                    // Redirect if permission check fails.
+                    router.push('/unauthorized');
+                }
+
+                // If authenticated and has required perms,
+                // do nothing to let NextJS render the protected page.
             }
-        }
-    }, [router, setUserPermission, requiredPermission]);
+            catch (error) {
+                console.error('Error validating session: ', error);
+                router.push('/Login');
+            }
+        };
 
-    return { userPermission };
+        validateSession();
+    }, [router, requiredPermissions]);
 };
-
-export default UseProtectedRoute;
