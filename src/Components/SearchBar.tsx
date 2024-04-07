@@ -20,7 +20,7 @@ const SearchBar = ({
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
-        className="rounded-md w-full py-2 pl-2 pr-10 shadow-md bg-[#D9D9D9]"
+        className="rounded-md w-full py-2 pl-2 pr-10 shadow-md"
       />
       <div className="absolute inset-y-0 right-0 flex items-center pr-2">
         <Image src={`/search.svg`} alt="Search" width={28} height={28} />

@@ -23,7 +23,7 @@ const Page = () => {
   const monthlyExpenses = [65, 59, 80, 159, 56, 55, 40, 34, 430, 100];
 
   return (
-    <div className="grid grid-cols-2 gap-3 p-3 bg-[#D9D9D9]">
+    <div className="grid grid-cols-2 gap-3 p-3 bg-gray-200">
       <div className="bg-white shadow-lg rounded col-span-2 px-4 py-2">
         <div className="flex justify-between">
           <h2 className="text-xl">John Doe</h2>
