@@ -1,6 +1,6 @@
 "use client";
+
 import './globals.css';
-import HomeCard from "@/Components/HomeCard";
 // Sepehr's Addition - Login Auth
 import { useProtectedRoute } from '../useProtectedRoute';
 
