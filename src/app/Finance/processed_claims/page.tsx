@@ -1,15 +1,28 @@
 "use client";
-// Imports the Header and ClaimInfoBox components to use on this page
+
+import { useState } from "react";
 import Header from "@/Components/Header";
 import ClaimInfoBox from "@/Components/ClaimInfoBox";
 // Sepehr's Addition - Login Auth
 import useProtectedRoute from '../../../useProtectedRoute';
+
+interface Claim {
+  employee: string;
+  amount: string;
+  date: string;
+}
+
+interface ClaimsData {
+  issues: Claim[];
+}
 
 // This page creates preset arrays of the headings and the text for the buttons
 // The page is composed of a header and then ClaimInfoBox components for the processed claims
 
 
 const FinanceProcessedClaims = () => {
+  const [claims, setClaims] = useState<ClaimsData>();
+  
   //AUTH
   useProtectedRoute('FINANCE');
 
@@ -21,7 +34,7 @@ const FinanceProcessedClaims = () => {
 
   return (
     <div className="mx-[20%]">
-      <Header title="Processed Claims" divStyle="mb-5 mt-5" hrStyle="w-[17rem]"/>
+      <Header title="Processed Claims" divStyle="mb-5 mt-5"/>
       <ClaimInfoBox 
         buttonText={buttons} 
         employeeName={employee} 

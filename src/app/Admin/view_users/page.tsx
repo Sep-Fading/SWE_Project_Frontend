@@ -1,58 +1,177 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import Header from "@/Components/Header";
 import SearchBar from "@/Components/SearchBar";
-import Button from "@/Components/Button";
-import UserInfoBox from "@/Components/UserInfoBox";
+import UserCard from "@/Components/UserCard";
 // Sepehr's Addition - Login Auth
 import useProtectedRoute from '../../../useProtectedRoute';
 
+interface User {
+  title: string;
+  user: string;
+  description: string;
+  date: string;
+}
+
+interface UsersData {
+  users: User[];
+}
 
 const ViewUsers = () => {
+  const [users, setUsers] = useState<UsersData>();
   // AUTH
   useProtectedRoute('ADMIN');
 
   const [search, setSearch] = useState<string>("");
-  const headings = [
-    "First Name",
-    "Last Name",
-    "Email",
-    "Phone",
-    "Address",
-    "Bank Details"
-  ];
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-
-  const onClick = () => {
-    // Add logic here
-  };
   return (
-    <div className="flex flex-col justify-evenly mx-[10%]">
-      <Header title="View Users" />
-      <SearchBar
-        placeholder="Search Claims"
-        value={search}
-        handleChange={handleSearch}
-        divStyle="w-full mb-2"
-      />
-      <UserInfoBox
-        headerName="John Doe"
-        headerUser="Line Manager"
-        headerId="220523675"
-        firstName="John"
-        lastName="Doe"
-        email="johnDoe@email.com"
-        phone="0123456789"
-        address1="13 Lavender Avenue"
-        address2="E1 9JP, London"
-        address3="England"
-        accountNum="321242131413"
-        sortCode="43-65-87"
-      />
+    <div className="bg-gray-100 flex flex-col gap-2">
       
+      <div className="flex flex-row gap-4 items-center justify-between">
+        <Header title="Users" divStyle="hidden md:block" />
+        <SearchBar
+          placeholder="Search User"
+          value={search}
+          handleChange={handleSearch}
+          divStyle="w-full md:w-[50%]"
+        />
+      </div>
+      <main className="mx-1">
+        <div className="flex flex-col gap-1 mb-2">
+          <UserCard
+            userDetails={{
+                firstName: "John",
+                lastName: "Doe",
+                role: "Admin",
+                userID: "user123",
+                email: "johndoe@example.com",
+                phoneNumber: "123-456-7890",
+                address: "123 Main St, Anytown, AT 12345",
+                accountNumber: "12345678",
+                sortCode: "12-34-56",
+                taxCode: "123456"
+            }}
+          />
+          <UserCard
+            userDetails={{
+              firstName: "John",
+              lastName: "Doe",
+              role: "Admin",
+              userID: "user123",
+              email: "johndoe@example.com",
+              phoneNumber: "123-456-7890",
+              address: "123 Main St, Anytown, AT 12345",
+              accountNumber: "12345678",
+              sortCode: "12-34-56",
+              taxCode: "123456"
+          }}
+          />
+          <UserCard
+            userDetails={{
+              firstName: "John",
+              lastName: "Doe",
+              role: "Line Manager",
+              userID: "user123",
+              email: "johndoe@example.com",
+              phoneNumber: "123-456-7890",
+              address: "123 Main St, Anytown, AT 12345",
+              accountNumber: "12345678",
+              sortCode: "12-34-56",
+              taxCode: "123456"
+          }}
+          />
+          <UserCard
+            userDetails={{
+              firstName: "John",
+              lastName: "Doe",
+              role: "Employee",
+              userID: "user123",
+              email: "johndoe@example.com",
+              phoneNumber: "123-456-7890",
+              address: "123 Main St, Anytown, AT 12345",
+              accountNumber: "12345678",
+              sortCode: "12-34-56",
+              taxCode: "123456"
+          }}
+          />
+          <UserCard
+            userDetails={{
+              firstName: "John",
+              lastName: "Doe",
+              role: "Employee",
+              userID: "user123",
+              email: "johndoe@example.com",
+              phoneNumber: "123-456-7890",
+              address: "123 Main St, Anytown, AT 12345",
+              accountNumber: "12345678",
+              sortCode: "12-34-56",
+              taxCode: "123456"
+          }}
+          />
+          <UserCard
+            userDetails={{
+              firstName: "John",
+              lastName: "Doe",
+              role: "Employee",
+              userID: "user123",
+              email: "johndoe@example.com",
+              phoneNumber: "123-456-7890",
+              address: "123 Main St, Anytown, AT 12345",
+              accountNumber: "12345678",
+              sortCode: "12-34-56",
+              taxCode: "123456"
+          }}
+          />
+          <UserCard
+            userDetails={{
+              firstName: "John",
+              lastName: "Doe",
+              role: "Employee",
+              userID: "user123",
+              email: "johndoe@example.com",
+              phoneNumber: "123-456-7890",
+              address: "123 Main St, Anytown, AT 12345",
+              accountNumber: "12345678",
+              sortCode: "12-34-56",
+              taxCode: "123456"
+          }}
+          />
+          <UserCard
+            userDetails={{
+              firstName: "John",
+              lastName: "Doe",
+              role: "Employee",
+              userID: "user123",
+              email: "johndoe@example.com",
+              phoneNumber: "123-456-7890",
+              address: "123 Main St, Anytown, AT 12345",
+              accountNumber: "12345678",
+              sortCode: "12-34-56",
+              taxCode: "123456"
+          }}
+          />
+          <UserCard
+            userDetails={{
+              firstName: "John",
+              lastName: "Doe",
+              role: "Employee",
+              userID: "user123",
+              email: "johndoe@example.com",
+              phoneNumber: "123-456-7890",
+              address: "123 Main St, Anytown, AT 12345",
+              accountNumber: "12345678",
+              sortCode: "12-34-56",
+              taxCode: "123456"
+          }}
+          />
+        </div>
+      </main>
     </div>
   );
 };

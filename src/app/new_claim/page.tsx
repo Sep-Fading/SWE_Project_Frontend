@@ -11,6 +11,13 @@ import Axios from "axios";
 // Sepehr's Addition - Login Auth
 import useProtectedRoute from '../../useProtectedRoute';
 
+interface UserDetails {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+}
+
 interface FormData {
   amount: number;
   currency: string;
@@ -23,6 +30,13 @@ const ExpenseClaim = () => {
     
   // LOGIN AUTH - SEPEHR
   useProtectedRoute(['EMPLOYEE', 'LINEMANAGER', 'FINANCE']);
+
+  const [userDetails, setUserDetails] = useState<UserDetails>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+  });
   
   const [formData, setFormData] = useState<FormData>({
     amount: 0.0,
@@ -84,24 +98,23 @@ const ExpenseClaim = () => {
           title="Expense Claim"
           divStyle="md:hidden"
           style="text-center"
-          hrStyle="hidden"
         />
         <div className="grid grid-cols-2 w-[90%] md:flex md:justify-between md:w-[80%]">
           <div>
             <h2 className="font-medium">First Name</h2>
-            <p>John</p>
+            <p>{userDetails.firstName}</p>
           </div>
           <div>
             <h2 className="font-medium">Last Name</h2>
-            <p>Doe</p>
+            <p>{userDetails.lastName}</p>
           </div>
           <div className="order-last">
             <h2 className="font-medium">Email</h2>
-            <p>johndoe@email.com</p>
+            <p>{userDetails.email}</p>
           </div>
           <div>
             <h2 className="font-medium">Phone Number</h2>
-            <p>0123456789</p>
+            <p>{userDetails.phoneNumber}</p>
           </div>
         </div>
         <div className="w-[90%] md:w-[80%]">

@@ -9,8 +9,22 @@ import SearchBar from "@/Components/SearchBar";
 // Sepehr's Addition - Login Auth
 import useProtectedRoute from "../../useProtectedRoute";
 
+interface Claim {
+  amount: number;
+  currency: string;
+  type: string;
+  status: string;
+  date: string;
+  comment?: string;
+}
+
+interface ClaimsData {
+  claims: Claim[];
+}
+
 const EmployeeClaims = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [claims, setClaims] = useState<ClaimsData>();
 
   // AUTH
   useProtectedRoute(["EMPLOYEE", "FINANCE", "LINEMANAGER"]);
