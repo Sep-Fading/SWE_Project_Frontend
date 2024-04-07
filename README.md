@@ -59,3 +59,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## ENVIROMENTAL VARIABLE FOR DEVELOPMENT - IMPORTANT:
+GitHub won't push your environmnetal variables to the repo.
+
+Therefore for development purposes follow these steps:
+
+Create a file called `.env.local`in the root directory of the next project.
+
+Add the following to it (IMPORTANT: Remember if you are adding anymore update this readme to reflect that!):
+
+```
+BACKEND_URL=http://localhost:8000
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+```
