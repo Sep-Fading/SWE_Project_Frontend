@@ -32,14 +32,13 @@ const ViewUsers = () => {
   };
   return (
     <div className="bg-gray-100 flex flex-col gap-2">
-      
       <div className="flex flex-row gap-4 items-center justify-between">
-        <Header title="Users" divStyle="hidden md:block" />
+        <Header title="Users" divStyle="hidden md:block md:ml-2" />
         <SearchBar
           placeholder="Search User"
           value={search}
           handleChange={handleSearch}
-          divStyle="w-full md:w-[50%]"
+          divStyle="w-full mt-2 md:mt-0 md:w-[50%]"
         />
       </div>
       <main className="mx-1">
