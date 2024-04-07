@@ -51,7 +51,6 @@ const Issue = () => {
           title="Raise An Issue"
           divStyle="md:hidden"
           style="text-center"
-          hrStyle="hidden"
         />
         <div className="w-[90%] md:w-[80%]">
           <InputField

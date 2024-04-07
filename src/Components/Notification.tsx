@@ -1,29 +1,25 @@
-"use client";
 // Imports the button element
+"use client";
 import Button from "./Button";
-import {useState} from "react";
 import Image from "next/image";
+import { useState } from "react";
 
-interface IssueBoxProps {
+interface NotificationProps {
   buttonText: string[];
-  user: string;
   title: string;
   description: string;
   date: string;
 }
 
-
-
-// The IssueBox component takes the headings and the text in the buttons as props as arrays - the data inside of these arrays are mapped into HTML elements (buttons and headings)
-// Date is also taken as a prop, as a string
-const IssueBox = ({ title, user, description, buttonText, date }: IssueBoxProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Notification = ({ title, description, buttonText, date }: NotificationProps) => {
+    const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white rounded px-2 py-3 hover:scale-[1.01] transition-transform duration-300 hover:shadow w-full px-5 pt-5">
+
+    <div className="bg-white rounded px-2 py-3 hover:scale-[1.01] transition-transform duration-300 hover:shadow w-full px-5 pt-">
         <div className="flex flex-row justify-between">
             <div className="flex flex-col">
-                <h2 className="font-bold text-xl md:text-2xl">{user}: {title}</h2>
+                <h2 className="font-bold text-xl md:text-2xl">{title}</h2>
                 <h3 className="text-gray-500 text-left">{date}</h3>
             </div>
             <div className="flex flex-row justify-end">
@@ -49,4 +45,4 @@ const IssueBox = ({ title, user, description, buttonText, date }: IssueBoxProps)
     </div>
   );
 };
-export default IssueBox;
+export default Notification;

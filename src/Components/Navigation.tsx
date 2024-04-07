@@ -13,7 +13,7 @@ interface NavigationProps {
 
 const Navigation = ({ links, home }: NavigationProps) => {
   return (
-    <nav className="bg-black border-t-4 border-blue w-auto">
+    <nav className="bg-black border-t-4 border-blue w-full">
       <div className="flex items-center justify-between px-4 pb-1">
         <div className="flex items-center">
           <Link href={home}>
@@ -28,7 +28,7 @@ const Navigation = ({ links, home }: NavigationProps) => {
           ))}
         </div>
         <div className="flex items-center space-x-4">
-          <Link href="/notification">
+          <Link href="/Notifications">
             <Image
               src="/notification.svg"
               alt="Notifications"

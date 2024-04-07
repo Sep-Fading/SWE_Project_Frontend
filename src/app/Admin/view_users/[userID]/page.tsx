@@ -1,15 +1,18 @@
 "use client";
 
+import Image from "next/image";
 import { useState, ChangeEvent, FormEvent } from "react";
 import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
+import Link from "next/link";
 
 interface Details {
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
+  taxCode: string;
 }
 
 interface Address {
@@ -18,6 +21,7 @@ interface Address {
   city: string;
   country: string;
 }
+
 interface BankDetails {
   accountNumber: string;
   sortCode: string;
@@ -34,6 +38,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
     lastName: "Doe",
     email: "john.doe@email.com",
     phoneNumber: "0123456789",
+    taxCode: "123456",
   });
   const [address, setAddress] = useState<Address>({
     address: "13 Lavender Avenue",
@@ -50,13 +55,39 @@ const Post = ({ params }: { params: { userID: string } }) => {
     confirmPassword: "",
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setDetails((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const [stateKey, propertyName] = e.target.name.split('-');
+    const value = e.target.value;
+  
+    switch (stateKey) {
+      case 'details':
+        setDetails((prevState) => ({
+          ...prevState,
+          [propertyName]: value,
+        }));
+        break;
+      case 'address':
+        setAddress((prevState) => ({
+          ...prevState,
+          [propertyName]: value,
+        }));
+        break;
+      case 'bankDetails':
+        setBankDetails((prevState) => ({
+          ...prevState,
+          [propertyName]: value,
+        }));
+        break;
+      case 'password':
+        setPassword((prevState) => ({
+          ...prevState,
+          [propertyName]: value,
+        }));
+        break;
+      default:
+        console.error('Invalid state key');
+    }
+  };  
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -67,18 +98,21 @@ const Post = ({ params }: { params: { userID: string } }) => {
     // Add your login logic here
   };
   return (
-    <div className="m-[5%]">
-      <div className="bg-[#D9D9D9] shadow-md rounded p-[20px]">
+    <div className="bg-gray-100 md:p-[5%]">
+      <div className="bg-white shadow-md rounded p-[20px]">
+        <Link href="/Admin/view_users">
+          <Image src="/back.svg" alt="Back" width={26} height={26} className="mb-2"/>
+        </Link>
         <div className="flex justify-between">
           <h2 className="text-xl">John Doe</h2>
           <h1 className="text-xl font-semibold">Line Manager</h1>
           <h2 className="text-xl">22053765</h2>
         </div>
         <hr className="border-3 border-black"></hr>
-        <form onSubmit={handleSubmit} className="flex flex-col mt-[-10px]">
-          <Header title="Personal Details" />
-          <div className="grid grid-cols-2 place-items-center gap-4 mb-[-30px]">
-            <div className="w-[90%]">
+        <form onSubmit={handleSubmit} className="flex flex-col md:mt-[-10px]">
+          <Header title="Personal Details" divStyle="my-2"/>
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
+            <div className="md:w-[90%]">
               <InputField
                 label="First Name"
                 type="text"
@@ -87,7 +121,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[90%]">
+            <div className="md:w-[90%]">
               <InputField
                 label="Last Name"
                 type="text"
@@ -96,7 +130,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[90%]">
+            <div className="md:w-[90%]">
               <InputField
                 label="Email"
                 type="email"
@@ -105,7 +139,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[90%]">
+            <div className="md:w-[90%]">
               <InputField
                 label="Phone Number"
                 type="tel"
@@ -114,16 +148,25 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 onChange={handleChange}
               />
             </div>
+            <div className="md:w-[90%]">
+              <InputField
+                label="Tax Number"
+                type="tel"
+                name="taxCode"
+                value={details.taxCode}
+                onChange={handleChange}
+              />
+            </div>
             <Button
               type="submit"
               text="Update"
               onClick={onClick}
-              style="w-[150px] col-start-2 place-self-end mr-2"
+              style="w-[150px] col-start-2 row-start-4 place-self-end mr-2"
             />
           </div>
-          <Header title="Address" />
-          <div className="grid grid-cols-2 place-items-center gap-4 mb-[-30px]">
-            <div className="w-[90%]">
+          <Header title="Address" divStyle="mb-2"/>
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
+            <div className="md:w-[90%]">
               <InputField
                 label="Address"
                 type="text"
@@ -132,7 +175,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[90%]">
+            <div className="md:w-[90%]">
               <InputField
                 label="Zip Code"
                 type="text"
@@ -141,7 +184,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[90%]">
+            <div className="md:w-[90%]">
               <InputField
                 label="City"
                 type="text"
@@ -150,7 +193,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[90%]">
+            <div className="md:w-[90%]">
               <InputField
                 label="Country"
                 type="text"
@@ -166,9 +209,9 @@ const Post = ({ params }: { params: { userID: string } }) => {
               style="w-[150px] col-start-2 place-self-end mr-2"
             />
           </div>
-          <Header title="Bank Details" />
-          <div className="grid grid-cols-2 place-items-center gap-4 mb-[-30px]">
-            <div className="w-[90%]">
+          <Header title="Bank Details" divStyle="mb-2"/>
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
+            <div className="md:w-[90%]">
               <InputField
                 label="Account Number"
                 type="text"
@@ -177,7 +220,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[90%]">
+            <div className="md:w-[90%]">
               <InputField
                 label="Sort Code"
                 type="text"
@@ -193,9 +236,9 @@ const Post = ({ params }: { params: { userID: string } }) => {
               style="w-[150px] col-start-2 place-self-end mr-2"
             />
           </div>
-          <Header title="Change Password" />
-          <div className="grid grid-cols-2 place-items-center gap-4">
-            <div className="w-[90%]">
+          <Header title="Change Password" divStyle="mb-2"/>
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
+            <div className="md:w-[90%]">
               <InputField
                 label="Password"
                 type="text"
@@ -206,7 +249,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="w-[90%]">
+            <div className="md:w-[90%]">
               <InputField
                 label="Confirm Password"
                 type="text"
@@ -227,7 +270,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
         </form>
         <button
           className={
-            "my-2 rounded-lg text-center bg-red-gradient text-white h-[40px] duration-200 hover:shadow-lg w-[180px] font-semibold"
+            "mt-5 rounded-lg text-center bg-red-gradient text-white py-1 duration-200 hover:shadow-lg font-semibold w-full"
           }
           type="submit"
           onClick={onClick}
