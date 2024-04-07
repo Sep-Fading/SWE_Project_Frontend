@@ -14,7 +14,6 @@ const FinanceProcessedClaims = () => {
   useProtectedRoute('FINANCE');
 
   const buttons = ["More Info"];
-
   const employee = "John Doe";
   const amount = "500";
   const date = "Tue 12 Mar. 2023";
