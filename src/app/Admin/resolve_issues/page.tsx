@@ -27,22 +27,19 @@ const Issues = () => {
   useProtectedRoute('ADMIN');
 
   const buttons = ["Mark as Resolved"];
-  const date = "Tue 12 Mar 2023";
-  const user = "John Doe"
-  const title = "Submit Claim"
-  const description = "I have been unable to submit any claims in the past few days, I think there is a problem with my account."
+  const date = "5 April";
+  const user = "John Doe";
+  const title = "Submit Claim";
+  const description = "I have been unable to submit any claims in the past few days, I think there is a problem with my account.";
 
   return (
-    <div className="mx-[10%] flex flex-col md:mx-[20%]">
-      <Header title="Issues To Resolve" divStyle="mb-5 mt-5"/>
-      <IssueBox 
-        title={title} 
-        user={user} 
-        description={description} 
-        buttonText={buttons} 
-        date={date}
-        />
+    <div className="bg-gray-100 h-dvh grid gap-0 grid-cols-8 md:grid-cols-6 ">
+        <div className="col-start-2 col-end-8 md:col-end-6">
+            <Header title="Issues To Resolve" style="pt-[1rem] md:pt-0"/>
+            <IssueBox buttonText={buttons} date={date} user={user} title={title} description={description}/>
+        </div>
     </div>
+
   );
 };
 
