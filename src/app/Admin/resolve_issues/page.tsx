@@ -1,14 +1,28 @@
 "use client";
-// Imports the components
+
+import { useState } from "react";
 import IssueBox from "@/Components/IssueBox";
 import Header from "@/Components/Header";
 // Sepehr's Addition - Login Auth
 import useProtectedRoute from '../../../useProtectedRoute';
 
+interface Issue {
+  title: string;
+  user: string;
+  description: string;
+  date: string;
+}
+
+interface IssueData {
+  issues: Issue[];
+}
+
 // Predefined headings, text for buttons and the date are passed into the component IssueBox and returned on the page as HTML
 // The header component creates the heading for the page and the title of the page is passed into the component
 
 const Issues = () => {
+  const [issues, setIssues] = useState<IssueData>();
+
   // AUTH
   useProtectedRoute('ADMIN');
 
@@ -20,7 +34,7 @@ const Issues = () => {
 
   return (
     <div className="mx-[10%] flex flex-col md:mx-[20%]">
-      <Header title="Issues To Resolve" divStyle="mb-5 mt-5" hrStyle="w-[17rem]"/>
+      <Header title="Issues To Resolve" divStyle="mb-5 mt-5"/>
       <IssueBox 
         title={title} 
         user={user} 

@@ -1,15 +1,26 @@
 "use client";
 
-// Imports the components
+import { useState } from "react";
 import ClaimInfoBox from "@/Components/ClaimInfoBox";
 import Header from "@/Components/Header";
 // Sepehr's Addition - Login Auth
 import useProtectedRoute from '../../../useProtectedRoute';
 
+interface Claim {
+  employee: string;
+  amount: string;
+  date: string;
+}
+
+interface ClaimsData {
+  claims: Claim[];
+}
+
 // Predefined headings and text for buttons are passed into the component ClaimInfoBox and returned on the page as HTML
 // The header component creates the heading for the page and the title of the page is passed into the component
 
 const LineManagerPendingClaims = () => {
+  const [claims, setClaims] = useState<ClaimsData>();
   //AUTH
   useProtectedRoute('LINEMANAGER');
 

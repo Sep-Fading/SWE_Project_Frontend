@@ -8,7 +8,7 @@ interface ButtonProps {
 const Button = ({ onClick, text, type, style }: ButtonProps) => {
   return (
     <button
-      className={`my-2 rounded-lg text-center bg-fdm-gradient text-white h-[40px] duration-200 hover:shadow-lg ${style}`}
+      className={`rounded-lg text-center bg-fdm-gradient text-white p-[6px] hover:scale-[1.01] transition-transform duration-300 hover:shadow-md ${style}`}
       type={type}
       onClick={onClick}
     >
