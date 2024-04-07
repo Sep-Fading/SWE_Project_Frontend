@@ -29,11 +29,20 @@ const FilterMenu = ({ onFilterChange }: FilterMenuProps) => {
         title="Amount"
         onFilterChange={onFilterChange}
       />
-      <Button
-        onClick={() => onFilterChange({})}
-        text="Clear Filters"
-        style="w-full"
-      />
+      <div className="flex md:flex-col md:gap-1 mr-[2px]">
+        <button
+          onClick={() => onFilterChange({})}
+          className="whitespace-nowrap text-center bg-fdm-gradient text-white h-[40px] duration-200 hover:shadow-lg w-full md:rounded"
+        >
+          Clear Filters
+        </button>
+        <button
+          onClick={() => onFilterChange({})}
+          className="whitespace-nowrap text-center bg-fdm-gradient text-white h-[40px] duration-200 hover:shadow-lg w-full md:rounded"
+        >
+          Apply Filters
+        </button>
+      </div>
     </div>
   );
 };

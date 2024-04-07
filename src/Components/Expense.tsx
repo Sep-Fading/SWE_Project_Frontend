@@ -73,8 +73,8 @@ const Expense = ({
         ) : null}
         {status === "rejected" || status === "approved" ? (
           <h2
-            className={`md:text-sm text-xs mt-3 ml-[-8px] text-left text-${
-              status === "rejected" ? "[#e74c3c]" : "[#4CAF50]"
+            className={`md:text-sm text-xs mt-3 ml-[-8px] text-left ${
+              status === "rejected" ? "text-[#e74c3c]" : "text-[#4CAF50]"
             }`}
           >
             This claim has been {status}.
