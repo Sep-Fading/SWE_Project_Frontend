@@ -10,9 +10,9 @@ export default function Home() {
         layout="w-[90%] min-w-44 md:col-span-2 md:place-self-center md:w-[520px]"
       />
       <HomeCard
-        href="/Admin/add_user"
-        image="/add_user.svg"
-        text="Add User"
+        href="localhost8000/"
+        image="/admin_panel.svg"
+        text="Admin Panel"
         layout="w-[90%] min-w-44 md:place-self-end md:row-start-2 md:w-[250px]"
       />
       <HomeCard
