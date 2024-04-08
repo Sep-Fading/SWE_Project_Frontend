@@ -16,7 +16,7 @@ export default function Home() {
         layout="w-[90%] min-w-44 md:col-span-2 md:place-self-center md:w-[520px]"
       />
       <HomeCard
-        href="localhost8000/"
+        href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/admin`}
         image="/admin_panel.svg"
         text="Admin Panel"
         layout="w-[90%] min-w-44 md:place-self-end md:row-start-2 md:w-[250px]"

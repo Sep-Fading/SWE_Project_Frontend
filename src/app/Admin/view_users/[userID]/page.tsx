@@ -6,6 +6,9 @@ import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
 import Link from "next/link";
+import axios from "axios";
+import { useEffect } from "react";
+import { Play } from "next/font/google";
 
 interface Details {
   firstName: string;
@@ -33,59 +36,119 @@ interface Password {
 }
 
 const Post = ({ params }: { params: { userID: string } }) => {
-  const [details, setDetails] = useState<Details>({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@email.com",
-    phoneNumber: "0123456789",
-    taxCode: "123456",
-  });
-  const [address, setAddress] = useState<Address>({
-    address: "13 Lavender Avenue",
-    zipCode: "E18 1AA",
-    city: "London",
-    country: "England",
-  });
-  const [bankDetails, setBankDetails] = useState<BankDetails>({
-    accountNumber: "321242131413",
-    sortCode: "43-65-87",
-  });
-  const [password, setPassword] = useState<Password>({
-    password: "",
-    confirmPassword: "",
+// BACKEND INTEGRATION -------------------------------
+  const [details, setDetails] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    taxCode: '',
   });
 
+  const [address, setAddress] = useState({
+    address: '',
+    zipCode: '',
+    city: '',
+    country: '',
+  });
+
+  const [bankDetails, setBankDetails] = useState({
+    accountNumber: '',
+    sortCode: '',
+  });
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/${params.userID}/`, {withCredentials: true});
+            const userData = response.data;
+            setDetails({
+                first_name: userData.first_name,
+                last_name: userData.last_name,
+                email: userData.email,
+                phone_number: userData.phone_number,
+                tax_code: userData.tax_code,
+            });
+            setAddress({
+                address: userData.address,
+                zip_code: userData.zip_code,
+                city: userData.city,
+                country: userData.country,
+            });
+            setBankDetails({
+                account_number: userData.account_number,
+                sort_code: userData.sort_code,
+            });
+        }
+        catch (error) {
+            console.error('Failed to fetch user details: ', error);
+        }
+    };
+
+    fetchUserDetails();
+  }, [params.userID]);
+// UPDATING USER INFO ----------------------------------------
+  const updateDetails = async () => {
+    try {
+        const response = await axios.patch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/update/${params.userID}/`,
+            details,
+            { withCredentials: true }
+        );
+        console.log('Details update successfully ', response.data);
+    }
+    catch (error) {
+        console.error('Failed to update details: ', error);
+    }
+  };
+  
+  const updateAddress = async () => {
+    try {
+        const response = await axios.patch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/update/${params.userID}/`,
+            address,
+            { withCredentials: true }
+        );
+    }
+    catch (error) {
+        console.error('Failed to update address: ', error);
+    }
+
+  };
+
+  const updateBankDetails = async () => {
+    try {
+        const response = await axios.patch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/update/${params.userID}/`,
+            bankDetails,
+                { withCredentials : true }
+        );
+        console.log('Bank details updated successfully', response.data);
+    }
+    catch (error) {
+        console.error('Failed to update bank details: ', error);
+    }
+  };
+
+// -----------------------------------------------------------
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const [stateKey, propertyName] = e.target.name.split('-');
     const value = e.target.value;
   
-    switch (stateKey) {
-      case 'details':
-        setDetails((prevState) => ({
-          ...prevState,
+    if (stateKey === 'details') {
+        setDetails((prevDetails) => ({
+          ...prevDetails,
           [propertyName]: value,
         }));
-        break;
-      case 'address':
-        setAddress((prevState) => ({
-          ...prevState,
+    } else if (stateKey === 'address') {
+        setAddress((prevAddress) => ({
+          ...prevAddress,
           [propertyName]: value,
         }));
-        break;
-      case 'bankDetails':
-        setBankDetails((prevState) => ({
-          ...prevState,
+    } else if (stateKey === 'bankDetails') {
+        setBankDetails((prevBankDetails) => ({
+          ...prevBankDetails,
           [propertyName]: value,
         }));
-        break;
-      case 'password':
-        setPassword((prevState) => ({
-          ...prevState,
-          [propertyName]: value,
-        }));
-        break;
-      default:
-        console.error('Invalid state key');
     }
   };  
 
@@ -116,7 +179,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="First Name"
                 type="text"
-                name="firstName"
+                name="details-first_name"
                 value={details.firstName}
                 onChange={handleChange}
               />
@@ -125,7 +188,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="Last Name"
                 type="text"
-                name="lastName"
+                name="details-last_name"
                 value={details.lastName}
                 onChange={handleChange}
               />
@@ -134,7 +197,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="Email"
                 type="email"
-                name="email"
+                name="details-email"
                 value={details.email}
                 onChange={handleChange}
               />
@@ -143,7 +206,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="Phone Number"
                 type="tel"
-                name="phoneNumber"
+                name="details-phone_number"
                 value={details.phoneNumber}
                 onChange={handleChange}
               />
@@ -152,7 +215,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="Tax Number"
                 type="tel"
-                name="taxCode"
+                name="details-tax_code"
                 value={details.taxCode}
                 onChange={handleChange}
               />
@@ -160,7 +223,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
             <Button
               type="submit"
               text="Update"
-              onClick={onClick}
+              onClick={updateDetails}
               style="w-[150px] col-start-2 row-start-4 place-self-end mr-2"
             />
           </div>
@@ -170,7 +233,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="Address"
                 type="text"
-                name="address"
+                name="address-address"
                 value={address.address}
                 onChange={handleChange}
               />
@@ -179,8 +242,8 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="Zip Code"
                 type="text"
-                name="zipCode"
-                value={address.zipCode}
+                name="address-zip_code"
+                value={address.zip_code}
                 onChange={handleChange}
               />
             </div>
@@ -188,7 +251,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="City"
                 type="text"
-                name="city"
+                name="address-city"
                 value={address.city}
                 onChange={handleChange}
               />
@@ -197,7 +260,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="Country"
                 type="text"
-                name="country"
+                name="address-country"
                 value={address.country}
                 onChange={handleChange}
               />
@@ -205,7 +268,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
             <Button
               type="submit"
               text="Update"
-              onClick={onClick}
+              onClick={updateAddress}
               style="w-[150px] col-start-2 place-self-end mr-2"
             />
           </div>
@@ -215,7 +278,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="Account Number"
                 type="text"
-                name="accountNumber"
+                name="bankDetails-account_number"
                 value={bankDetails.accountNumber}
                 onChange={handleChange}
               />
@@ -224,7 +287,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="Sort Code"
                 type="text"
-                name="sortCode"
+                name="bankDetails-sort_code"
                 value={bankDetails.sortCode}
                 onChange={handleChange}
               />
@@ -232,7 +295,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
             <Button
               type="submit"
               text="Update"
-              onClick={onClick}
+              onClick={updateBankDetails}
               style="w-[150px] col-start-2 place-self-end mr-2"
             />
           </div>
@@ -245,7 +308,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 name="password"
                 placeholder="Confirm new password"
                 icon={"password"}
-                value={password.password}
+                value={"password"}
                 onChange={handleChange}
               />
             </div>
@@ -256,7 +319,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 name="confirmPassword"
                 placeholder="Confirm new password"
                 icon={"password"}
-                value={password.confirmPassword}
+                value={"password"}
                 onChange={handleChange}
               />
             </div>
