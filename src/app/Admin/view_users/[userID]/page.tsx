@@ -11,23 +11,23 @@ import { useEffect } from "react";
 import { Play } from "next/font/google";
 
 interface Details {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  phoneNumber: string;
-  taxCode: string;
+  phone_number: string;
+  tax_code: string;
 }
 
 interface Address {
   address: string;
-  zipCode: string;
+  zip_code: string;
   city: string;
   country: string;
 }
 
 interface BankDetails {
-  accountNumber: string;
-  sortCode: string;
+  account_number: string;
+  sort_code: string;
 }
 
 interface Password {
@@ -38,23 +38,23 @@ interface Password {
 const Post = ({ params }: { params: { userID: string } }) => {
 // BACKEND INTEGRATION -------------------------------
   const [details, setDetails] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    phoneNumber: '',
-    taxCode: '',
+    phone_number: '',
+    tax_code: '',
   });
 
   const [address, setAddress] = useState({
     address: '',
-    zipCode: '',
+    zip_code: '',
     city: '',
     country: '',
   });
 
   const [bankDetails, setBankDetails] = useState({
-    accountNumber: '',
-    sortCode: '',
+    account_number: '',
+    sort_code: '',
   });
   useEffect(() => {
     const fetchUserDetails = async () => {
