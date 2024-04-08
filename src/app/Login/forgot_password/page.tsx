@@ -47,7 +47,6 @@ const NewPassword = () => {
           title="Forgotten Password"
           divStyle="md:hidden"
           style="text-center"
-          hrStyle="hidden"
         />
         <div className="w-[90%] md:w-[70%]">
           <InputField

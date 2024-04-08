@@ -33,7 +33,7 @@ const Filter = ({ onFilterChange, title, filters }: FilterProps) => {
       <div
         className={`${
           isOpen ? "" : "hidden"
-        } flex flex-col items-center gap-2 border-b py-3`}
+        } flex overflow-y-auto gap-2 mx-2 px-1 items-center gap-2 border-b py-3 whitespace-nowrap md:flex-col`}
       >
         {filters.map((filter) => (
           <div key={filter} className="flex items-center w-full">
