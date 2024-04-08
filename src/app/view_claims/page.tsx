@@ -41,7 +41,7 @@ const EmployeeClaims = () => {
   };
 
   return (
-    <div className="bg-gray-100 flex flex-col gap-2 my-2 md:my-0 md:gap-0 md:grid md:grid-cols-[auto_1fr]">
+    <div className="flex flex-col gap-2 my-2 md:my-0 md:gap-0 md:grid md:grid-cols-[auto_1fr]">
       <aside
         className={`${
           isOpen ? "" : "hidden"

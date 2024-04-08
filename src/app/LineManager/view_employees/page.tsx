@@ -20,8 +20,9 @@ interface UsersData {
 
 const ViewUsers = () => {
   const [users, setUsers] = useState<UsersData>();
+
   // AUTH
-  useProtectedRoute('ADMIN');
+  useProtectedRoute('LINEMANAGER');
 
   const [search, setSearch] = useState<string>("");
 
@@ -53,7 +54,7 @@ const ViewUsers = () => {
                 accountNumber: "12345678",
                 sortCode: "12-34-56",
                 taxCode: "123456",
-                admin: true
+                admin: false
             }}
           />
         </div>
