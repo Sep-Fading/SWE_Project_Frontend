@@ -180,7 +180,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 label="First Name"
                 type="text"
                 name="details-first_name"
-                value={details.firstName}
+                value={details.first_name}
                 onChange={handleChange}
               />
             </div>
@@ -189,7 +189,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 label="Last Name"
                 type="text"
                 name="details-last_name"
-                value={details.lastName}
+                value={details.last_name}
                 onChange={handleChange}
               />
             </div>
@@ -207,7 +207,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 label="Phone Number"
                 type="tel"
                 name="details-phone_number"
-                value={details.phoneNumber}
+                value={details.phone_number}
                 onChange={handleChange}
               />
             </div>
@@ -216,7 +216,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 label="Tax Number"
                 type="tel"
                 name="details-tax_code"
-                value={details.taxCode}
+                value={details.tax_code}
                 onChange={handleChange}
               />
             </div>
@@ -279,7 +279,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 label="Account Number"
                 type="text"
                 name="bankDetails-account_number"
-                value={bankDetails.accountNumber}
+                value={bankDetails.account_number}
                 onChange={handleChange}
               />
             </div>
@@ -288,7 +288,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 label="Sort Code"
                 type="text"
                 name="bankDetails-sortCode"
-                value={bankDetails.sortCode}
+                value={bankDetails.sort_code}
                 onChange={handleChange}
               />
             </div>
