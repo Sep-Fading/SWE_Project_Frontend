@@ -1,22 +1,17 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from 'next/navigation';
-import { useAuth } from '../../Components/AuthContext';
 import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
 import Link from "next/link";
 
 
-interface FormData {
-  email: string;
-  password: string;
-}
-
-const LoginPage: React.FC = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const Login  = () => {
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    
     const router = useRouter();
 
     const handleSubmit = async (event: FormEvent) => {
@@ -47,9 +42,6 @@ const LoginPage: React.FC = () => {
         }
     };
     
-
-   
-
     return (
     <div className="flex flex-col  my-[25%] md:my-0 md:mx-[20%]">
       <Header title="Login" divStyle="hidden md:inline" />
@@ -81,7 +73,7 @@ const LoginPage: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)} 
           />
           <Link
-            href="/Login/forgot_password"
+            href="/Login/request_password_reset"
             className="underline text-xs self-end"
           >
             Forgot password?
@@ -93,4 +85,4 @@ const LoginPage: React.FC = () => {
     );
 };
 
-export default LoginPage;
+export default Login;

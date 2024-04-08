@@ -34,7 +34,7 @@ export default function Home() {
         layout="w-[90%] min-w-44 md:place-self-start md:row-start-1 md:col-start-3 md:w-[250px]"
       />
       <HomeCard
-        href="/request_help"
+        href="/LineManager/view_employees"
         image="/user_list.svg"
         text="View Employees"
         layout="w-[90%] min-w-44 md:place-self-start md:row-start-2 md:col-start-3 md:w-[250px]"

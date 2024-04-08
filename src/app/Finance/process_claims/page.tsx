@@ -3,11 +3,11 @@
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import Header from "@/Components/Header";
-import Expense from "@/Components/Claim";
+import Expense from "@/Components/FinanceClaim";
 import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
 // Sepehr's Addition - Login Auth
-import { useProtectedRoute } from "../../useProtectedRoute";
+import { useProtectedRoute } from "../../../useProtectedRoute";
 
 interface Claim {
   amount: number;
@@ -15,6 +15,10 @@ interface Claim {
   type: string;
   status: string;
   date: string;
+  claimedBy: string;
+  processed: boolean;
+  approvedBy?: string;
+  approvedOn?: string;
   comment?: string;
 }
 
@@ -27,7 +31,7 @@ const EmployeeClaims = () => {
   const [claims, setClaims] = useState<ClaimsData>();
 
   // AUTH
-  useProtectedRoute(["EMPLOYEE", "FINANCE", "LINEMANAGER"]);
+  useProtectedRoute(["FINANCE"]);
 
   const handleFilterChange = (
     filters: Record<string, boolean | number[] | number>
@@ -68,87 +72,32 @@ const EmployeeClaims = () => {
       </div>
       <main className="order-last mx-1 md:mx-3 md:col-start-2">
         <div className="flex flex-col gap-1 mb-2">
-          <h2 className="mb-1">Recent claims</h2>
+          <h2 className="mb-1">Process claims</h2>
           <Expense
             amount={500}
             currency="£"
             type="Travel"
             status="rejected"
-            date="12 April"
+            date="12 April, 2024"
+            claimedBy="Jane Doe"
+            approvedBy="John Doe"
+            approvedOn="15 April, 2024"
+            processed={false}
             comment="Wrong receipts attached"
-          />
-          <Expense
-            amount={340}
-            currency="£"
-            type="Meal"
-            status="pending"
-            date="12 April"
-          />
-          <Expense
-            amount={178}
-            currency="£"
-            type="Night Stay"
-            status="completed"
-            date="12 March"
-          />
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="approved"
-            date="12 March"
           />
         </div>
         <div className="flex flex-col gap-1">
-          <h2 className="my-1">All claims</h2>
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="pending"
-            date="12 March"
-          />
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="completed"
-            date="12 March"
-          />
+          <h2 className="my-1">Past claims</h2>
           <Expense
             amount={500}
             currency="£"
             type="Travel"
             status="rejected"
-            date="12 March"
-          />
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="rejected"
-            date="12 March"
-          />
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="rejected"
-            date="12 March"
-          />
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="rejected"
-            date="12 March"
-          />
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="rejected"
-            date="12 March"
+            date="12 March, 2024"
+            claimedBy="Jane Doe"
+            approvedBy="John Doe"
+            approvedOn="15 March, 2024"
+            processed={true}
           />
         </div>
       </main>

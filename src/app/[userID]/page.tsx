@@ -3,6 +3,7 @@
 import Image from "next/image";
 import PieChart from "@/Components/PieChart";
 import LineChart from "@/Components/LineChart";
+import Button from "@/Components/Button";
 
 const Page = () => {
   const categories = ["Travel", "Meal", "Night Stay", "Gift"];
@@ -23,7 +24,7 @@ const Page = () => {
   const monthlyExpenses = [65, 59, 80, 159, 56, 55, 40, 34, 430, 100];
 
   return (
-    <div className="grid grid-cols-2 gap-3 p-3 bg-gray-200">
+    <div className="bg-gray-200 grid grid-cols-2 gap-3 p-3">
       <div className="bg-white shadow-lg rounded col-span-2 px-4 py-2">
         <div className="flex justify-between">
           <h2 className="text-xl">John Doe</h2>
@@ -79,6 +80,7 @@ const Page = () => {
           <LineChart labels={months} data={monthlyExpenses} />
         </div>
       </div>
+      <Button text="Logout" style="w-full col-span-2" />
     </div>
   );
 };

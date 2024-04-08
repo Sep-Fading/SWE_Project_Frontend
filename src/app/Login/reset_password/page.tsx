@@ -38,13 +38,13 @@ const NewPassword = () => {
 
   return (
     <div className="flex flex-col my-[25%] md:my-0 md:mx-[20%]">
-      <Header title="Forgotten Password" divStyle="hidden md:inline" />
+      <Header title="Reset Password" divStyle="hidden md:inline" />
       <form
         onSubmit={handleSubmit}
         className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded w-full min-w-[400px] min-h-[350px] shadow-md h-[55vh]"
       >
         <Header
-          title="Forgotten Password"
+          title="Reset Password"
           divStyle="md:hidden"
           style="text-center"
         />
