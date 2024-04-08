@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import Header from "@/Components/Header";
 import Expense from "@/Components/FinanceClaim";
@@ -8,30 +8,13 @@ import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
 // Sepehr's Addition - Login Auth
 import { useProtectedRoute } from "../../../useProtectedRoute";
-
-interface Claim {
-  amount: number;
-  currency: string;
-  type: string;
-  status: string;
-  date: string;
-  claimedBy: string;
-  processed: boolean;
-  approvedBy?: string;
-  approvedOn?: string;
-  comment?: string;
-}
-
-interface ClaimsData {
-  claims: Claim[];
-}
+import useClaimsActions from "../useClaimsActions";
 
 const EmployeeClaims = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [claims, setClaims] = useState<ClaimsData>();
 
   // AUTH
-  useProtectedRoute(["FINANCE"]);
+  useProtectedRoute("FINANCE");
 
   const handleFilterChange = (
     filters: Record<string, boolean | number[] | number>
@@ -44,6 +27,25 @@ const EmployeeClaims = () => {
     // Add search logic here
   };
 
+  //api
+  const {
+    claims,
+    error,
+    processClaim,
+    rejectClaim
+  } = useClaimsActions();
+
+  // Handler for processing a claim
+  const handleProcess = (claimID) => {
+    processClaim(claimID).catch(console.error);
+  };
+
+  // Handler for rejecting a claim
+  const handleReject = (claimID) => {
+    rejectClaim(claimID).catch(console.error);
+  };
+
+  const filteredClaims = claims.filter(claim => claim.status === "PROCESSED" || claim.status === "REJECTEDF");
   return (
     <div className="flex flex-col gap-2 my-2 md:my-0 md:gap-0 md:grid md:grid-cols-[auto_1fr]">
       <aside
@@ -73,32 +75,43 @@ const EmployeeClaims = () => {
       <main className="order-last mx-1 md:mx-3 md:col-start-2">
         <div className="flex flex-col gap-1 mb-2">
           <h2 className="mb-1">Process claims</h2>
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="rejected"
-            date="12 April, 2024"
-            claimedBy="Jane Doe"
-            approvedBy="John Doe"
-            approvedOn="15 April, 2024"
-            processed={false}
-            comment="Wrong receipts attached"
-          />
+          {claims && claims.map((claim, index) => (
+            <Expense
+              key={index}
+              amount={claim.amount}
+              currency={claim.currency} 
+              type={claim.typeClaim} 
+              status={claim.status}
+              date={claim.date}
+              claimedBy={claim.claimedBy}
+              approvedBy={"claim.approvedBy"}
+              approvedOn={"claim.approvedOn"}
+              processed={false}
+              comment={claim.comment}
+              onProcess={() => handleProcess(claim.claimID)}  // Pass the handler for processing
+              onReject={() => handleReject(claim.claimID)} 
+            />
+          ))}
         </div>
         <div className="flex flex-col gap-1">
           <h2 className="my-1">Past claims</h2>
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="rejected"
-            date="12 March, 2024"
-            claimedBy="Jane Doe"
-            approvedBy="John Doe"
-            approvedOn="15 March, 2024"
-            processed={true}
-          />
+          {filteredClaims.map((claim, index) => (
+            <Expense
+              key={index} // Ideally, use a unique id instead of index if available.
+              amount={claim.amount}
+              currency={claim.currency} // Assuming currency is a string like "£"
+              type={claim.typeClaim} // Make sure this matches one of "Travel" | "Meal" | "Night Stay" | "Gift"
+              status={claim.status} // Must be one of "completed" | "approved" | "rejected" | "pending"
+              date={claim.date} // Format the date as needed
+              claimedBy={claim.claimedBy}
+              approvedBy={"claim.approvedBy"}
+              approvedOn={"claim.approvedOn"}
+              processed={true}
+              comment={claim.comment}
+              onProcess={() => handleProcess(claim.claimID)}  // Pass the handler for processing
+              onReject={() => handleReject(claim.claimID)} 
+            />
+          ))}
         </div>
       </main>
     </div>

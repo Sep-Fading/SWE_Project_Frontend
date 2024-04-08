@@ -8,13 +8,16 @@ interface ExpenseProps {
   amount: number;
   currency: string;
   type: "Travel" | "Meal" | "Night Stay" | "Gift";
-  status: "completed" | "approved" | "rejected" | "pending";
+  status: "completed" | "approved" | "rejected" | "rejectedf" | "pending";
   date: string;
   claimedBy: string;
   approvedBy?: string;
   approvedOn?: string;
   processed: boolean;
   comment?: string;
+  onProcess?: () => void;
+  onReject?: () => void; 
+
 }
 
 const Claim = ({
@@ -28,6 +31,9 @@ const Claim = ({
   approvedOn,
   processed,
   comment,
+  onProcess,
+  onReject,
+
 }: ExpenseProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -124,9 +130,9 @@ const Claim = ({
           ) : null}
         </div>
         {processed === false ? (
-          <div className="flex w-full mt-2 gap-1">
-            <Button text={`${approvedBy && approvedOn ? "Process" : "Approve"} Claim`} style="w-1/2" />
-            <Button text="Reject Claim" style="w-1/2" />
+          <div className="flex w-full p-2 gap-1">
+            <Button text={`${approvedBy && approvedOn ? "Process" : "Approve"} Claim`} onClick={onProcess} style="w-1/2" />
+            <Button text="Reject Claim" onClick={onReject} style="w-1/2" />
           </div>
         ) : null}
       </div>

@@ -106,7 +106,6 @@ const LoginPage = () => {
           title="Login"
           divStyle="md:hidden"
           style="text-center"
-          hrStyle="hidden"
         />
         <div className="w-[90%] md:w-[70%]">
           <InputField
