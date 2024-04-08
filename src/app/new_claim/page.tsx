@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import Image from "next/image";
 import Header from "@/Components/Header";
 import Button from "@/Components/Button";
@@ -23,10 +23,14 @@ interface FormData {
   currency: string;
   type: string;
   description: string;
+
   acknowledgement: boolean;
 }
 
 const ExpenseClaim = () => {
+  //Files for uploading VAT receipts
+  const [state, setState] = useState('ready');
+  const [file, setFile] = useState<File | undefined>();
     
   // LOGIN AUTH - SEPEHR
   useProtectedRoute(['EMPLOYEE', 'LINEMANAGER', 'FINANCE']);
@@ -62,21 +66,41 @@ const ExpenseClaim = () => {
     // Add your login logic here
   };
 
+  
+
+  function handleImageChange(e: React.FormEvent<HTMLInputElement>){
+    const target = e.target as HTMLInputElement &{
+      files: FileList;
+    }
+
+    console.log('working')
+    setFile(target.files[0])
+    
+  }
+
   const handleSubmit = (e: FormEvent) => {
 
     // Add your login logic here
 
 
+    console.log("file: "+file)
     e.preventDefault(); 
   
-        //integates frontend to backend which handles the 
+    if (typeof file === 'undefined')return;
+    const imageData = new FormData();
+
+
+    imageData.append('file',file, file.name);
+    console.log(imageData.get("file"))
+        //integates frontend to backend which handles the new claim
         Axios 
         //This is backend url 
             .post("http://localhost:8000/api/employeeformmodel/", { 
-              amount: formData.amount,
+                amount: formData.amount,
                 currency: formData.currency,
                 typeClaim: formData.type,
                 description: formData.description,
+                file: imageData.get("file"),
                 acknowledgement: formData.acknowledgement,
             }) 
            
@@ -92,6 +116,7 @@ const ExpenseClaim = () => {
       <Header title="Expense Claim" divStyle="hidden md:inline" />
       <form
         onSubmit={handleSubmit}
+        encType="multipart/form-data"
         className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded  shadow-md h-[110vh] md:h-[125vh]"
       >
         <Header
@@ -193,10 +218,12 @@ const ExpenseClaim = () => {
           <input
             id="file-upload"
             name="file-upload"
+            onChange={handleImageChange}
             type="file"
             multiple
             className="hidden"
             aria-describedby="file-upload-description"
+            accept=".pdf,.png,.jpg,.jpeg"
           />
           <label
             htmlFor="file-upload"
