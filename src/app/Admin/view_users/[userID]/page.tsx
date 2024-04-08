@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, ChangeEvent, FormEvent } from "react";
 import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
-import Link from "next/link";
 
 interface Details {
   firstName: string;
