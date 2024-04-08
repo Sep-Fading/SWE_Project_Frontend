@@ -9,24 +9,36 @@ export default function Home() {
   useProtectedRoute('FINANCE');
 
   return (
-    <div className="flex flex-col items-center gap-4 my-7 md:grid md:grid-cols-2">
+    <div className="flex flex-col items-center gap-4 my-7 md:grid md:grid-cols-3">
       <HomeCard
-        href="/Finance/pending_claims"
-        image="/approve.svg"
-        text="Process Claims"
+        href="/new_claim"
+        image="/add.svg"
+        text="New Claim"
         layout="w-[90%] min-w-44 md:col-span-2 md:place-self-center md:w-[520px]"
       />
       <HomeCard
-        href="/Finance/processed_claims"
+        href="/view_claims"
         image="/list.svg"
-        text="Processed Claims"
+        text="View Claims"
         layout="w-[90%] min-w-44 md:place-self-end md:row-start-2 md:w-[250px]"
       />
       <HomeCard
-        href="/request_help"
+        href="/raise_issue"
         image="/request.svg"
         text="Request Help"
-        layout="w-[90%] min-w-44 md:place-self-start md:row-start-2 md:w-[250px]"
+        layout="w-[90%] min-w-44 order-last md:place-self-start md:row-start-2 md:w-[250px]"
+      />
+      <HomeCard
+        href="/Finance/process_claims"
+        image="/approve.svg"
+        text="Process Claims"
+        layout="w-[90%] min-w-44 md:place-self-start md:row-start-1 md:col-start-3 md:w-[250px]"
+      />
+      <HomeCard
+        href="/Finance/view_managers"
+        image="/user_list.svg"
+        text="View Managers"
+        layout="w-[90%] min-w-44 md:place-self-start md:row-start-2 md:col-start-3 md:w-[250px]"
       />
     </div>
   );
