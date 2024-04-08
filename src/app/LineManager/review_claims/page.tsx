@@ -71,7 +71,7 @@ const EmployeeClaims = () => {
       </div>
       <main className="order-last mx-1 md:mx-3 md:col-start-2">
         <div className="flex flex-col gap-1 mb-2">
-          <h2 className="mb-1">Process claims</h2>
+          <h2 className="mb-1">Approve claims</h2>
           <Expense
             amount={500}
             currency="£"
