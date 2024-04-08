@@ -55,7 +55,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
     confirmPassword: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const [stateKey, propertyName] = e.target.name.split('-');
     const value = e.target.value;
   
@@ -98,7 +98,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
     // Add your login logic here
   };
   return (
-    <div className="bg-gray-100 md:p-[5%]">
+    <div className="md:p-[5%]">
       <div className="bg-white shadow-md rounded p-[20px]">
         <Link href="/Admin/view_users">
           <Image src="/back.svg" alt="Back" width={26} height={26} className="mb-2"/>
