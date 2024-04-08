@@ -81,7 +81,7 @@ const LoginPage: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)} 
           />
           <Link
-            href="/Login/forgot_password"
+            href="/Login/request_password_reset"
             className="underline text-xs self-end"
           >
             Forgot password?
