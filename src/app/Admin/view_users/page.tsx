@@ -1,17 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/Components/Header";
 import SearchBar from "@/Components/SearchBar";
 import Button from "@/Components/Button";
 import UserInfoBox from "@/Components/UserInfoBox";
 // Sepehr's Addition - Login Auth
 import { useProtectedRoute } from '../../../useProtectedRoute';
+import axios from "axios";
 
 
 const ViewUsers = () => {
   // AUTH
   useProtectedRoute('ADMIN');
+
+    // BACKEND INTEGRATION:
+    // Makes a call to the backend with a special api 
+    // that returns all users' information.
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/`, { withCredentials: true});
+                console.log(response.data);
+                setUsers(response.data);
+            }
+            catch (error) {
+                console.error('Failed to fetch users: ', error);
+            }
+
+        };
+
+        fetchData();
+    }, []);
+
+
+        
 
   const [search, setSearch] = useState<string>("");
   const headings = [
