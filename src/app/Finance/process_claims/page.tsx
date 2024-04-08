@@ -21,6 +21,8 @@ interface Claim {
   approvedBy?: string;
   approvedOn?: string;
   comment?: string;
+  onProcess: () => void; // Function to call when processing the claim
+  onReject: () => void;
 }
 
 interface ClaimsData {

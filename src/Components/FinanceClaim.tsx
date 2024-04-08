@@ -15,6 +15,9 @@ interface ExpenseProps {
   approvedOn?: string;
   processed: boolean;
   comment?: string;
+  onProcess: () => void;  // Add this line
+  onReject: () => void;  // Add this line
+
 }
 
 const Claim = ({
@@ -28,6 +31,9 @@ const Claim = ({
   approvedOn,
   processed,
   comment,
+  onProcess,
+  onReject,
+
 }: ExpenseProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -125,8 +131,8 @@ const Claim = ({
         </div>
         {processed === false ? (
           <div className="flex w-full mt-2 gap-1">
-            <Button text={`${approvedBy && approvedOn ? "Process" : "Approve"} Claim`} style="w-1/2" />
-            <Button text="Reject Claim" style="w-1/2" />
+            <Button text={`${approvedBy && approvedOn ? "Process" : "Approve"} Claim`} onClick={onProcess} style="w-1/2" />
+            <Button text="Reject Claim" onClick={onReject} style="w-1/2" />
           </div>
         ) : null}
       </div>
