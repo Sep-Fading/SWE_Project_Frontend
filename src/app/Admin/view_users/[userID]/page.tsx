@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState, ChangeEvent, FormEvent } from "react";
 import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
@@ -162,7 +161,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
     // Add your login logic here
   };
   return (
-    <div className="md:p-[5%]">
+    <div className="bg-gray-100 md:p-[5%]">
       <div className="bg-white shadow-md rounded p-[20px]">
         <Link href="/Admin/view_users">
           <Image src="/back.svg" alt="Back" width={26} height={26} className="mb-2"/>
@@ -288,7 +287,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               <InputField
                 label="Sort Code"
                 type="text"
-                name="bankDetails-sort_code"
+                name="bankDetails-sortCode"
                 value={bankDetails.sortCode}
                 onChange={handleChange}
               />
