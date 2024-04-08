@@ -17,7 +17,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
     <AuthProvider>
         <html lang="en">
           <body className={inter.className}>
-            <Navigation links={[]} home={"/"} />
+            <Navigation links={[]} home={"/home"} />
             {children}
           </body>
         </html>

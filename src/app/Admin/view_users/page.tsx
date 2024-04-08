@@ -41,7 +41,7 @@ const ViewUsers = () => {
           divStyle="w-full mt-2 md:mt-0 md:w-[50%]"
         />
       </div>
-      <main className="mx-1">
+      <main className="mx-2">
         <div className="flex flex-col gap-1 mb-2">
           <UserCard
             userDetails={{
