@@ -22,7 +22,6 @@ interface UsersData {
 }
 
 const ViewUsers = () => {
-  const [users, setUsers] = useState<UsersData>();
   // AUTH
   useProtectedRoute('ADMIN');
 
