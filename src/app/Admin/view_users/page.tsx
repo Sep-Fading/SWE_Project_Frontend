@@ -10,16 +10,18 @@ import UserCard from "@/Components/UserCard";
 import { useProtectedRoute } from '../../../useProtectedRoute';
 import axios from "axios";
 
-interface User {
-  title: string;
-  user: string;
-  description: string;
-  date: string;
+
+interface UserDetails {
+    firstName: string;
+    lastName: string;
+    email: string;
+    addess: string;
+    phoneNumber: string;
+    taxCode: string;
+    accountNumber: string;
+    sortCode: string;
 }
 
-interface UsersData {
-  users: User[];
-}
 
 const ViewUsers = () => {
   // AUTH
@@ -28,12 +30,12 @@ const ViewUsers = () => {
     // BACKEND INTEGRATION:
     // Makes a call to the backend with a special api 
     // that returns all users' information.
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState<UserDetails[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/`, { withCredentials: true});
+                const response = await axios.get<UserData[]>(`${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/`, { withCredentials: true});
                 console.log(response.data);
                 setUsers(response.data);
             }
@@ -68,132 +70,22 @@ const ViewUsers = () => {
       </div>
       <main className="mx-1">
         <div className="flex flex-col gap-1 mb-2">
+        {users.map((user,index)=>(
           <UserCard
             userDetails={{
-                firstName: "John",
-                lastName: "Doe",
-                role: "Admin",
-                userID: "user123",
-                email: "johndoe@example.com",
-                phoneNumber: "123-456-7890",
-                address: "123 Main St, Anytown, AT 12345",
-                accountNumber: "12345678",
-                sortCode: "12-34-56",
-                taxCode: "123456"
+                firstName: user.first_name,
+                lastName: user.last_name,
+                role: user.role,
+                userID: user.user_id,
+                email: user.email,
+                phoneNumber: user.phone_number,
+                address: user.address,
+                accountNumber: user.account_number,
+                sortCode: user.sort_code,
+                taxCode: user.tax_code
             }}
           />
-          <UserCard
-            userDetails={{
-              firstName: "John",
-              lastName: "Doe",
-              role: "Admin",
-              userID: "user123",
-              email: "johndoe@example.com",
-              phoneNumber: "123-456-7890",
-              address: "123 Main St, Anytown, AT 12345",
-              accountNumber: "12345678",
-              sortCode: "12-34-56",
-              taxCode: "123456"
-          }}
-          />
-          <UserCard
-            userDetails={{
-              firstName: "John",
-              lastName: "Doe",
-              role: "Line Manager",
-              userID: "user123",
-              email: "johndoe@example.com",
-              phoneNumber: "123-456-7890",
-              address: "123 Main St, Anytown, AT 12345",
-              accountNumber: "12345678",
-              sortCode: "12-34-56",
-              taxCode: "123456"
-          }}
-          />
-          <UserCard
-            userDetails={{
-              firstName: "John",
-              lastName: "Doe",
-              role: "Employee",
-              userID: "user123",
-              email: "johndoe@example.com",
-              phoneNumber: "123-456-7890",
-              address: "123 Main St, Anytown, AT 12345",
-              accountNumber: "12345678",
-              sortCode: "12-34-56",
-              taxCode: "123456"
-          }}
-          />
-          <UserCard
-            userDetails={{
-              firstName: "John",
-              lastName: "Doe",
-              role: "Employee",
-              userID: "user123",
-              email: "johndoe@example.com",
-              phoneNumber: "123-456-7890",
-              address: "123 Main St, Anytown, AT 12345",
-              accountNumber: "12345678",
-              sortCode: "12-34-56",
-              taxCode: "123456"
-          }}
-          />
-          <UserCard
-            userDetails={{
-              firstName: "John",
-              lastName: "Doe",
-              role: "Employee",
-              userID: "user123",
-              email: "johndoe@example.com",
-              phoneNumber: "123-456-7890",
-              address: "123 Main St, Anytown, AT 12345",
-              accountNumber: "12345678",
-              sortCode: "12-34-56",
-              taxCode: "123456"
-          }}
-          />
-          <UserCard
-            userDetails={{
-              firstName: "John",
-              lastName: "Doe",
-              role: "Employee",
-              userID: "user123",
-              email: "johndoe@example.com",
-              phoneNumber: "123-456-7890",
-              address: "123 Main St, Anytown, AT 12345",
-              accountNumber: "12345678",
-              sortCode: "12-34-56",
-              taxCode: "123456"
-          }}
-          />
-          <UserCard
-            userDetails={{
-              firstName: "John",
-              lastName: "Doe",
-              role: "Employee",
-              userID: "user123",
-              email: "johndoe@example.com",
-              phoneNumber: "123-456-7890",
-              address: "123 Main St, Anytown, AT 12345",
-              accountNumber: "12345678",
-              sortCode: "12-34-56",
-              taxCode: "123456"
-          }}
-          />
-          <UserCard
-            userDetails={{
-              firstName: "John",
-              lastName: "Doe",
-              role: "Employee",
-              userID: "user123",
-              email: "johndoe@example.com",
-              phoneNumber: "123-456-7890",
-              address: "123 Main St, Anytown, AT 12345",
-              accountNumber: "12345678",
-              sortCode: "12-34-56",
-              taxCode: "123456"
-          }}
-          />
+        ))}
         </div>
       </main>
     </div>
