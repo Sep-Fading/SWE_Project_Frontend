@@ -1,24 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { User } from "@/types/User";
 
 interface UserCardProps {
-  userDetails: {
-    firstName: string;
-    lastName: string;
-    role: string;
-    userID: string;
-    email: string;
-    phoneNumber: string;
-    address: string;
-    accountNumber: string;
-    sortCode: string;
-    taxCode: string;
-    admin: boolean;
-  };
+  details: User;
+  admin: boolean;
 }
 
-const UserCard = ({ userDetails}: UserCardProps) => {
+const UserCard = ({
+  details: {
+    user_id,
+    first_name,
+    last_name,
+    role,
+    email,
+    phone_number,
+    address,
+    account_number,
+    sort_code,
+    tax_code,
+  },
+  admin,
+}: UserCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -29,10 +33,10 @@ const UserCard = ({ userDetails}: UserCardProps) => {
       >
         <div className="flex justify-between grow">
           <h2 className="text-xl">
-            {userDetails.firstName} {userDetails.lastName}
+            {first_name} {last_name}
           </h2>
-          <h1 className="text-xl font-semibold">{userDetails.role}</h1>
-          <h2 className="text-xl">{userDetails.userID}</h2>
+          <h1 className="text-xl font-semibold">{role}</h1>
+          <h2 className="text-xl">{user_id}</h2>
         </div>
         <Image
           src={`/${isOpen ? "drop_up" : "drop_down"}.svg`}
@@ -46,33 +50,33 @@ const UserCard = ({ userDetails}: UserCardProps) => {
         <div className="flex justify-between text-left mt-1 py-3 overflow-y-auto gap-4 whitespace-nowrap">
           <div>
             <h2 className="font-medium">First Name</h2>
-            <p>{userDetails.firstName}</p>
+            <p>{first_name}</p>
             <h2 className="font-medium">Last Name</h2>
-            <p>{userDetails.lastName}</p>
+            <p>{last_name}</p>
           </div>
           <div>
             <h2 className="font-medium">Email</h2>
-            <p>{userDetails.email}</p>
+            <p>{email}</p>
             <h2 className="font-medium">Address</h2>
-            <p>{userDetails.address}</p>
+            <p>{address}</p>
           </div>
           <div>
             <h2 className="font-medium">Phone Number</h2>
-            <p>{userDetails.phoneNumber}</p>
+            <p>{phone_number}</p>
             <h2 className="font-medium">Tax Code</h2>
-            <p>{userDetails.taxCode}</p>
+            <p>{tax_code}</p>
           </div>
           <div>
             <h2 className="font-medium">Bank Details</h2>
             <h3 className="font-bold text-xs">Account Number</h3>
-            <p>{userDetails.accountNumber}</p>
+            <p>{account_number}</p>
             <h3 className="font-bold text-xs">Sort Code</h3>
-            <p>{userDetails.sortCode}</p>
+            <p>{sort_code}</p>
           </div>
         </div>
-        {userDetails.admin && (
+        {admin && (
           <Link
-            href={`/Admin/view_users/${userDetails.userID}`}
+            href={`/Admin/view_users/${user_id}`}
             className="py-1 rounded-lg text-center bg-fdm-gradient text-white hover:scale-[1.005] transition-transform duration-300 hover:shadow w-full"
             passHref
           >

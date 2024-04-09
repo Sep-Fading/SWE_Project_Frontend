@@ -8,14 +8,16 @@ import { User } from "@/types/User";
 
 interface ViewUsersProps {
   users: User[]
+  admin: boolean
 }
 
-const ViewUsers = ({ users }: ViewUsersProps) => {
+const ViewUsers = ({ users, admin }: ViewUsersProps) => {
   const [search, setSearch] = useState<string>("");
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
+
   return (
     <>
       <div className="flex flex-row gap-4 items-center justify-between">
@@ -29,22 +31,11 @@ const ViewUsers = ({ users }: ViewUsersProps) => {
       </div>
       <main className="mx-2">
         <div className="flex flex-col gap-1 mb-2">
-          {users.map((user, index) => (
+        {users.map((user, index) => (
             <UserCard
               key={index}
-              userDetails={{
-                firstName: user.firstName,
-                lastName: user.lastName,
-                role: user.role,
-                userID: user.userID,
-                email: user.email,
-                phoneNumber: user.phoneNumber,
-                address: user.address,
-                accountNumber: user.accountNumber,
-                sortCode: user.sortCode,
-                taxCode: user.taxCode,
-                admin: true,
-              }}
+              details={user}
+              admin={admin}
             />
           ))}
         </div>

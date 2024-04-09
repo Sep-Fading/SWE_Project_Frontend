@@ -24,8 +24,8 @@ const Page = () => {
   const monthlyExpenses = [65, 59, 80, 159, 56, 55, 40, 34, 430, 100];
 
   return (
-    <div className="bg-gray-200 grid grid-cols-2 gap-3 p-3">
-      <div className="bg-white shadow-lg rounded col-span-2 px-4 py-2">
+    <div className="bg-gray-200 flex flex-col md:grid md:grid-cols-2 gap-3 p-3">
+      <div className="bg-white shadow-lg rounded md:col-span-2 px-4 py-2">
         <div className="flex justify-between">
           <h2 className="text-xl">John Doe</h2>
           <h1 className="text-xl font-semibold">Line Manager</h1>
@@ -60,14 +60,14 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col bg-white shadow-lg px-3 py-2 rounded-lg h-[480px]">
+      <div className="flex flex-col bg-white shadow-lg px-3 py-2 rounded-lg md:h-[480px]">
         <div className="flex">
           <h1 className="text-lg font-medium">
             Expenses Breakdown - April 2024
           </h1>
           <Image src="/expand.svg" alt="chart" width={24} height={24} />
         </div>
-        <div className="grow">
+        <div className="min-h-52 md:grow">
           <PieChart labels={categories} data={expenses} />
         </div>
       </div>

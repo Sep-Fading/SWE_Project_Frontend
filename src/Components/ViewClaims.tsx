@@ -5,14 +5,16 @@ import { useState, ChangeEvent } from "react";
 import Header from "@/Components/Header";
 import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
-import ClaimCard from "@/Components/FinanceClaim";
+import ExpenseClaim from "@/Components/ExpenseClaim";
 import { Claim } from "@/types/Claim";
 
 interface ViewClaimsProps {
   claims: Claim[];
+  pastClaims: Claim[];
+  role: "finance" | "manager" | "employee";
 }
 
-const ViewClaims = ({ claims }: ViewClaimsProps) => {
+const ViewClaims = ({ claims, pastClaims, role }: ViewClaimsProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleFilterChange = (
@@ -60,29 +62,37 @@ const ViewClaims = ({ claims }: ViewClaimsProps) => {
       </div>
       <main className="order-last mx-1 md:mx-3 md:col-start-2">
         <div className="flex flex-col gap-1 mb-2">
-          <h2 className="mb-1">Process claims</h2>
+          <h2 className="mb-1">
+            {role === "finance"
+              ? "Process"
+              : role === "manager"
+              ? "Approve"
+              : "View"}{" "}
+            claims
+          </h2>
           {claims &&
             claims.map((claim, index) => (
-              <ClaimCard
+              <ExpenseClaim
                 key={index}
-                id={claim.id}
-                amount={claim.amount}
-                currency={claim.currency}
-                typeClaim={claim.typeClaim}
-                status={claim.status}
-                date={claim.date}
-                claimedBy={claim.claimedBy}
-                approvedBy={"claim.approvedBy"}
-                approvedOn={"claim.approvedOn"}
+                details={claim}
+                manager={(role === "manager" || role === "finance") ? true : false}
                 processed={false}
-                comment={claim.comment}
-                onProcess={() => handleProcess(claim.id)} // Pass the handler for processing
-                onReject={() => handleReject(claim.id)}
+                onProcess={() => handleProcess(claim.claim_id)} // Pass the handler for processing
+                onReject={() => handleReject(claim.claim_id)}
               />
             ))}
         </div>
         <div className="flex flex-col gap-1">
           <h2 className="my-1">Past claims</h2>
+          {pastClaims &&
+            pastClaims.map((claim, index) => (
+              <ExpenseClaim
+                key={index}
+                details={claim}
+                manager={(role === "manager" || role === "finance") ? true : false}
+                processed={true}
+              />
+            ))}
         </div>
       </main>
     </>
