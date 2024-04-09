@@ -3,8 +3,6 @@
 import { useState } from "react";
 import IssueBox from "@/Components/IssueBox";
 import Header from "@/Components/Header";
-// Sepehr's Addition - Login Auth
-import { useProtectedRoute } from "../../../useProtectedRoute";
 
 interface Issue {
   title: string;
@@ -22,9 +20,6 @@ interface IssueData {
 
 const Issues = () => {
   const [issues, setIssues] = useState<IssueData>();
-
-  // AUTH
-  useProtectedRoute('LINEMANAGER');
 
   const buttons = ["Mark as Resolved"];
   const date = "5 April, 2024";

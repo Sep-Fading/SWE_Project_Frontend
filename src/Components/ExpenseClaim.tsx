@@ -3,24 +3,34 @@
 import Image from "next/image";
 import { useState } from "react";
 import Button from "./Button";
-import { Claim } from '@/types/Claim';
+import { Claim } from "@/types/Claim";
 
-const FinanceClaim = ({
-  id,
-  amount,
-  currency,
-  typeClaim,
-  status,
-  date,
-  claimedBy,
-  approvedBy,
-  approvedOn,
+interface claimProps {
+  details: Claim;
+  manager: boolean;
+  processed: boolean;
+  onProcess?: () => void;
+  onReject?: () => void;
+}
+
+const ExpenseClaim = ({
+  details: {
+    claim_id,
+    amount,
+    currency,
+    type,
+    status,
+    date,
+    claimed_by,
+    approved_by,
+    approved_on,
+    comment,
+  },
+  manager,
   processed,
-  comment,
   onProcess,
   onReject,
-
-}: Claim) => {
+}: claimProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -38,9 +48,10 @@ const FinanceClaim = ({
             className="bg-gray-100 rounded-full p-1 mx-1"
           />
           <div className="ml-2 text-left md:ml-3">
-            <h1 className="text-lg">{typeClaim}</h1>
+            <h1 className="text-lg">{type}</h1>
             <p className="text-sm text-gray-500">
-              {claimedBy}, {date}
+              {claimed_by && `${claimed_by}, `}
+              {date}
             </p>
           </div>
         </div>
@@ -68,23 +79,33 @@ const FinanceClaim = ({
           </div>
           <div className="flex justify-between md:block">
             <h2 className="font-medium">Category</h2>
-            <p>{typeClaim}</p>
+            <p>{type}</p>
           </div>
-          <div className="flex justify-between md:block">
+          <div className={`${
+              claimed_by ? "flex md:block" : "hidden"
+            } justify-between`}>
             <h2 className="font-medium">Claimed by</h2>
-            <p>{claimedBy}</p>
+            <p>{claimed_by}</p>
           </div>
           <div className="flex justify-between md:block">
             <h2 className="font-medium">Claimed on</h2>
             <p>{date}</p>
           </div>
-          <div className={`${approvedBy ? "flex md:block" : "hidden"} justify-between`}>
+          <div
+            className={`${
+              approved_by ? "flex md:block" : "hidden"
+            } justify-between`}
+          >
             <h2 className="font-medium">Approved by</h2>
-            <p>{approvedBy}</p>
+            <p>{approved_by}</p>
           </div>
-          <div className={`${approvedOn ? "flex md:block" : "hidden"} justify-between`}>
+          <div
+            className={`${
+              approved_on ? "flex md:block" : "hidden"
+            } justify-between`}
+          >
             <h2 className="font-medium">Approved on</h2>
-            <p>{approvedOn}</p>
+            <p>{approved_on}</p>
           </div>
           <div className="flex flex-col justify-between">
             <h2 className="font-medium">Receipts</h2>
@@ -101,11 +122,11 @@ const FinanceClaim = ({
           </div>
         </div>
         <div className="ml-12 mr-4">
-          {comment ? (
+          {comment && (
             <h2 className="mb-2 text-left font-medium">{comment}</h2>
-          ) : null}
-          {(status === "rejected" || status === "approved") &&
-          processed === true ? (
+          )}
+          {((status === "rejected" || status === "approved") &&
+          processed) && (
             <h2
               className={`md:text-sm text-xs pb-2 ml-[-8px] text-left ${
                 status === "rejected" ? "text-[#e74c3c]" : "text-[#4CAF50]"
@@ -113,16 +134,22 @@ const FinanceClaim = ({
             >
               This claim has been {status}.
             </h2>
-          ) : null}
+          )}
         </div>
-        {processed === false ? (
+        {(!processed && manager) && (
           <div className="flex w-full p-2 gap-1">
-            <Button text={`${approvedBy && approvedOn ? "Process" : "Approve"} Claim`} onClick={onProcess} style="w-1/2" />
+            <Button
+              text={`${
+                approved_by && approved_on ? "Process" : "Approve"
+              } Claim`}
+              onClick={onProcess}
+              style="w-1/2"
+            />
             <Button text="Reject Claim" onClick={onReject} style="w-1/2" />
           </div>
-        ) : null}
+        )}
       </div>
     </div>
   );
 };
-export default FinanceClaim;
+export default ExpenseClaim;

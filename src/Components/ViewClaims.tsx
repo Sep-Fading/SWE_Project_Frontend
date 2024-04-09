@@ -1,36 +1,21 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
 import Image from "next/image";
+import { useState, ChangeEvent } from "react";
 import Header from "@/Components/Header";
-import Expense from "@/Components/FinanceClaim";
 import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
-// Sepehr's Addition - Login Auth
-import { useProtectedRoute } from "../../../useProtectedRoute";
+import ExpenseClaim from "@/Components/ExpenseClaim";
+import { Claim } from "@/types/Claim";
 
-interface Claim {
-  amount: number;
-  currency: string;
-  type: string;
-  status: string;
-  date: string;
-  claimedBy: string;
-  processed: boolean;
-  comment?: string;
-}
-
-interface ClaimsData {
+interface ViewClaimsProps {
   claims: Claim[];
+  pastClaims: Claim[];
+  role: "finance" | "manager" | "employee";
 }
 
-const EmployeeClaims = () => {
+const ViewClaims = ({ claims, pastClaims, role }: ViewClaimsProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [claims, setClaims] = useState<ClaimsData>();
-
-  // AUTH
-  useProtectedRoute('LINEMANAGER');
-  
 
   const handleFilterChange = (
     filters: Record<string, boolean | number[] | number>
@@ -43,8 +28,14 @@ const EmployeeClaims = () => {
     // Add search logic here
   };
 
+  // Handler for processing a claim
+  const handleProcess = (id: string) => {};
+
+  // Handler for rejecting a claim
+  const handleReject = (id: string) => {};
+
   return (
-    <div className="bg-gray-100 flex flex-col gap-2 my-2 md:my-0 md:gap-0 md:grid md:grid-cols-[auto_1fr]">
+    <>
       <aside
         className={`${
           isOpen ? "" : "hidden"
@@ -71,33 +62,41 @@ const EmployeeClaims = () => {
       </div>
       <main className="order-last mx-1 md:mx-3 md:col-start-2">
         <div className="flex flex-col gap-1 mb-2">
-          <h2 className="mb-1">Approve claims</h2>
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="rejected"
-            date="12 April, 2024"
-            claimedBy="Jane Doe"
-            processed={false}
-            comment="Wrong receipts attached"
-          />
+          <h2 className="mb-1">
+            {role === "finance"
+              ? "Process"
+              : role === "manager"
+              ? "Approve"
+              : "View"}{" "}
+            claims
+          </h2>
+          {claims &&
+            claims.map((claim, index) => (
+              <ExpenseClaim
+                key={index}
+                details={claim}
+                manager={(role === "manager" || role === "finance") ? true : false}
+                processed={false}
+                onProcess={() => handleProcess(claim.claim_id)} // Pass the handler for processing
+                onReject={() => handleReject(claim.claim_id)}
+              />
+            ))}
         </div>
         <div className="flex flex-col gap-1">
           <h2 className="my-1">Past claims</h2>
-          <Expense
-            amount={500}
-            currency="£"
-            type="Travel"
-            status="rejected"
-            date="12 March, 2024"
-            claimedBy="Jane Doe"
-            processed={true}
-          />
+          {pastClaims &&
+            pastClaims.map((claim, index) => (
+              <ExpenseClaim
+                key={index}
+                details={claim}
+                manager={(role === "manager" || role === "finance") ? true : false}
+                processed={true}
+              />
+            ))}
         </div>
       </main>
-    </div>
+    </>
   );
 };
 
-export default EmployeeClaims;
+export default ViewClaims;

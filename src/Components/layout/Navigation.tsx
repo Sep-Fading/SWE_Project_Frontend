@@ -28,7 +28,7 @@ const Navigation = ({ links, home }: NavigationProps) => {
           ))}
         </div>
         <div className="flex items-center space-x-4">
-          <Link href="/Notifications">
+          <Link href="/EMPLOYEE/Notifications">
             <Image
               src="/notification.svg"
               alt="Notifications"
