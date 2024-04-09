@@ -8,7 +8,6 @@ import Header from "@/Components/Header";
 import Link from "next/link";
 import axios from "axios";
 import { useEffect } from "react";
-import { Play } from "next/font/google";
 
 interface Details {
   first_name: string;
@@ -224,7 +223,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               type="submit"
               text="Update"
               onClick={updateDetails}
-              style="w-[150px] col-start-2 row-start-4 place-self-end mr-2"
+              style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2 md:row-start-4"
             />
           </div>
           <Header title="Address" divStyle="mb-2"/>
@@ -269,7 +268,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               type="submit"
               text="Update"
               onClick={updateAddress}
-              style="w-[150px] col-start-2 place-self-end mr-2"
+              style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2"
             />
           </div>
           <Header title="Bank Details" divStyle="mb-2"/>
@@ -296,7 +295,7 @@ const Post = ({ params }: { params: { userID: string } }) => {
               type="submit"
               text="Update"
               onClick={updateBankDetails}
-              style="w-[150px] col-start-2 place-self-end mr-2"
+              style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2"
             />
           </div>
           <Header title="Change Password" divStyle="mb-2"/>
@@ -312,22 +311,11 @@ const Post = ({ params }: { params: { userID: string } }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="md:w-[90%]">
-              <InputField
-                label="Confirm Password"
-                type="text"
-                name="confirmPassword"
-                placeholder="Confirm new password"
-                icon={"password"}
-                value={"password"}
-                onChange={handleChange}
-              />
-            </div>
             <Button
               type="submit"
               text="Update"
               onClick={onClick}
-              style="w-[150px] col-start-2 place-self-end mr-2"
+              style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2 md:row-start-2"
             />
           </div>
         </form>
