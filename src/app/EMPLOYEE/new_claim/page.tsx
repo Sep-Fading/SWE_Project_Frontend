@@ -23,6 +23,9 @@ interface FormData {
 }
 
 const ExpenseClaim = () => {
+  //Files for uploading VAT receipts
+  const [state, setState] = useState('ready');
+  const [file, setFile] = useState<File | undefined>();
 
   const [userDetails, setUserDetails] = useState<UserDetails>({
     firstName: "",
@@ -55,26 +58,52 @@ const ExpenseClaim = () => {
     // Add your login logic here
   };
 
+  //function that stores the image file
+  function handleImageChange(e: React.FormEvent<HTMLInputElement>){
+    const target = e.target as HTMLInputElement &{
+      files: FileList;
+    }
+
+    console.log('working')
+    setFile(target.files[0])
+    
+  }
+
   const handleSubmit = (e: FormEvent) => {
 
     // Add your login logic here
 
 
+    console.log("file: "+file)
     e.preventDefault(); 
   
-        //integates frontend to backend which handles the 
+    if (typeof file === 'undefined')return;
+    const imageData = new FormData();
+
+
+    imageData.append('file',file, file.name);
+    console.log(imageData.get("file"))
+        //integates frontend to backend which handles the new claim
         Axios 
         //This is backend url 
             .post("http://localhost:8000/api/employeeformmodel/", { 
-              amount: formData.amount,
+                lineManagerID: "1",
+                dateMade: "2024-04-08",
+                amount: formData.amount,
                 currency: formData.currency,
                 typeClaim: formData.type,
                 description: formData.description,
+                receipt: imageData.get("file"),
                 acknowledgement: formData.acknowledgement,
+                status: "PENDING",
+                dateApproved: "2024-04-08",
+                comments: "",
+                user_id: null
             }) 
            
              
             .catch((err) => {}); 
+       
        
     };
              
@@ -181,10 +210,13 @@ const ExpenseClaim = () => {
           <input
             id="file-upload"
             name="file-upload"
+            onChange={handleImageChange}
             type="file"
             multiple
             className="hidden"
             aria-describedby="file-upload-description"
+            //means only certain types of files are allowed to be uploaded in this case images
+            accept=".pdf,.png,.jpg,.jpeg"
           />
           <label
             htmlFor="file-upload"
