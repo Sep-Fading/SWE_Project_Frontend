@@ -67,9 +67,10 @@ const EmployeeClaims = () => {
         <div className="flex flex-col gap-1 mb-2">
           <h2 className="mb-1">Approve claims</h2>
           <Expense
+          id="1"
             amount={500}
             currency="£"
-            type="Travel"
+            typeClaim="Travel"
             status="rejected"
             date="12 April, 2024"
             claimedBy="Jane Doe"
@@ -80,9 +81,10 @@ const EmployeeClaims = () => {
         <div className="flex flex-col gap-1">
           <h2 className="my-1">Past claims</h2>
           <Expense
+          id="2"
             amount={500}
             currency="£"
-            type="Travel"
+            typeClaim="Travel"
             status="rejected"
             date="12 March, 2024"
             claimedBy="Jane Doe"
