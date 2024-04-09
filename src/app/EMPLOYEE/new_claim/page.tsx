@@ -82,16 +82,11 @@ const ExpenseClaim = () => {
 
   return (
     <div className="flex flex-col justify-evenly md:mx-[10%]">
-      <Header title="Expense Claim" divStyle="hidden md:inline" />
+      <Header title="Expense Claim" divStyle="text-center my-4 md:text-left"/>
       <form
         onSubmit={handleSubmit}
-        className="bg-[#D9D9D9] flex flex-col justify-evenly items-center rounded  shadow-md h-[110vh] md:h-[125vh]"
+        className="flex flex-col justify-between gap-2 items-center rounded min-h-[850px] h-dvh md:justify-evenly md:min-h-[750px] md:bg-[#D9D9D9] md:shadow-md md:h-[125vh]"
       >
-        <Header
-          title="Expense Claim"
-          divStyle="md:hidden"
-          style="text-center"
-        />
         <div className="grid grid-cols-2 w-[90%] md:flex md:justify-between md:w-[80%]">
           <div>
             <h2 className="font-medium">First Name</h2>
@@ -219,7 +214,7 @@ const ExpenseClaim = () => {
         <Button
           type="submit"
           text="Submit"
-          style="w-[90%] md:w-[80%]"
+          style="my-2 w-[90%] md:w-[80%]"
           onClick={onClick}
         />
       </form>

@@ -11,17 +11,20 @@ export function middleware(request: NextRequest) {
 
   const userRoleCookie = request.cookies.get("userRole");
   
-  console.log("path", userRoleCookie);
-  if (userRoleCookie && !request.nextUrl.pathname.startsWith(`/Login`)) {
+  if (userRoleCookie) {
     const userRole = userRoleCookie.value;
 
-    if (
-      request.nextUrl.pathname.startsWith(`/${userRole}`) ||
-      request.nextUrl.pathname.toUpperCase().startsWith(`/EMPLOYEE`)
-    ) {
-      return NextResponse.next();
+    if (!request.nextUrl.pathname.startsWith(`/Login`)) {
+      if (
+        request.nextUrl.pathname.startsWith(`/${userRole}`) ||
+        request.nextUrl.pathname.toUpperCase().startsWith(`/EMPLOYEE`)
+      ) {
+        return NextResponse.next();
+      } else {
+        return NextResponse.redirect(new URL(`/${userRole}`, request.url));
+      }
     } else {
-      return NextResponse.redirect(new URL(`/${userRole}`, request.url));
+      return NextResponse.redirect(new URL(`/${userRole}/user_page`, request.url));
     }
   }
 
