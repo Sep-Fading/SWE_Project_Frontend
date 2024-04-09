@@ -6,8 +6,6 @@ import Header from "@/Components/Header";
 import Expense from "@/Components/FinanceClaim";
 import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
-// Sepehr's Addition - Login Auth
-import { useProtectedRoute } from "../../../useProtectedRoute";
 
 interface Claim {
   amount: number;
@@ -28,9 +26,6 @@ const EmployeeClaims = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [claims, setClaims] = useState<ClaimsData>();
 
-  // AUTH
-  useProtectedRoute('LINEMANAGER');
-  
   const handleFilterChange = (
     filters: Record<string, boolean | number[] | number>
   ) => {
@@ -39,12 +34,10 @@ const EmployeeClaims = () => {
   };
 
   // Handler for processing a claim
-  const handleProcess = (claimID) => {
-  };
+  const handleProcess = (claimID) => {};
 
   // Handler for rejecting a claim
-  const handleReject = (claimID) => {
-  };
+  const handleReject = (claimID) => {};
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     // Add search logic here
@@ -80,9 +73,10 @@ const EmployeeClaims = () => {
         <div className="flex flex-col gap-1 mb-2">
           <h2 className="mb-1">Approve claims</h2>
           <Expense
+            id="1"
             amount={500}
             currency="£"
-            type="Travel"
+            typeClaim="Travel"
             status="rejected"
             date="12 April, 2024"
             claimedBy="Jane Doe"
@@ -95,9 +89,10 @@ const EmployeeClaims = () => {
         <div className="flex flex-col gap-1">
           <h2 className="my-1">Past claims</h2>
           <Expense
+            id="1"
             amount={500}
             currency="£"
-            type="Travel"
+            typeClaim="Travel"
             status="rejected"
             date="12 March, 2024"
             claimedBy="Jane Doe"

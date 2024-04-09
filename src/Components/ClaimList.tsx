@@ -1,5 +1,5 @@
 import Claim from "@/Components/FinanceClaim";
-import { getData } from "@/api/getClaims";
+import { getData } from "../app/api/getClaims";
 
 async function ClaimList() {
   const claims = await getData();

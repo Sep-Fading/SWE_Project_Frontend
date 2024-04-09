@@ -6,8 +6,6 @@ import Header from "@/Components/Header";
 import Expense from "@/Components/FinanceClaim";
 import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
-// Sepehr's Addition - Login Auth
-import { useProtectedRoute } from "../../../useProtectedRoute";
 
 interface Claim {
   amount: number;
@@ -26,11 +24,7 @@ interface ClaimsData {
 
 const EmployeeClaims = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [claims, setClaims] = useState<ClaimsData>();
-
-  // AUTH
-  useProtectedRoute('LINEMANAGER');
-  
+  const [claims, setClaims] = useState<ClaimsData>(); 
 
   const handleFilterChange = (
     filters: Record<string, boolean | number[] | number>

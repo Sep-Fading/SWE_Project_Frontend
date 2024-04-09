@@ -5,15 +5,10 @@ import Image from "next/image";
 import Header from "@/Components/Header";
 import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
-// Sepehr's Addition - Login Auth
-import { useProtectedRoute } from "../../../useProtectedRoute";
-import ClaimList from "./ClaimList";
+import ClaimList from "@/Components/ClaimList";
 
 const EmployeeClaims = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  // AUTH
-  useProtectedRoute("FINANCE");
 
   const handleFilterChange = (
     filters: Record<string, boolean | number[] | number>

@@ -4,8 +4,6 @@ import { useState, ChangeEvent } from "react";
 import Header from "@/Components/Header";
 import SearchBar from "@/Components/SearchBar";
 import UserCard from "@/Components/UserCard";
-// Sepehr's Addition - Login Auth
-import { useProtectedRoute } from '../../../useProtectedRoute';
 
 interface User {
   title: string;
@@ -20,9 +18,6 @@ interface UsersData {
 
 const ViewUsers = () => {
   const [users, setUsers] = useState<UsersData>();
-
-  // AUTH
-  useProtectedRoute('LINEMANAGER');
 
   const [search, setSearch] = useState<string>("");
 
