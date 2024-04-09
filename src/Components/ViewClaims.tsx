@@ -33,7 +33,7 @@ const ViewClaims = ({ claims }: ViewClaimsProps) => {
   const handleReject = (id: string) => {};
 
   return (
-    <div>
+    <>
       <aside
         className={`${
           isOpen ? "" : "hidden"
@@ -85,7 +85,7 @@ const ViewClaims = ({ claims }: ViewClaimsProps) => {
           <h2 className="my-1">Past claims</h2>
         </div>
       </main>
-    </div>
+    </>
   );
 };
 

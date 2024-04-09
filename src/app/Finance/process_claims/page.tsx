@@ -1,5 +1,5 @@
 import ViewClaims from "@/Components/ViewClaims";
-import { getData } from "/api/getClaims";
+import { getData } from "@/lib/fetchClaims";
 import { Claim } from "@/types/Claim";
 
 export default async function FinanceClaim() {

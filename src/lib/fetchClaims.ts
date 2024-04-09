@@ -18,4 +18,6 @@ async function getData() {
   }
 }
 
+
+
 export { getData };
