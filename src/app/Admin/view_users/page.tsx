@@ -4,8 +4,6 @@ import { useState, useEffect, ChangeEvent } from "react";
 import Header from "@/Components/Header";
 import SearchBar from "@/Components/SearchBar";
 import UserCard from "@/Components/UserCard";
-// Sepehr's Addition - Login Auth
-import { useProtectedRoute } from "../../../useProtectedRoute";
 import axios from "axios";
 
 interface UserDetails {
@@ -20,8 +18,6 @@ interface UserDetails {
 }
 
 const ViewUsers = () => {
-  // AUTH
-  useProtectedRoute("ADMIN");
 
   // BACKEND INTEGRATION:
   // Makes a call to the backend with a special api
