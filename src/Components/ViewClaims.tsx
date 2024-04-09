@@ -67,7 +67,7 @@ const ViewClaims = ({ claims, pastClaims, role }: ViewClaimsProps) => {
               ? "Process"
               : role === "manager"
               ? "Approve"
-              : "View"}{" "}
+              : "Current"}{" "}
             claims
           </h2>
           {claims &&
