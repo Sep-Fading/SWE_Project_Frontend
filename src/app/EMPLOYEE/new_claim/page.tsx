@@ -5,7 +5,7 @@ import Image from "next/image";
 import Header from "@/Components/Header";
 import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
-import Axios from "axios";
+import axiosWithAuth from "@/lib/axiosWithAuth";
 
 interface UserDetails {
   firstName: string;
@@ -63,7 +63,7 @@ const ExpenseClaim = () => {
     e.preventDefault(); 
   
         //integates frontend to backend which handles the 
-        Axios 
+        axiosWithAuth
         //This is backend url 
             .post("http://localhost:8000/api/employeeformmodel/", { 
               amount: formData.amount,

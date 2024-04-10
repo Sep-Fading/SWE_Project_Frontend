@@ -1,3 +1,4 @@
+import { NextURL } from "next/dist/server/web/next-url";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -8,33 +9,45 @@ export function middleware(request: NextRequest) {
   if (staticAssetPattern.test(request.nextUrl.pathname)) {
     return NextResponse.next();
   }
-
-  const userRoleCookie = request.cookies.get("userRole");
   
-  if (userRoleCookie) {
+  // Retrieve tokens and user role from cookies.
+  const accessToken = request.cookies.get("access_token");
+  const userRoleCookie = request.cookies.get("userRole");
+
+  // Defining the login page path 
+  const loginPath = '/Login';
+  
+  // Handle redirection based on tokens and user role
+  if (userRoleCookie && accessToken) {
     const userRole = userRoleCookie.value;
 
-    if (!request.nextUrl.pathname.startsWith(`/Login`)) {
-      if (
-        request.nextUrl.pathname.startsWith(`/${userRole}`) ||
-        request.nextUrl.pathname.toUpperCase().startsWith(`/EMPLOYEE`)
-      ) {
-        return NextResponse.next();
-      } else {
-        return NextResponse.redirect(new URL(`/${userRole}`, request.url));
-      }
-    } else {
+    // If accessing the login page, redirect to user-specifc
+    if (request.nextUrl.pathname.startsWith(loginPath)) {
       return NextResponse.redirect(new URL(`/${userRole}/user_page`, request.url));
     }
+
+    // Allow next response if the path starts with the user role or is public.
+    if (request.nextUrl.pathname.startsWith(`/${userRole}`) || 
+      request.nextUrl.pathname.toUpperCase().startsWith(`/EMPLOYEE`)) {
+        
+        return NextResponse.next();
+    }
+
+    // Redirect to the role-specific page if not on an allowed path.
+    return NextResponse.redirect(new URL(`/${userRole}`, request.url));
   }
 
-  if (!userRoleCookie && !request.nextUrl.pathname.startsWith("/Login")) {
-    return Response.redirect(new URL("/Login", request.url));
-  } else {
-    console.log("No currentUser cookie found.");
+  // Redirect unauthenticated requests to the login page, excluding API paths.
+  if (!accessToken && !request.nextUrl.pathname.startsWith(loginPath) &&
+    !request.nextUrl.pathname.startsWith('/api')) {
+      
+      return NextResponse.redirect(new URL(loginPath, request.url));
   }
+
+  // Continue with the request if none of the above conditions are met.
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|lib).*)"],
 };
