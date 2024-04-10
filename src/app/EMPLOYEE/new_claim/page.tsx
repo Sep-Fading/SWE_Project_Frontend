@@ -155,10 +155,10 @@ const ExpenseClaim = () => {
             <option value="" disabled>
               --Select Option--
             </option>
-            <option value="travel">Travel</option>
-            <option value="meal">Meal</option>
-            <option value="stay">Night Stay</option>
-            <option value="gift">Gift</option>
+            <option value='TRAVEL'>Travel</option>
+            <option value='MEAL'>Meal</option>
+            <option value='STAY'>Night Stay</option>
+            <option value='GIFT'>Gift</option>
           </select>
         </div>
         <TextArea
