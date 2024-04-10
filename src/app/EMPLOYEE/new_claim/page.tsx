@@ -24,6 +24,10 @@ interface FormData {
 
 const ExpenseClaim = () => {
 
+   //Files for uploading VAT receipts
+   const [state, setState] = useState('ready');
+   const [file, setFile] = useState<File | undefined>();
+
   const [userDetails, setUserDetails] = useState<UserDetails>({
     firstName: "",
     lastName: "",
@@ -55,12 +59,32 @@ const ExpenseClaim = () => {
     // Add your login logic here
   };
 
+
+  //function that stores the image file
+  function handleImageChange(e: React.FormEvent<HTMLInputElement>){
+    const target = e.target as HTMLInputElement &{
+      files: FileList;
+    }
+
+    console.log('working')
+    setFile(target.files[0])
+    
+  }
+
   const handleSubmit = (e: FormEvent) => {
 
     // Add your login logic here
 
 
     e.preventDefault(); 
+
+        // if (typeof file === 'undefined')return;
+      // const imageData = new FormData();
+
+
+    console.log(formData.type)
+    // imageData.append('file',file, file.name);
+    // console.log(imageData.get("file"))
   
         //integates frontend to backend which handles the 
         axiosWithAuth
@@ -181,10 +205,14 @@ const ExpenseClaim = () => {
           <input
             id="file-upload"
             name="file-upload"
+            //function that will store image
+            onChange={handleImageChange}
             type="file"
             multiple
             className="hidden"
             aria-describedby="file-upload-description"
+            //means only certain types of files are allowed to be uploaded in this case images
+            accept=".pdf,.png,.jpg,.jpeg"
           />
           <label
             htmlFor="file-upload"
