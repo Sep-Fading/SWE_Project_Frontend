@@ -13,6 +13,7 @@ async function fetchUser(user_id: string): Promise<User> {
     console.error("Failed to fetch users: ", error);
     return {
       user_id: "",
+      manager_id: "",
       first_name: "",
       last_name: "",
       role: "",

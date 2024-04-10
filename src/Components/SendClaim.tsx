@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, ChangeEvent, FormEvent } from "react";
 import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
@@ -21,7 +22,7 @@ interface SendClaimProps {
 }
 
 const SendClaim = ({
-  details: { user_id, first_name, last_name, email, phone_number },
+  details: { user_id, first_name, last_name, email, phone_number, manager_id },
 }: SendClaimProps) => {
   const [formData, setFormData] = useState<FormData>({
     amount: "",
@@ -30,6 +31,8 @@ const SendClaim = ({
     description: "",
     acknowledgement: false,
   });
+
+  const router = useRouter();
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -50,6 +53,7 @@ const SendClaim = ({
       const claim: Claim = {
         claim_id: "",
         user_id: user_id,
+        manager_id: manager_id,
         amount: formData.amount !== "" ? formData.amount : parseFloat(formData.amount),
         currency: formData.currency,
         type: formData.type !== "" ? formData.type : "Other",
@@ -60,16 +64,18 @@ const SendClaim = ({
           month: "long",
           year: "numeric",
         }),
+        receipt: null,
         claimed_by: first_name + " " + last_name,
         comment: "",
       };
-      alert(JSON.stringify(claim, null, 2));
+      console.log(claim);
+      router.push("/home");
       sendClaim(claim);
     }
   };
 
   return (
-    <form className="flex flex-col justify-between gap-2 items-center rounded min-h-[850px] h-dvh md:justify-evenly md:min-h-[750px] md:bg-[#D9D9D9] md:shadow-md md:h-[125vh]">
+    <form onSubmit={handleSubmit} className="flex flex-col justify-between gap-2 items-center rounded min-h-[850px] h-dvh md:justify-evenly md:min-h-[750px] md:bg-[#D9D9D9] md:shadow-md md:h-[125vh]">
       <div className="grid grid-cols-2 w-[90%] md:flex md:justify-between md:w-[80%]">
         <div>
           <h2 className="font-medium">First Name</h2>
@@ -205,7 +211,6 @@ const SendClaim = ({
         type="submit"
         text="Submit"
         style="my-2 w-[90%] md:w-[80%]"
-        onClick={handleSubmit}
       />
     </form>
   );
