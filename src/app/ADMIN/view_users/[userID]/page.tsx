@@ -9,10 +9,6 @@ import formatRole from "@/lib/formatRole";
 export default async function Post({ params }: { params: { userID: string } }) {
   const details = await getData("user-info", params.userID);
 
-  const updateUser = async (e: FormEvent) => {
-    updateDetails(params.userID, details);
-  }
-
   const onClick = () => {
     // Add your login logic here
   };
