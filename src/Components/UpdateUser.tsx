@@ -286,8 +286,8 @@ const UpdateUser = ({
             style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2"
           />
         </div>
+        </form>
       </div>
-    </form>
   );
 };
 

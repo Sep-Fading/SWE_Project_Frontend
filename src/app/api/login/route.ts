@@ -33,7 +33,6 @@ export async function POST(req: NextRequest) {
       secure: process.env.NODE_ENV === "production",
     });
 
-    cookies = [...cookies, userRoleCookie, userID];
     const userPasswordFlagCookie = serialize("flagged_password_change", userPasswordFlag, {
         httpOnly: true,
         path: "/",
