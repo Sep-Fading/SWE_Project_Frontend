@@ -4,6 +4,7 @@ import Link from "next/link";
 import UpdateUserDetails from "@/Components/UpdateUser";
 import { getData } from "@/lib/fetchUser";
 import { updateDetails } from "@/lib/updateDetails";
+import { flagPassword } from "@/lib/flagPassword";
 import formatRole from "@/lib/formatRole";
 
 export default async function Post({ params }: { params: { userID: string } }) {
@@ -26,14 +27,6 @@ export default async function Post({ params }: { params: { userID: string } }) {
         </div>
         <hr className="border-3 border-black"></hr>
         <UpdateUserDetails details={details}/>
-        <button
-          className={
-            "mt-5 rounded-lg text-center bg-red-gradient text-white py-1 duration-200 hover:shadow-lg font-semibold w-full"
-          }
-          type="submit"
-        >
-          Delete Account
-        </button>
       </div>
     </div>
   );

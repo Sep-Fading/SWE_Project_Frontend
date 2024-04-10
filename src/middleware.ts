@@ -10,15 +10,25 @@ export function middleware(request: NextRequest) {
   }
 
   const userRoleCookie = request.cookies.get("userRole");
-  
+  const userPasswordFlag = request.cookies.get("flagged_password_change");
   if (userRoleCookie) {
     const userRole = userRoleCookie.value;
-
+    const passChange = userPasswordFlag.value;
+    console.log(userPasswordFlag);
+    const url = new URL("/Login/reset_password", request.nextUrl.origin);
+   
     if (!request.nextUrl.pathname.startsWith(`/Login`)) {
       if (
         request.nextUrl.pathname.startsWith(`/${userRole}`) ||
         request.nextUrl.pathname.toUpperCase().startsWith(`/EMPLOYEE`)
       ) {
+        
+            // Redirect to password reset page if required
+            if (userPasswordFlag === 'true') {
+                console.log("PASSING THROUGH THE IF");
+                // Constructing an absolute URL for redirection
+                return NextResponse.redirect('/Login/reset_password');
+            }
         return NextResponse.next();
       } else {
         return NextResponse.redirect(new URL(`/${userRole}`, request.url));
