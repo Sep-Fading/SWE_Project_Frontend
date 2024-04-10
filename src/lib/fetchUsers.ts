@@ -1,10 +1,13 @@
 import axios from "axios";
 import { User } from "@/types/User";
 
-async function getData(specifier: string): Promise<User[]> {
+async function fetchUsers(specifier: string, user_id?: string): Promise<User[]> {
   try {
+    // users, manangers, employees
     const response = await axios.get<User | User[]>(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/${specifier}/`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/${specifier}/${
+        user_id ? user_id + "/" : ""
+      }`,
       { withCredentials: true }
     );
 
@@ -15,4 +18,4 @@ async function getData(specifier: string): Promise<User[]> {
   }
 }
 
-export { getData };
+export { fetchUsers };

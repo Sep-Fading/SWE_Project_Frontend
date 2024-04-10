@@ -1,4 +1,3 @@
-"use client";
 import HomeCard from "@/Components/HomeCard";
 
 export default function Home() {
@@ -24,7 +23,7 @@ export default function Home() {
         layout="w-[90%] min-w-44 order-last md:place-self-start md:row-start-2 md:w-[250px]"
       />
       <HomeCard
-        href="/LINEMANAGER/pending_claims"
+        href="/LINEMANAGER/approve_claims"
         image="/checklist.svg"
         text="Review Claims"
         layout="w-[90%] min-w-44 md:place-self-start md:row-start-1 md:col-start-3 md:w-[250px]"

@@ -7,14 +7,16 @@ import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
 import ExpenseClaim from "@/Components/ExpenseClaim";
 import { Claim } from "@/types/Claim";
+import { User } from "@/types/User";
 
 interface ViewClaimsProps {
   claims: Claim[];
   pastClaims: Claim[];
   role: "finance" | "manager" | "employee";
+  user: User;
 }
 
-const ViewClaims = ({ claims, pastClaims, role }: ViewClaimsProps) => {
+const ViewClaims = ({ claims, user, pastClaims, role }: ViewClaimsProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleFilterChange = (
@@ -75,10 +77,9 @@ const ViewClaims = ({ claims, pastClaims, role }: ViewClaimsProps) => {
               <ExpenseClaim
                 key={index}
                 details={claim}
+                user={user}
                 manager={(role === "manager" || role === "finance") ? true : false}
                 processed={false}
-                onProcess={() => handleProcess(claim.claim_id)} // Pass the handler for processing
-                onReject={() => handleReject(claim.claim_id)}
               />
             ))}
         </div>
@@ -89,6 +90,7 @@ const ViewClaims = ({ claims, pastClaims, role }: ViewClaimsProps) => {
               <ExpenseClaim
                 key={index}
                 details={claim}
+                user={user}
                 manager={(role === "manager" || role === "finance") ? true : false}
                 processed={true}
               />

@@ -29,6 +29,7 @@ interface Password {
 type UpdateDetailsType = Details | Address | BankDetails | Password;
 
 async function updateDetails(user_id: string, details: UpdateDetailsType) {
+  console.log("details: ", details);
   try {
     const response = await axiosWithAuth.patch(
       `/accounts/api/user-info/update/${user_id}/`,

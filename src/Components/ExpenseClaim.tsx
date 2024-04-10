@@ -1,12 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import Button from "./Button";
+import TextArea from "./TextArea";
 import { Claim } from "@/types/Claim";
+import { User } from "@/types/User";
+import updateClaim from "@/lib/updateClaim";
 
 interface claimProps {
   details: Claim;
+  user: User;
   manager: boolean;
   processed: boolean;
   onProcess?: () => void;
@@ -26,12 +30,54 @@ const ExpenseClaim = ({
     approved_on,
     comment,
   },
+  user: { first_name, last_name },
   manager,
   processed,
   onProcess,
   onReject,
 }: claimProps) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [addComment, setAddComment] = useState("");
+
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setAddComment(e.target.value);
+  };
+
+  const acceptClaim = (manager: "manager" | "finance") => {
+    const userConfirmed = confirm("Are you sure you want to proceed?");
+    if (userConfirmed) {
+      const claim: Partial<Claim> = {
+        claim_id: claim_id,
+        status: manager === "manager" ? "approved" : "processed",
+        approved_by: manager === "manager" ? first_name + " " + last_name : "",
+        approved_on:
+          manager === "manager"
+            ? new Date().toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })
+            : "",
+        comment: comment,
+      };
+      updateClaim(claim);
+    }
+  };
+
+  const rejectClaim = (manager: "manager" | "finance") => {
+    const userConfirmed = confirm("Are you sure you want to proceed?");
+    if (userConfirmed) {
+      const claim: Partial<Claim> = {
+        claim_id: claim_id,
+        status: manager === "manager" ? "rejected" : "rejectedF",
+        approved_by: "",
+        approved_on: "",
+        comment: comment,
+      };
+      updateClaim(claim);
+    }
+  };
 
   return (
     <div className="bg-white cursor-pointer rounded  hover:scale-[1.01] transition-transform duration-300 hover:shadow">
@@ -57,8 +103,8 @@ const ExpenseClaim = ({
         </div>
         <div className="text-right">
           <h1 className="text-xl flex">
-            {amount}
             {currency}
+            {amount}
             <Image
               src={`/${isOpen ? "drop_up" : "drop_down"}.svg`}
               alt="Arrow"
@@ -73,17 +119,19 @@ const ExpenseClaim = ({
           <div className="flex justify-between md:block">
             <h2 className="font-medium">Amount</h2>
             <p>
-              {amount}
               {currency}
+              {amount}
             </p>
           </div>
           <div className="flex justify-between md:block">
             <h2 className="font-medium">Category</h2>
             <p>{type}</p>
           </div>
-          <div className={`${
+          <div
+            className={`${
               claimed_by ? "flex md:block" : "hidden"
-            } justify-between`}>
+            } justify-between`}
+          >
             <h2 className="font-medium">Claimed by</h2>
             <p>{claimed_by}</p>
           </div>
@@ -122,11 +170,8 @@ const ExpenseClaim = ({
           </div>
         </div>
         <div className="ml-12 mr-4">
-          {comment && (
-            <h2 className="mb-2 text-left font-medium">{comment}</h2>
-          )}
-          {((status === "rejected" || status === "approved") &&
-          processed) && (
+          {comment && <h2 className="mb-2 text-left font-medium">{comment}</h2>}
+          {(status === "rejected" || status === "approved") && processed && (
             <h2
               className={`md:text-sm text-xs pb-2 ml-[-8px] text-left ${
                 status === "rejected" ? "text-[#e74c3c]" : "text-[#4CAF50]"
@@ -136,17 +181,28 @@ const ExpenseClaim = ({
             </h2>
           )}
         </div>
-        {(!processed && manager) && (
-          <div className="flex w-full p-2 gap-1">
-            <Button
-              text={`${
-                approved_by && approved_on ? "Process" : "Approve"
-              } Claim`}
-              onClick={onProcess}
-              style="w-1/2"
+        {!processed && manager && (
+          <>
+            <TextArea
+              label=""
+              name=""
+              placeholder=""
+              value={addComment}
+              onChange={handleChange}
             />
-            <Button text="Reject Claim" onClick={onReject} style="w-1/2" />
-          </div>
+            <div className="flex w-full p-2 gap-1">
+              <Button
+                text={`${
+                  approved_by !== "" || approved_on !== ""
+                    ? "Process"
+                    : "Approve"
+                } Claim`}
+                onClick={onProcess}
+                style="w-1/2"
+              />
+              <Button text="Reject Claim" onClick={onReject} style="w-1/2" />
+            </div>
+          </>
         )}
       </div>
     </div>

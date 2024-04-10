@@ -26,6 +26,14 @@ export async function POST(req: NextRequest) {
       secure: process.env.NODE_ENV === "production",
     });
 
+    const userID = serialize("userID", backendResponse.data.user_id, {
+      httpOnly: true,
+      path: "/",
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    cookies = [...cookies, userRoleCookie, userID];
     const userPasswordFlagCookie = serialize("flagged_password_change", userPasswordFlag, {
         httpOnly: true,
         path: "/",
@@ -33,7 +41,7 @@ export async function POST(req: NextRequest) {
         secure: process.env.NODE_ENV === "production",
     });
 
-    cookies = [...cookies, userRoleCookie, userPasswordFlagCookie];
+    cookies = [...cookies, userRoleCookie, userID, userPasswordFlagCookie];
 
     // Creating a response
     let response = NextResponse.json(backendResponse.data);

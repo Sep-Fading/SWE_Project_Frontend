@@ -1,10 +1,13 @@
-import axiosWithAuth from "./axiosWithAuth";
+import axios from "axios";
 import { User } from "@/types/User";
 
-async function getData(specifier: string, user_id: String): Promise<User> {
+async function fetchUser(user_id: string): Promise<User> {
   try {
-    const response = await axiosWithAuth.get<User>(`/accounts/api/${specifier}/${user_id}/`);
-    console.log("response: ", response);
+    const response = await axios.get<User>(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/${user_id}/`,
+      { withCredentials: true }
+    );
+
     return response.data;
   } catch (error) {
     console.error("Failed to fetch users: ", error);
@@ -26,4 +29,4 @@ async function getData(specifier: string, user_id: String): Promise<User> {
   }
 }
 
-export { getData };
+export { fetchUser };
