@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
       secure: process.env.NODE_ENV === "production",
     });
 
+
     const userPasswordFlagCookie = serialize("flagged_password_change", backendResponse.data.flagged_password_change, {
       httpOnly: true,
       path: "/",
