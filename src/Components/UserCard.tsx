@@ -76,7 +76,7 @@ const UserCard = ({
         </div>
         {admin && (
           <Link
-            href={`/Admin/view_users/${user_id}`}
+            href={`/ADMIN/view_users/${user_id}`}
             className="py-1 rounded-lg text-center bg-fdm-gradient text-white hover:scale-[1.005] transition-transform duration-300 hover:shadow w-full"
             passHref
           >
