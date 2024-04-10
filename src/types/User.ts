@@ -12,4 +12,5 @@ export type User = {
   account_number: string;
   sort_code: string;
   tax_code: string;
+  manager_id:string;
 };

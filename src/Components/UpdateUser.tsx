@@ -6,6 +6,7 @@ import Button from "@/Components/Button";
 import Header from "@/Components/Header";
 import { User } from "@/types/User";
 import { updateDetails } from "@/lib/updateDetails";
+import { flagPassword } from "@/lib/flagPassword";
 
 interface Details {
   first_name: string;
@@ -13,6 +14,7 @@ interface Details {
   email: string;
   phone_number: string;
   tax_code: string;
+  manager_id: string;
 }
 
 interface Address {
@@ -51,6 +53,7 @@ const UpdateUser = ({
     account_number,
     sort_code,
     tax_code,
+    manager_id,
   },
 }: UpdateUserProps) => {
   const [details, setDetails] = useState<Details>({
@@ -59,6 +62,7 @@ const UpdateUser = ({
     email: email,
     phone_number: phone_number,
     tax_code: tax_code,
+    manager_id: manager_id,
   });
 
   const [fullAddress, setFullAddress] = useState<Address>({
@@ -114,7 +118,7 @@ const UpdateUser = ({
         updateDetails(user_id, bankDetails);
         break;
       case "password":
-        updateDetails(user_id, bankDetails);
+        flagPassword(user_id);
         break;
       default:
         break;
@@ -177,6 +181,15 @@ const UpdateUser = ({
             value={details.tax_code}
             onChange={handleChange}
           />
+        </div>
+        <div className="md:w-[90%]">
+            <InputField
+                label="Manager ID"
+                type="text"
+                name="details-manager_id"
+                value={details.manager_id}
+                onChange={handleChange}
+            />
         </div>
         <Button
           type="submit"
@@ -264,23 +277,17 @@ const UpdateUser = ({
             handleSubmit("password");
           }} className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
         <div className="md:w-[90%]">
-          <InputField
-            label="Password"
-            type="text"
-            name="password"
-            placeholder="Confirm new password"
-            icon={"password"}
-            value={"password"}
-            onChange={handleChange}
+          <Button
+            type="submit" 
+            text="Change Password" 
+            onClick={() => {
+                handleSubmit("password");
+            }}
+            style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2"
           />
         </div>
-        <Button
-          type="submit"
-          text="Update"
-          style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2 md:row-start-2"
-        />
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

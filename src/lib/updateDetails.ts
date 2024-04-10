@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosWithAuth from "./axiosWithAuth";
 
 interface Details {
   first_name: string;
@@ -6,6 +6,7 @@ interface Details {
   email: string;
   phone_number: string;
   tax_code: string;
+  manager_id: string;
 }
 
 interface Address {
@@ -30,10 +31,9 @@ type UpdateDetailsType = Details | Address | BankDetails | Password;
 async function updateDetails(user_id: string, details: UpdateDetailsType) {
   console.log("details: ", details);
   try {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/update/${user_id}/`,
+    const response = await axiosWithAuth.patch(
+      `/accounts/api/user-info/update/${user_id}/`,
       details,
-      { withCredentials: true }
     );
 
     console.log("response: ", response);

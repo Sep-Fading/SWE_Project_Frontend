@@ -6,6 +6,12 @@ import LineChart from "@/Components/LineChart";
 import Button from "@/Components/Button";
 
 const Page = () => {
+
+  const LogOutButton = () => {
+    // Not working???
+    //document.cookie = "userRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  };
+
   const categories = ["Travel", "Meal", "Night Stay", "Gift"];
   const expenses = [300, 50, 100, 150];
 
@@ -80,7 +86,7 @@ const Page = () => {
           <LineChart labels={months} data={monthlyExpenses} />
         </div>
       </div>
-      <Button text="Logout" style="w-full col-span-2" />
+      <Button text="Logout" style="w-full col-span-2"/>
     </div>
   );
 };
