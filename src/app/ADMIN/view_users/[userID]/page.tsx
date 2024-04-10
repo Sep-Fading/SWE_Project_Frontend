@@ -3,7 +3,6 @@ import { FormEvent } from "react";
 import Link from "next/link";
 import UpdateUserDetails from "@/Components/UpdateUser";
 import { getData } from "@/lib/fetchUser";
-import { updateDetails } from "@/lib/updateDetails";
 import formatRole from "@/lib/formatRole";
 
 export default async function Post({ params }: { params: { userID: string } }) {
