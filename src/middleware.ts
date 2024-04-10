@@ -10,22 +10,32 @@ export function middleware(request: NextRequest) {
   }
 
   const userRoleCookie = request.cookies.get("userRole");
-  
+  const userPasswordFlag = request.cookies.get("flagged_password_change");
   if (userRoleCookie) {
     const userRole = userRoleCookie.value;
-
+    const passChange = userPasswordFlag.value;
+    console.log(userPasswordFlag);
+    const url = new URL("/Login/reset_password", request.nextUrl.origin);
+   
     if (!request.nextUrl.pathname.startsWith(`/Login`)) {
+
       if (
         request.nextUrl.pathname.startsWith(`/${userRole}`) ||
         request.nextUrl.pathname.toUpperCase().startsWith(`/EMPLOYEE`)
       ) {
-        return NextResponse.next();
-      } else {
+            return NextResponse.next();
+      } 
+
+      else {
         return NextResponse.redirect(new URL(`/${userRole}`, request.url));
       }
-    } else {
+
+    } 
+
+    else {
       return NextResponse.redirect(new URL(`/${userRole}/user_page`, request.url));
     }
+
   }
 
   if (!userRoleCookie && !request.nextUrl.pathname.startsWith("/Login")) {

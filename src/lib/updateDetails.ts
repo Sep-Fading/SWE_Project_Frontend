@@ -6,6 +6,7 @@ interface Details {
   email: string;
   phone_number: string;
   tax_code: string;
+  manager_id: string;
 }
 
 interface Address {
