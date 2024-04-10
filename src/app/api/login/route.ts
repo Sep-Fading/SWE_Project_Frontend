@@ -24,7 +24,14 @@ export async function POST(req: NextRequest) {
       secure: process.env.NODE_ENV === "production",
     });
 
-    cookies = [...cookies, userRoleCookie];
+    const userID = serialize("userID", backendResponse.data.user_id, {
+      httpOnly: true,
+      path: "/",
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    cookies = [...cookies, userRoleCookie, userID];
 
     // Creating a response
     let response = NextResponse.json(backendResponse.data);

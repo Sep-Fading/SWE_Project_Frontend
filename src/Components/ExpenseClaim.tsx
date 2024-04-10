@@ -103,8 +103,8 @@ const ExpenseClaim = ({
         </div>
         <div className="text-right">
           <h1 className="text-xl flex">
-            {amount}
             {currency}
+            {amount}
             <Image
               src={`/${isOpen ? "drop_up" : "drop_down"}.svg`}
               alt="Arrow"
@@ -119,8 +119,8 @@ const ExpenseClaim = ({
           <div className="flex justify-between md:block">
             <h2 className="font-medium">Amount</h2>
             <p>
-              {amount}
               {currency}
+              {amount}
             </p>
           </div>
           <div className="flex justify-between md:block">
@@ -183,7 +183,13 @@ const ExpenseClaim = ({
         </div>
         {!processed && manager && (
           <>
-            <TextArea label="" name="" placeholder="" value={addComment} onChange={handleChange} />
+            <TextArea
+              label=""
+              name=""
+              placeholder=""
+              value={addComment}
+              onChange={handleChange}
+            />
             <div className="flex w-full p-2 gap-1">
               <Button
                 text={`${

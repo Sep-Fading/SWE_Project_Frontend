@@ -10,21 +10,74 @@ export function middleware(request: NextRequest) {
   }
 
   const userRoleCookie = request.cookies.get("userRole");
-  
-  if (userRoleCookie) {
+  const userIDCookie = request.cookies.get("userID");
+
+  if (userRoleCookie && userIDCookie) {
     const userRole = userRoleCookie.value;
+    const userID = userIDCookie.value;
 
     if (!request.nextUrl.pathname.startsWith(`/Login`)) {
       if (
         request.nextUrl.pathname.startsWith(`/${userRole}`) ||
         request.nextUrl.pathname.toUpperCase().startsWith(`/EMPLOYEE`)
       ) {
+        if (
+          request.nextUrl.pathname.startsWith(`/EMPLOYEE/view_claims`)
+        ) {
+          if (
+            request.nextUrl.pathname === `/EMPLOYEE/view_claims/${userID}`
+          ) {
+            return NextResponse.next();
+          } else {
+            return NextResponse.redirect(
+              new URL(`/EMPLOYEE/view_claims/${userID}`, request.url)
+            );
+          }
+        } else if (
+          request.nextUrl.pathname.startsWith(`/${userRole}/approve_claims`)
+        ) {
+          if (
+            request.nextUrl.pathname === `/${userRole}/approve_claims/${userID}`
+          ) {
+            return NextResponse.next();
+          } else {
+            return NextResponse.redirect(
+              new URL(`/${userRole}/approve_claims/${userID}`, request.url)
+            );
+          }
+        } else if (
+          request.nextUrl.pathname.startsWith(`/${userRole}/view_employees`)
+        ) {
+          if (
+            request.nextUrl.pathname === `/${userRole}/view_employees/${userID}`
+          ) {
+            return NextResponse.next();
+          } else {
+            return NextResponse.redirect(
+              new URL(`/${userRole}/view_employees/${userID}`, request.url)
+            );
+          }
+        } else if (
+          request.nextUrl.pathname.startsWith(`/${userRole}/process_claims`)
+        ) {
+          if (
+            request.nextUrl.pathname === `/${userRole}/process_claims/${userID}`
+          ) {
+            return NextResponse.next();
+          } else {
+            return NextResponse.redirect(
+              new URL(`/${userRole}/process_claims/${userID}`, request.url)
+            );
+          }
+        }
         return NextResponse.next();
       } else {
         return NextResponse.redirect(new URL(`/${userRole}`, request.url));
       }
     } else {
-      return NextResponse.redirect(new URL(`/${userRole}/user_page`, request.url));
+      return NextResponse.redirect(
+        new URL(`/${userRole}/user_page`, request.url)
+      );
     }
   }
 
