@@ -59,50 +59,51 @@ const ExpenseClaim = () => {
   };
 
   //function that stores the image file
-  function handleImageChange(e: React.FormEvent<HTMLInputElement>){
-    const target = e.target as HTMLInputElement &{
-      files: FileList;
-    }
+  // function handleImageChange(e: React.FormEvent<HTMLInputElement>){
+  //   const target = e.target as HTMLInputElement &{
+  //     files: FileList;
+  //   }
 
-    console.log('working')
-    setFile(target.files[0])
+  //   console.log('working')
+  //   setFile(target.files[0])
     
-  }
+  // }
 
   const handleSubmit = (e: FormEvent) => {
 
     // Add your login logic here
 
 
-    console.log("file: "+file)
+    // console.log("file: "+file)
     e.preventDefault(); 
   
-    if (typeof file === 'undefined')return;
-    const imageData = new FormData();
+    // if (typeof file === 'undefined')return;
+    // const imageData = new FormData();
 
 
-    imageData.append('file',file, file.name);
-    console.log(imageData.get("file"))
-        //integates frontend to backend which handles the new claim
-        Axios 
-        //This is backend url 
-            .post("http://localhost:8000/api/employeeformmodel/", { 
-                lineManagerID: "1",
-                dateMade: "2024-04-08",
-                amount: formData.amount,
-                currency: formData.currency,
-                typeClaim: formData.type,
-                description: formData.description,
-                receipt: imageData.get("file"),
-                acknowledgement: formData.acknowledgement,
-                status: "PENDING",
-                dateApproved: "2024-04-08",
-                comments: "",
-                user_id: null
-            }) 
-           
-             
-            .catch((err) => {}); 
+    console.log(formData.type)
+    // imageData.append('file',file, file.name);
+    // console.log(imageData.get("file"))
+    //integates frontend to backend which handles the new claim
+    Axios 
+    //This is backend url 
+        .post("http://localhost:8000/api/employeeformmodel/", { 
+            lineManagerID: 1,
+            dateMade: '2024-04-08',
+            amount: formData.amount,
+            currency: formData.currency,
+            typeClaim: formData.type,
+            description: formData.description,
+            receipt: null,
+            acknowledgement: formData.acknowledgement,
+            status: 'PENDING',
+            dateApproved: null,
+            comments: null,
+            user_id: null,
+        }) 
+        
+          
+        .catch((err) => {}); 
        
        
     };
@@ -160,13 +161,13 @@ const ExpenseClaim = () => {
               onChange={handleChange}
               className="bg-transparent absolute my-2 ml-[-35px] focus:outline-none"
             >
-              <option value="GBP">£</option>
-              <option value="USD">$</option>
-              <option value="EUR">€</option>
-              <option value="JPY">¥</option>
-              <option value="MXN">₱</option>
-              <option value="INR">₹</option>
-              <option value="CHF">₣</option>
+              <option value='GBP'>£</option>
+              <option value='USD'>$</option>
+              <option value='EUR'>€</option>
+              <option value='JPY'>¥</option>
+              <option value='MXN'>₱</option>
+              <option value='INR'>₹</option>
+              <option value='CHF'>₣</option>
             </select>
           </div>
         </div>
@@ -184,10 +185,10 @@ const ExpenseClaim = () => {
             <option value="" disabled>
               --Select Option--
             </option>
-            <option value="travel">Travel</option>
-            <option value="meal">Meal</option>
-            <option value="stay">Night Stay</option>
-            <option value="gift">Gift</option>
+            <option value='TRAVEL'>Travel</option>
+            <option value='MEAL'>Meal</option>
+            <option value='STAY'>Night Stay</option>
+            <option value='GIFT'>Gift</option>
           </select>
         </div>
         <TextArea
@@ -210,7 +211,7 @@ const ExpenseClaim = () => {
           <input
             id="file-upload"
             name="file-upload"
-            onChange={handleImageChange}
+            //onChange={handleImageChange}
             type="file"
             multiple
             className="hidden"
