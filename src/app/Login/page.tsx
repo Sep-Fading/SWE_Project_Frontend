@@ -23,7 +23,7 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log("Response from backend:", response);
+      //console.log("Response from backend:", response);
       if (response.ok) {
         router.push("/home");
       } else {

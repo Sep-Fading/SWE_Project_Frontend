@@ -5,7 +5,7 @@ import Image from "next/image";
 import Header from "@/Components/Header";
 import Button from "@/Components/Button";
 import TextArea from "@/Components/TextArea";
-import Axios from "axios";
+import axiosWithAuth from "@/lib/axiosWithAuth";
 
 interface UserDetails {
   firstName: string;
@@ -63,7 +63,7 @@ const ExpenseClaim = () => {
     e.preventDefault(); 
   
         //integates frontend to backend which handles the 
-        Axios 
+        axiosWithAuth
         //This is backend url 
             .post("http://localhost:8000/api/employeeformmodel/", { 
               amount: formData.amount,
@@ -155,10 +155,10 @@ const ExpenseClaim = () => {
             <option value="" disabled>
               --Select Option--
             </option>
-            <option value="travel">Travel</option>
-            <option value="meal">Meal</option>
-            <option value="stay">Night Stay</option>
-            <option value="gift">Gift</option>
+            <option value='TRAVEL'>Travel</option>
+            <option value='MEAL'>Meal</option>
+            <option value='STAY'>Night Stay</option>
+            <option value='GIFT'>Gift</option>
           </select>
         </div>
         <TextArea
