@@ -68,7 +68,6 @@ const LineChart = ({ labels, data }: LineChartProps) => {
           },
         },
       },
-      p1: false,
     },
     maintainAspectRatio: false,
     scales: {

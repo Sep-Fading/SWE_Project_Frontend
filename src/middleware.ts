@@ -34,6 +34,18 @@ export function middleware(request: NextRequest) {
             );
           }
         } else if (
+          request.nextUrl.pathname.startsWith(`/EMPLOYEE/new_claim`)
+        ) {
+          if (
+            request.nextUrl.pathname === `/EMPLOYEE/new_claim/${userID}`
+          ) {
+            return NextResponse.next();
+          } else {
+            return NextResponse.redirect(
+              new URL(`/EMPLOYEE/new_claim/${userID}`, request.url)
+            );
+          }
+        } else if (
           request.nextUrl.pathname.startsWith(`/${userRole}/approve_claims`)
         ) {
           if (

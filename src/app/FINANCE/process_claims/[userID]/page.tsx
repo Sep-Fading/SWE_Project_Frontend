@@ -11,7 +11,6 @@ export default async function FinanceClaim({
 }) {
   console.log(params.userID);
   const role = "finance";
-  const user_id = "11";
 
   const claims: Claim[] = await fetchClaims(role, params.userID, true); // change arguments
   const pastClaims: Claim[] = await fetchClaims(role, params.userID, false); // change arguments

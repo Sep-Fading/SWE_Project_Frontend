@@ -23,6 +23,7 @@ const ExpenseClaim = ({
     amount,
     currency,
     type,
+    receipt,
     status,
     date,
     claimed_by,
@@ -197,10 +198,10 @@ const ExpenseClaim = ({
                     ? "Process"
                     : "Approve"
                 } Claim`}
-                onClick={onProcess}
+                onClick={() => {acceptClaim((approved_by !== "" || approved_on !== "") ? "finance" : "manager")}}
                 style="w-1/2"
               />
-              <Button text="Reject Claim" onClick={onReject} style="w-1/2" />
+              <Button text="Reject Claim" onClick={() => {rejectClaim((approved_by !== "" || approved_on !== "") ? "finance" : "manager")}} style="w-1/2" />
             </div>
           </>
         )}
