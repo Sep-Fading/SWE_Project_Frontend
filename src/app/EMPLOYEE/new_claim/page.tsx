@@ -1,10 +1,11 @@
 import Header from "@/Components/Header";
 import SendClaim from "@/Components/SendClaim";
-import { getData } from "@/lib/fetchUser";
+import { fetchUser } from "@/lib/fetchUser";
 
-export default async function ExpenseClaim() {
+export default async function ExpenseClaim({ params }: { params: { userID: string } }) {
   //need to implement getting userId from session
-  const details = await getData("user-info", "userID");
+  const details = await fetchUser(params.userID);
+  console.log("details: ", details);
 
   return (
     <div className="flex flex-col justify-evenly md:mx-[10%]">

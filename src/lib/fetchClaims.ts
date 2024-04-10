@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Claim } from '@/types/Claim';
 import getCurrencySymbol from '@/lib/getCurrencySymbol';
 
-async function getData(role: string, user_id: string, current: boolean): Promise<Claim[]> {
+async function fetchClaims(role: string, user_id: string, current: boolean): Promise<Claim[]> {
   try {
     const response = await axios.get<Claim | Claim[]>(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/employeeformmodel/`,
@@ -24,4 +24,4 @@ async function getData(role: string, user_id: string, current: boolean): Promise
 
 
 
-export { getData };
+export { fetchClaims };

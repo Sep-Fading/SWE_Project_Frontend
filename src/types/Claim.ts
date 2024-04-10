@@ -7,7 +7,7 @@ export type Claim = {
   description: string;
   status: "rejected" | "rejectedF" | "pending" | "approved" | "processed";
   date: string;
-  claimed_by?: string;
+  claimed_by: string;
   approved_by?: string;
   approved_on?: string;
   comment?: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, use } from "react";
 import InputField from "@/Components/InputField";
 import Button from "@/Components/Button";
 import Header from "@/Components/Header";
@@ -104,6 +104,7 @@ const UpdateUser = ({
   const handleSubmit = (fields: string) => {
     switch (fields) {
       case "details":
+        console.log("details: ", details);
         updateDetails(user_id, details);
         break;
       case "address":
@@ -121,9 +122,14 @@ const UpdateUser = ({
   };
 
   return (
-    <form className="flex flex-col md:mt-[-10px]">
+    <div className="flex flex-col md:mt-[-10px]">
       <Header title="Personal Details" divStyle="my-2" />
-      <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
+      <form
+        onSubmit={() => {
+          handleSubmit("details");
+        }}
+        className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center"
+      >
         <div className="md:w-[90%]">
           <InputField
             label="First Name"
@@ -131,6 +137,7 @@ const UpdateUser = ({
             name="details-first_name"
             value={details.first_name}
             onChange={handleChange}
+            required={true}
           />
         </div>
         <div className="md:w-[90%]">
@@ -140,6 +147,7 @@ const UpdateUser = ({
             name="details-last_name"
             value={details.last_name}
             onChange={handleChange}
+            required={true}
           />
         </div>
         <div className="md:w-[90%]">
@@ -149,6 +157,7 @@ const UpdateUser = ({
             name="details-email"
             value={details.email}
             onChange={handleChange}
+            required={true}
           />
         </div>
         <div className="md:w-[90%]">
@@ -172,14 +181,13 @@ const UpdateUser = ({
         <Button
           type="submit"
           text="Update"
-          onClick={() => {
-            handleSubmit("details");
-          }}
           style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2 md:row-start-4"
         />
-      </div>
+      </form>
       <Header title="Address" divStyle="mb-2" />
-      <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
+      <form onSubmit={() => {
+          handleSubmit("address");
+        }} className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
         <div className="md:w-[90%]">
           <InputField
             label="Address"
@@ -187,6 +195,7 @@ const UpdateUser = ({
             name="address-address"
             value={fullAddress.address}
             onChange={handleChange}
+            required={true}
           />
         </div>
         <div className="md:w-[90%]">
@@ -219,14 +228,13 @@ const UpdateUser = ({
         <Button
           type="submit"
           text="Update"
-          onClick={() => {
-            handleSubmit("address");
-          }}
           style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2"
         />
-      </div>
+      </form>
       <Header title="Bank Details" divStyle="mb-2" />
-      <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
+      <form onSubmit={() => {
+            handleSubmit("bankDetails");
+          }} className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
         <div className="md:w-[90%]">
           <InputField
             label="Account Number"
@@ -248,14 +256,13 @@ const UpdateUser = ({
         <Button
           type="submit"
           text="Update"
-          onClick={() => {
-            handleSubmit("bankDetails");
-          }}
           style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2"
         />
-      </div>
+      </form>
       <Header title="Change Password" divStyle="mb-2" />
-      <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
+      <form onSubmit={() => {
+            handleSubmit("password");
+          }} className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
         <div className="md:w-[90%]">
           <InputField
             label="Password"
@@ -270,13 +277,10 @@ const UpdateUser = ({
         <Button
           type="submit"
           text="Update"
-          onClick={() => {
-            handleSubmit("password");
-          }}
           style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2 md:row-start-2"
         />
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 

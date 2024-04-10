@@ -2,11 +2,11 @@ import Image from "next/image";
 import { FormEvent } from "react";
 import Link from "next/link";
 import UpdateUserDetails from "@/Components/UpdateUser";
-import { getData } from "@/lib/fetchUser";
+import { fetchUser } from "@/lib/fetchUser";
 import formatRole from "@/lib/formatRole";
 
 export default async function Post({ params }: { params: { userID: string } }) {
-  const details = await getData("user-info", params.userID);
+  const details = await fetchUser(params.userID);
 
   const onClick = () => {
     // Add your login logic here

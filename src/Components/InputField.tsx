@@ -8,6 +8,7 @@ interface InputProps {
   type: string;
   placeholder?: string;
   value: string;
+  required?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -18,6 +19,7 @@ const InputField = ({
   type,
   value,
   placeholder,
+  required,
   onChange,
 }: InputProps) => {
   return (
@@ -44,7 +46,7 @@ const InputField = ({
         className={`${
           icon ? "pl-9" : "pl-2"
         } border-2 border-b-4 border-black rounded-sm shadow-sm py-1`}
-        required
+        required={required}
       />
     </div>
   );

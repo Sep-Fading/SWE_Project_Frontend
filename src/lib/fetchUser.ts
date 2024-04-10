@@ -1,10 +1,10 @@
 import axios from "axios";
 import { User } from "@/types/User";
 
-async function getData(specifier: string, user_id: String): Promise<User> {
+async function fetchUser(user_id: String): Promise<User> {
   try {
     const response = await axios.get<User>(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/${specifier}/${user_id}/`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/${user_id}/`,
       { withCredentials: true }
     );
 
@@ -29,4 +29,4 @@ async function getData(specifier: string, user_id: String): Promise<User> {
   }
 }
 
-export { getData };
+export { fetchUser };
