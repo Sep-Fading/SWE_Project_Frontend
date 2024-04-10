@@ -1,14 +1,14 @@
 import axios from "axios";
 import { User } from "@/types/User";
 
-async function getData(specifier: string) {
+async function getData(specifier: string): Promise<User[]> {
   try {
-    const response = await axios.get<User[]>(
+    const response = await axios.get<User | User[]>(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/${specifier}/`,
       { withCredentials: true }
     );
-    console.log("response.data: ", response.data);
-    return response.data;
+
+    return Array.isArray(response.data) ? response.data : [response.data];
   } catch (error) {
     console.error("Failed to fetch users: ", error);
     return [];

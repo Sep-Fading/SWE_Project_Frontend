@@ -1,330 +1,36 @@
-"use client";
-
 import Image from "next/image";
-import { useState, ChangeEvent, FormEvent } from "react";
-import InputField from "@/Components/InputField";
-import Button from "@/Components/Button";
-import Header from "@/Components/Header";
+import { FormEvent } from "react";
 import Link from "next/link";
-import axios from "axios";
-import { useEffect } from "react";
+import UpdateUserDetails from "@/Components/UpdateUser";
+import { getData } from "@/lib/fetchUser";
+import { updateDetails } from "@/lib/updateDetails";
+import formatRole from "@/lib/formatRole";
 
-interface Details {
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone_number: string;
-  tax_code: string;
-}
-
-interface Address {
-  address: string;
-  zip_code: string;
-  city: string;
-  country: string;
-}
-
-interface BankDetails {
-  account_number: string;
-  sort_code: string;
-}
-
-interface Password {
-  password: string;
-  confirmPassword: string;
-}
-
-const Post = ({ params }: { params: { userID: string } }) => {
-// BACKEND INTEGRATION -------------------------------
-  const [details, setDetails] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone_number: '',
-    tax_code: '',
-  });
-
-  const [address, setAddress] = useState({
-    address: '',
-    zip_code: '',
-    city: '',
-    country: '',
-  });
-
-  const [bankDetails, setBankDetails] = useState({
-    account_number: '',
-    sort_code: '',
-  });
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-        try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/${params.userID}/`, {withCredentials: true});
-            const userData = response.data;
-            setDetails({
-                first_name: userData.first_name,
-                last_name: userData.last_name,
-                email: userData.email,
-                phone_number: userData.phone_number,
-                tax_code: userData.tax_code,
-            });
-            setAddress({
-                address: userData.address,
-                zip_code: userData.zip_code,
-                city: userData.city,
-                country: userData.country,
-            });
-            setBankDetails({
-                account_number: userData.account_number,
-                sort_code: userData.sort_code,
-            });
-        }
-        catch (error) {
-            console.error('Failed to fetch user details: ', error);
-        }
-    };
-
-    fetchUserDetails();
-  }, [params.userID]);
-// UPDATING USER INFO ----------------------------------------
-  const updateDetails = async () => {
-    try {
-        const response = await axios.patch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/update/${params.userID}/`,
-            details,
-            { withCredentials: true }
-        );
-        console.log('Details update successfully ', response.data);
-    }
-    catch (error) {
-        console.error('Failed to update details: ', error);
-    }
-  };
-  
-  const updateAddress = async () => {
-    try {
-        const response = await axios.patch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/update/${params.userID}/`,
-            address,
-            { withCredentials: true }
-        );
-    }
-    catch (error) {
-        console.error('Failed to update address: ', error);
-    }
-
-  };
-
-  const updateBankDetails = async () => {
-    try {
-        const response = await axios.patch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/accounts/api/user-info/update/${params.userID}/`,
-            bankDetails,
-                { withCredentials : true }
-        );
-        console.log('Bank details updated successfully', response.data);
-    }
-    catch (error) {
-        console.error('Failed to update bank details: ', error);
-    }
-  };
-
-// -----------------------------------------------------------
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const [stateKey, propertyName] = e.target.name.split('-');
-    const value = e.target.value;
-  
-    if (stateKey === 'details') {
-        setDetails((prevDetails) => ({
-          ...prevDetails,
-          [propertyName]: value,
-        }));
-    } else if (stateKey === 'address') {
-        setAddress((prevAddress) => ({
-          ...prevAddress,
-          [propertyName]: value,
-        }));
-    } else if (stateKey === 'bankDetails') {
-        setBankDetails((prevBankDetails) => ({
-          ...prevBankDetails,
-          [propertyName]: value,
-        }));
-    }
-  };  
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    // Add your login logic here
-  };
+export default async function Post({ params }: { params: { userID: string } }) {
+  const details = await getData("user-info", params.userID);
 
   const onClick = () => {
     // Add your login logic here
   };
+
   return (
     <div className="bg-gray-100 md:p-[5%]">
       <div className="bg-white shadow-md rounded p-[20px]">
-        <Link href="/Admin/view_users">
+        <Link href="/ADMIN/view_users">
           <Image src="/back.svg" alt="Back" width={26} height={26} className="mb-2"/>
         </Link>
         <div className="flex justify-between">
-          <h2 className="text-xl">John Doe</h2>
-          <h1 className="text-xl font-semibold">Line Manager</h1>
-          <h2 className="text-xl">22053765</h2>
+          <h2 className="text-xl">{details ? (details.first_name + " " + details.last_name) : "User Name"}</h2>
+          <h1 className="text-xl font-semibold">{details ? (formatRole(details.role)) : "User Role"}</h1>
+          <h2 className="text-xl">{details ? (details.user_id) : "User ID"}</h2>
         </div>
         <hr className="border-3 border-black"></hr>
-        <form onSubmit={handleSubmit} className="flex flex-col md:mt-[-10px]">
-          <Header title="Personal Details" divStyle="my-2"/>
-          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
-            <div className="md:w-[90%]">
-              <InputField
-                label="First Name"
-                type="text"
-                name="details-first_name"
-                value={details.first_name}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="md:w-[90%]">
-              <InputField
-                label="Last Name"
-                type="text"
-                name="details-last_name"
-                value={details.last_name}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="md:w-[90%]">
-              <InputField
-                label="Email"
-                type="email"
-                name="details-email"
-                value={details.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="md:w-[90%]">
-              <InputField
-                label="Phone Number"
-                type="tel"
-                name="details-phone_number"
-                value={details.phone_number}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="md:w-[90%]">
-              <InputField
-                label="Tax Number"
-                type="tel"
-                name="details-tax_code"
-                value={details.tax_code}
-                onChange={handleChange}
-              />
-            </div>
-            <Button
-              type="submit"
-              text="Update"
-              onClick={updateDetails}
-              style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2 md:row-start-4"
-            />
-          </div>
-          <Header title="Address" divStyle="mb-2"/>
-          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
-            <div className="md:w-[90%]">
-              <InputField
-                label="Address"
-                type="text"
-                name="address-address"
-                value={address.address}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="md:w-[90%]">
-              <InputField
-                label="Zip Code"
-                type="text"
-                name="address-zip_code"
-                value={address.zip_code}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="md:w-[90%]">
-              <InputField
-                label="City"
-                type="text"
-                name="address-city"
-                value={address.city}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="md:w-[90%]">
-              <InputField
-                label="Country"
-                type="text"
-                name="address-country"
-                value={address.country}
-                onChange={handleChange}
-              />
-            </div>
-            <Button
-              type="submit"
-              text="Update"
-              onClick={updateAddress}
-              style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2"
-            />
-          </div>
-          <Header title="Bank Details" divStyle="mb-2"/>
-          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
-            <div className="md:w-[90%]">
-              <InputField
-                label="Account Number"
-                type="text"
-                name="bankDetails-account_number"
-                value={bankDetails.account_number}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="md:w-[90%]">
-              <InputField
-                label="Sort Code"
-                type="text"
-                name="bankDetails-sortCode"
-                value={bankDetails.sort_code}
-                onChange={handleChange}
-              />
-            </div>
-            <Button
-              type="submit"
-              text="Update"
-              onClick={updateBankDetails}
-              style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2"
-            />
-          </div>
-          <Header title="Change Password" divStyle="mb-2"/>
-          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 md:place-items-center">
-            <div className="md:w-[90%]">
-              <InputField
-                label="Password"
-                type="text"
-                name="password"
-                placeholder="Confirm new password"
-                icon={"password"}
-                value={"password"}
-                onChange={handleChange}
-              />
-            </div>
-            <Button
-              type="submit"
-              text="Update"
-              onClick={onClick}
-              style="w-full place-self-end mb-5 mt-2 md:w-40 md:mr-6 md:mb-0 md:col-start-2 md:row-start-2"
-            />
-          </div>
-        </form>
+        <UpdateUserDetails details={details}/>
         <button
           className={
             "mt-5 rounded-lg text-center bg-red-gradient text-white py-1 duration-200 hover:shadow-lg font-semibold w-full"
           }
           type="submit"
-          onClick={onClick}
         >
           Delete Account
         </button>
@@ -332,5 +38,3 @@ const Post = ({ params }: { params: { userID: string } }) => {
     </div>
   );
 };
-
-export default Post;

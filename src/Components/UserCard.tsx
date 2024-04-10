@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { User } from "@/types/User";
+import formatRole from "@/lib/formatRole";
 
 interface UserCardProps {
   details: User;
@@ -17,6 +18,9 @@ const UserCard = ({
     email,
     phone_number,
     address,
+    zip_code,
+    city,
+    country,
     account_number,
     sort_code,
     tax_code,
@@ -35,7 +39,7 @@ const UserCard = ({
           <h2 className="text-xl">
             {first_name} {last_name}
           </h2>
-          <h1 className="text-xl font-semibold">{role}</h1>
+          <h1 className="text-xl font-semibold">{formatRole(role)}</h1>
           <h2 className="text-xl">{user_id}</h2>
         </div>
         <Image
@@ -58,7 +62,7 @@ const UserCard = ({
             <h2 className="font-medium">Email</h2>
             <p>{email}</p>
             <h2 className="font-medium">Address</h2>
-            <p>{address}</p>
+            <p>{address}, {city}, {zip_code}, {country}</p>
           </div>
           <div>
             <h2 className="font-medium">Phone Number</h2>
