@@ -14,6 +14,7 @@ interface Details {
   email: string;
   phone_number: string;
   tax_code: string;
+  manager_id: string;
 }
 
 interface Address {
@@ -52,6 +53,7 @@ const UpdateUser = ({
     account_number,
     sort_code,
     tax_code,
+    manager_id,
   },
 }: UpdateUserProps) => {
   const [details, setDetails] = useState<Details>({
@@ -60,6 +62,7 @@ const UpdateUser = ({
     email: email,
     phone_number: phone_number,
     tax_code: tax_code,
+    manager_id: manager_id,
   });
 
   const [fullAddress, setFullAddress] = useState<Address>({
@@ -169,6 +172,15 @@ const UpdateUser = ({
             value={details.tax_code}
             onChange={handleChange}
           />
+        </div>
+        <div className="md:w-[90%]">
+            <InputField
+                label="Manager ID"
+                type="text"
+                name="details-manager_id"
+                value={details.manager_id}
+                onChange={handleChange}
+            />
         </div>
         <Button
           type="submit"
