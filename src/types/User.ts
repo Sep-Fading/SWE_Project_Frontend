@@ -6,6 +6,9 @@ export type User = {
   email: string;
   phone_number: string;
   address: string;
+  zip_code: string;
+  city: string;
+  country: string;
   account_number: string;
   sort_code: string;
   tax_code: string;
