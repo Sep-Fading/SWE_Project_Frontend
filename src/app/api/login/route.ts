@@ -16,14 +16,12 @@ export async function POST(req: NextRequest) {
     let cookies = backendResponse.headers["set-cookie"] || [];
 
     const userRoleCookie = serialize("userRole", backendResponse.data.user_permission, {
-      httpOnly: true,
       path: "/",
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
     });
 
     const userID = serialize("userID", backendResponse.data.user_id, {
-      httpOnly: true,
       path: "/",
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
@@ -31,7 +29,6 @@ export async function POST(req: NextRequest) {
 
 
     const userPasswordFlagCookie = serialize("flagged_password_change", backendResponse.data.flagged_password_change, {
-      httpOnly: true,
       path: "/",
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",

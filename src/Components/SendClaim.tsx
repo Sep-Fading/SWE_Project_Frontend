@@ -35,6 +35,8 @@ const SendClaim = ({
     acknowledgement: false,
   });
 
+  const [file, setFile] = useState<File | null>(null);
+
   const router = useRouter();
 
   const handleChange = (
