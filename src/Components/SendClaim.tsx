@@ -25,8 +25,6 @@ const SendClaim = ({
   details: { user_id, first_name, last_name, email, phone_number, manager_id },
 }: SendClaimProps) => {
 
-  const [file, setFile] = useState<File | undefined>();
-
   const [formData, setFormData] = useState<FormData>({
     amount: "",
     currency: "GBP",
@@ -52,12 +50,12 @@ const SendClaim = ({
   };
 
    //function that stores the image file
-   function handleImageChange(e: React.FormEvent<HTMLInputElement>){
+   function handleImageChange(e: FormEvent<HTMLInputElement>){
     const target = e.target as HTMLInputElement &{
       files: FileList;
     }
 
-    console.log('working')
+    console.log('file', target.files[0])
     setFile(target.files[0])
     
   }
@@ -65,7 +63,7 @@ const SendClaim = ({
   const handleSubmit = () => {
     if (!formData.acknowledgement) {
       alert("Please acknowledge the declaration");
-    } else if(file){
+    } else {
       const claim: Claim = {
         claim_id: "",
         user_id: user_id,
@@ -80,9 +78,8 @@ const SendClaim = ({
         claimed_by: first_name + " " + last_name,
         comment: "",
       };
-      console.log(claim);
-      router.push("/home");
       sendClaim(claim);
+      router.push("/home");
     }
   };
 
@@ -191,6 +188,7 @@ const SendClaim = ({
           name="file-upload"
           type="file"
           multiple
+          onClick={handleImageChange}
           className="hidden"
           aria-describedby="file-upload-description"
           required

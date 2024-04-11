@@ -11,7 +11,7 @@ export default async function sendClaim(claim: Claim){
         manager_id: claim.manager_id,
         amount: claim.amount,
         currency: claim.currency,
-        type: claim.type,
+        type: claim.type.toUpperCase(),
         description: claim.description,
         receipt: claim.receipt,
       },
