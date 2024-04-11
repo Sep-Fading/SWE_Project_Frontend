@@ -34,12 +34,36 @@ const ExpenseClaim = ({
   user: { first_name, last_name },
   manager,
   processed,
-  onProcess,
-  onReject,
 }: claimProps) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const [addComment, setAddComment] = useState("");
+
+  const handleDownload = () => {
+    if (!receipt) {
+      alert("No receipt found");
+      return;
+    }
+
+    // Directly create a URL for the File object without using state
+    const url = URL.createObjectURL(receipt);
+
+    // Create a temporary anchor element
+    const a = document.createElement("a");
+
+    // Set the href to the file URL and define a dynamic download filename
+    a.href = url;
+    a.download = `receipt_${claim_id}.txt`; // Customize the file name with claim_id
+
+    // Append the anchor to the document
+    document.body.appendChild(a);
+
+    // Programmatically click the anchor to trigger the download
+    a.click();
+
+    // Clean up by revoking the object URL and removing the anchor from the document
+    URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setAddComment(e.target.value);
@@ -130,7 +154,7 @@ const ExpenseClaim = ({
           </div>
           <div
             className={`${
-              claimed_by ? "flex md:block" : "hidden"
+              manager ? "flex md:block" : "hidden"
             } justify-between`}
           >
             <h2 className="font-medium">Claimed by</h2>
@@ -140,32 +164,26 @@ const ExpenseClaim = ({
             <h2 className="font-medium">Claimed on</h2>
             <p>{date}</p>
           </div>
-          <div
-            className={`${
-              approved_by ? "flex md:block" : "hidden"
-            } justify-between`}
-          >
-            <h2 className="font-medium">Approved by</h2>
-            <p>{approved_by}</p>
-          </div>
-          <div
-            className={`${
-              approved_on ? "flex md:block" : "hidden"
-            } justify-between`}
-          >
-            <h2 className="font-medium">Approved on</h2>
-            <p>{approved_on}</p>
-          </div>
-          <div className="flex flex-col justify-between">
+          {manager && approved_by !== "" && (
+            <div className="flex md:block justify-between">
+              <h2 className="font-medium">Approved by</h2>
+              <p>{approved_by}</p>
+            </div>
+          )}
+          {manager && approved_by !== "" && (
+            <div className="flex justify-between md:block">
+              <h2 className="font-medium">Approved on</h2>
+              <p>{approved_on}</p>
+            </div>
+          )}
+          <div className="flex justify-between md:flex-col">
             <h2 className="font-medium">Receipts</h2>
             <Image
               src="/upload.svg"
               width={32}
               height={32}
               alt="Upload"
-              onClick={() => {
-                console.log("files");
-              }}
+              onClick={handleDownload}
               className="cursor-pointer ml-4"
             />
           </div>
@@ -182,15 +200,18 @@ const ExpenseClaim = ({
             </h2>
           )}
         </div>
-        {!processed && manager && (
+        {(!processed && manager) && (
           <>
-            <TextArea
-              label=""
-              name=""
-              placeholder=""
-              value={addComment}
-              onChange={handleChange}
-            />
+            <div className="mx-2">
+              <textarea
+                id="comment"
+                name="comment"
+                placeholder="Add a comment"
+                value={addComment}
+                onChange={handleChange}
+                className="pl-2 py-1 border-2 border-b-4 border-black rounded-sm shadow h-[50px] w-full"
+              />
+            </div>
             <div className="flex w-full p-2 gap-1">
               <Button
                 text={`${
@@ -198,10 +219,26 @@ const ExpenseClaim = ({
                     ? "Process"
                     : "Approve"
                 } Claim`}
-                onClick={() => {acceptClaim((approved_by !== "" || approved_on !== "") ? "finance" : "manager")}}
+                onClick={() => {
+                  acceptClaim(
+                    approved_by !== "" || approved_on !== ""
+                      ? "finance"
+                      : "manager"
+                  );
+                }}
                 style="w-1/2"
               />
-              <Button text="Reject Claim" onClick={() => {rejectClaim((approved_by !== "" || approved_on !== "") ? "finance" : "manager")}} style="w-1/2" />
+              <Button
+                text="Reject Claim"
+                onClick={() => {
+                  rejectClaim(
+                    approved_by !== "" || approved_on !== ""
+                      ? "finance"
+                      : "manager"
+                  );
+                }}
+                style="w-1/2"
+              />
             </div>
           </>
         )}

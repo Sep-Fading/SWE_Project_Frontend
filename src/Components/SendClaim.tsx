@@ -32,6 +32,8 @@ const SendClaim = ({
     acknowledgement: false,
   });
 
+  const [file, setFile] = useState<File | null>(null);
+
   const router = useRouter();
 
   const handleChange = (
@@ -60,7 +62,7 @@ const SendClaim = ({
         description: formData.description,
         status: "pending", // default status
         date: "",
-        receipt: null,
+        receipt: file,
         claimed_by: first_name + " " + last_name,
         comment: "",
       };

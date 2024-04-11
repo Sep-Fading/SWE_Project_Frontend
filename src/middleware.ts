@@ -81,15 +81,33 @@ export function middleware(request: NextRequest) {
               new URL(`/${userRole}/process_claims/${userID}`, request.url)
             );
           }
+        } else if (
+          request.nextUrl.pathname.startsWith(`/EMPLOYEE/user_page/`)
+        ) {
+          if (
+            request.nextUrl.pathname === `/EMPLOYEE/user_page/${userID}`
+          ) {
+            return NextResponse.next();
+          } else {
+            return NextResponse.redirect(
+              new URL(`/EMPLOYEE/user_page/${userID}`, request.url)
+            );
+          }
         }
         return NextResponse.next();
       } else {
         return NextResponse.redirect(new URL(`/${userRole}`, request.url));
       }
     } else {
-      return NextResponse.redirect(
-        new URL(`/${userRole}/user_page`, request.url)
-      );
+        if (
+          request.nextUrl.pathname === `/EMPLOYEE/user_page/${userID}`
+        ) {
+          return NextResponse.next();
+        } else {
+          return NextResponse.redirect(
+            new URL(`/EMPLOYEE/user_page/${userID}`, request.url)
+          );
+        }
     }
   }
 
