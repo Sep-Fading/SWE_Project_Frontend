@@ -24,6 +24,9 @@ interface SendClaimProps {
 const SendClaim = ({
   details: { user_id, first_name, last_name, email, phone_number, manager_id },
 }: SendClaimProps) => {
+
+  const [file, setFile] = useState<File | undefined>();
+
   const [formData, setFormData] = useState<FormData>({
     amount: "",
     currency: "GBP",
@@ -46,10 +49,21 @@ const SendClaim = ({
     }));
   };
 
+   //function that stores the image file
+   function handleImageChange(e: React.FormEvent<HTMLInputElement>){
+    const target = e.target as HTMLInputElement &{
+      files: FileList;
+    }
+
+    console.log('working')
+    setFile(target.files[0])
+    
+  }
+
   const handleSubmit = () => {
     if (!formData.acknowledgement) {
       alert("Please acknowledge the declaration");
-    } else {
+    } else if(file){
       const claim: Claim = {
         claim_id: "",
         user_id: user_id,
@@ -60,7 +74,7 @@ const SendClaim = ({
         description: formData.description,
         status: "pending", // default status
         date: "",
-        receipt: null,
+        receipt: file,
         claimed_by: first_name + " " + last_name,
         comment: "",
       };
@@ -177,6 +191,7 @@ const SendClaim = ({
           multiple
           className="hidden"
           aria-describedby="file-upload-description"
+          required
         />
         <label
           htmlFor="file-upload"
