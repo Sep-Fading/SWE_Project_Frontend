@@ -59,11 +59,7 @@ const SendClaim = ({
         type: formData.type !== "" ? formData.type : "Other",
         description: formData.description,
         status: "pending", // default status
-        date: new Date().toLocaleDateString("en-GB", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }),
+        date: "",
         receipt: null,
         claimed_by: first_name + " " + last_name,
         comment: "",
