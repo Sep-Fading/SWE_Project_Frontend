@@ -79,6 +79,8 @@ const SendClaim = ({
         comment: "",
       };
       sendClaim(claim);
+      setTimeout(() => {
+      }, 5000);
       router.push("/home");
     }
   };

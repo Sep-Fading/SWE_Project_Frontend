@@ -26,6 +26,7 @@ const ExpenseClaim = ({
     receipt,
     status,
     date,
+    description,
     claimed_by,
     approved_by,
     approved_on,
@@ -38,31 +39,27 @@ const ExpenseClaim = ({
   const [isOpen, setIsOpen] = useState(false);
   const [addComment, setAddComment] = useState("");
 
-  const handleDownload = () => {
-    if (!receipt) {
-      alert("No receipt found");
-      return;
+  const [hide, setHide] = useState(false);
+
+  const handleHide = () => {
+    const set = confirm("Are you sure you want to proceed?");
+    if (set) {
+      setHide(true);
     }
+  }
 
-    // Directly create a URL for the File object without using state
-    const url = URL.createObjectURL(receipt);
-
-    // Create a temporary anchor element
-    const a = document.createElement("a");
-
-    // Set the href to the file URL and define a dynamic download filename
-    a.href = url;
-    a.download = `receipt_${claim_id}.txt`; // Customize the file name with claim_id
-
-    // Append the anchor to the document
-    document.body.appendChild(a);
-
-    // Programmatically click the anchor to trigger the download
-    a.click();
-
-    // Clean up by revoking the object URL and removing the anchor from the document
-    URL.revokeObjectURL(url);
-    document.body.removeChild(a);
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    // Set the path to the file you want to download
+    link.href = '/receipt.png';
+    // Set the filename for the download
+    link.download = 'receipt.png';
+    // Append the link to the body
+    document.body.appendChild(link);
+    // Trigger click on the link
+    link.click();
+    // Remove the link from the body
+    document.body.removeChild(link);
   };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -105,7 +102,7 @@ const ExpenseClaim = ({
   };
 
   return (
-    <div className="bg-white cursor-pointer rounded  hover:scale-[1.01] transition-transform duration-300 hover:shadow">
+    <div className={`${hide && "hidden"} bg-white cursor-pointer rounded  hover:scale-[1.01] transition-transform duration-300 hover:shadow`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between px-2 py-3 w-full"
@@ -121,7 +118,7 @@ const ExpenseClaim = ({
           <div className="ml-2 text-left md:ml-3">
             <h1 className="text-lg">{type}</h1>
             <p className="text-sm text-gray-500">
-              {claimed_by && `${claimed_by}, `}
+              {manager && `${claimed_by}, `}
               {date}
             </p>
           </div>
@@ -140,7 +137,7 @@ const ExpenseClaim = ({
         </div>
       </button>
       <div className={`${isOpen ? "" : "hidden"} text-gray-600`}>
-        <div className="flex flex-col gap-1 grid-rows-2  text-left pb-2  ml-9 mr-5 whitespace-nowrap md:grid md:grid-cols-[2fr_2fr_2fr_2fr] md:ml-12">
+        <div className="flex flex-col gap-1 grid-rows-2  text-left pb-2  ml-9 mr-5 md:mr-0 whitespace-nowrap md:grid md:grid-cols-[2fr_2fr_2fr_2fr] md:ml-20">
           <div className="flex justify-between md:block">
             <h2 className="font-medium">Amount</h2>
             <p>
@@ -164,13 +161,13 @@ const ExpenseClaim = ({
             <h2 className="font-medium">Claimed on</h2>
             <p>{date}</p>
           </div>
-          {manager && approved_by !== "" && (
+          {(manager && approved_by) && (
             <div className="flex md:block justify-between">
               <h2 className="font-medium">Approved by</h2>
               <p>{approved_by}</p>
             </div>
           )}
-          {manager && approved_by !== "" && (
+          {(manager && approved_by) && (
             <div className="flex justify-between md:block">
               <h2 className="font-medium">Approved on</h2>
               <p>{approved_on}</p>
@@ -187,6 +184,7 @@ const ExpenseClaim = ({
               className="cursor-pointer ml-4"
             />
           </div>
+          <p className="mt-1">{description}</p>
         </div>
         <div className="ml-12 mr-4">
           {comment && <h2 className="mb-2 text-left font-medium">{comment}</h2>}
@@ -219,24 +217,12 @@ const ExpenseClaim = ({
                     ? "Process"
                     : "Approve"
                 } Claim`}
-                onClick={() => {
-                  acceptClaim(
-                    approved_by !== "" || approved_on !== ""
-                      ? "finance"
-                      : "manager"
-                  );
-                }}
+                onClick={handleHide}
                 style="w-1/2"
               />
               <Button
                 text="Reject Claim"
-                onClick={() => {
-                  rejectClaim(
-                    approved_by !== "" || approved_on !== ""
-                      ? "finance"
-                      : "manager"
-                  );
-                }}
+                onClick={handleHide}
                 style="w-1/2"
               />
             </div>

@@ -5,7 +5,6 @@ import { useState } from "react";
 import Image from "next/image";
 
 interface IssueBoxProps {
-  buttonText: string[];
   user: string;
   title: string;
   description: string;
@@ -18,13 +17,17 @@ const IssueBox = ({
   title,
   user,
   description,
-  buttonText,
-  date,
+  date, 
 }: IssueBoxProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [hide, setHide] = useState(false);
+
+  const handleClick = () => {
+    setHide(true);
+  }
 
   return (
-    <div className="bg-white rounded hover:scale-[1.01] transition-transform duration-300 hover:shadow w-full">
+    <div className={`${hide && "hidden"} bg-white rounded hover:scale-[1.01] transition-transform duration-300 hover:shadow w-full`}>
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="flex flex-row justify-between px-4 py-2 cursor-pointer"
@@ -46,7 +49,7 @@ const IssueBox = ({
       </div>
       <div className={`${isOpen ? "" : "hidden"} flex flex-col gap-2 px-4 pb-2 text-gray-600`}>
         <p className="text-left">{description}</p>
-        <Button text={buttonText[0]} style="w-[200px] self-end" />
+        <Button onClick={handleClick} text="Resolve Issue" style="w-[200px] self-end" />
       </div>
     </div>
   );

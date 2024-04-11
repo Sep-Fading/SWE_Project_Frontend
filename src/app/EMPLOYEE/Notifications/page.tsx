@@ -1,23 +1,40 @@
 import Header from "@/Components/Header";
-import Notification from "@/Components/Notification";
+import ViewNotifications from "@/Components/ViewNotifications";
 
-const Notifications = () => {
-  const buttons = ["Delete"];
-  const date = "7 April";
-  const title = "Claim Approved";
-  const description =
-    "The expense claim for travel that was submitted on 7th April has been approved by your line manager.";
 
+
+// Predefined headings, text for buttons and the date are passed into the component IssueBox and returned on the page as HTML
+// The header component creates the heading for the page and the title of the page is passed into the component
+
+export default async function Notifications() {
+
+  const notifications = [
+    {
+      title: "Claim Approved",
+      description: "Your claim has been approved, you can now view it.",
+      date: "5 April, 2024",
+    },
+    {
+      title: "Claim Approved",
+      description: "Your claim has been approved, you can now view it.",
+      date: "5 March, 2024",
+    },
+    {
+      title: "Claim Rejected",
+      description: "Your claim has been Rejected, you can now view why.",
+      date: "12 January, 2024",
+    },
+    {
+      title: "Claim Processed",
+      description: "Your claim has been Processed, you can now view it.",
+      date: "26 December, 2023",
+    },
+  ];
+  
   return (
     <div className="md:px-4">
-      <Header title="Resolve Issues" style="my-2" />
-      <Notification
-        buttonText={buttons}
-        title={title}
-        date={date}
-        description={description}
-      />
+      <Header title="Notifications" style="my-2" />
+      <ViewNotifications notifications={notifications} />
     </div>
   );
 };
-export default Notifications;

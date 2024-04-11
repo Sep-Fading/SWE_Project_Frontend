@@ -28,7 +28,7 @@ const Navigation = ({ links, home }: NavigationProps) => {
           ))}
         </div>
         <div className="flex items-center space-x-4">
-          <Link href="/EMPLOYEE/Notifications">
+          <Link className="cursor-pointer" href="/EMPLOYEE/Notifications">
             <Image
               src="/notification.svg"
               alt="Notifications"
@@ -37,7 +37,7 @@ const Navigation = ({ links, home }: NavigationProps) => {
               priority
             />
           </Link>
-          <Link href="/Login">
+          <Link className="cursor-pointer" href="/Login">
             <Image
               src="/user_circle.svg"
               alt="Login"

@@ -36,11 +36,11 @@ const UserCard = ({
         className="flex items-center px-2 py-3 w-full"
       >
         <div className="flex justify-between grow">
-          <h2 className="text-xl">
+          <h2 className="text-xl w-[40%] text-left">
             {first_name} {last_name}
           </h2>
-          <h1 className="text-xl font-semibold">{formatRole(role)}</h1>
-          <h2 className="text-xl">{user_id}</h2>
+          <h1 className="text-xl font-semibold w-[30%]">{role}</h1>
+          <h2 className="text-xl w-[30%] text-right">{user_id}</h2>
         </div>
         <Image
           src={`/${isOpen ? "drop_up" : "drop_down"}.svg`}
@@ -50,7 +50,7 @@ const UserCard = ({
           className="ml-1"
         />
       </button>
-      <div className={`${isOpen ? "" : "hidden"} flex flex-col mb-3 mx-2`}>
+      <div className={`${isOpen ? "" : "hidden"} flex flex-col mb-1 mx-2`}>
         <div className="flex justify-between text-left mt-1 py-3 overflow-y-auto gap-4 whitespace-nowrap">
           <div>
             <h2 className="font-medium">First Name</h2>

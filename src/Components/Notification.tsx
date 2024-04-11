@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useState } from "react";
 
 interface NotificationProps {
-  buttonText: string[];
   title: string;
   description: string;
   date: string;
@@ -14,13 +13,17 @@ interface NotificationProps {
 const Notification = ({
   title,
   description,
-  buttonText,
   date,
 }: NotificationProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [hide, setHide] = useState(false);
+
+  const handleClick = () => {
+    setHide(true);
+  };
 
   return (
-    <div className="bg-white rounded hover:scale-[1.01] transition-transform duration-300 hover:shadow w-full">
+    <div className={`${hide && "hidden"} bg-white rounded hover:scale-[1.01] transition-transform duration-300 hover:shadow w-full`}>
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="flex flex-row justify-between px-4 py-2 cursor-pointer"
@@ -46,7 +49,7 @@ const Notification = ({
         } flex flex-col gap-2 px-4 pb-2 text-gray-600`}
       >
         <p className="text-left">{description}</p>
-        <Button text={buttonText[0]} style="w-[200px] self-end" />
+        <Button text="Delete" onClick={handleClick} style="w-[200px] self-end" />
       </div>
     </div>
   );

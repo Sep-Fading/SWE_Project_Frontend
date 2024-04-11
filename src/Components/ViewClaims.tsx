@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import Header from "@/Components/Header";
 import FilterMenu from "@/Components/FilterMenu";
 import SearchBar from "@/Components/SearchBar";
@@ -18,12 +18,23 @@ interface ViewClaimsProps {
 
 const ViewClaims = ({ claims, user, pastClaims, role }: ViewClaimsProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [filteredClaims, setFilteredClaims] = useState<Claim[]>(claims);
+  const [filteredPastClaims, setFilteredPastClaims] = useState<Claim[]>(pastClaims);
+
+  useEffect(() => {
+    // Initialize with all claims on component mount
+    setFilteredClaims(claims);
+    setFilteredPastClaims(pastClaims);
+  }, [claims, pastClaims]);
 
   const handleFilterChange = (
     filters: Record<string, boolean | number[] | number>
   ) => {
-    // Filter claims based on the selected filters
-    console.log(filters);
+    const filteredClaims = claims.filter(claim => {
+      const statusFilter = filters[claim.status];
+      // If the filter for the current claim's status is true, or if it's undefined (not being filtered), include the claim.
+      return statusFilter !== false;
+    });
   };
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {

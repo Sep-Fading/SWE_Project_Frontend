@@ -6,7 +6,7 @@ export type Claim = {
   currency: string;
   type: "Travel" | "Meal" | "Night Stay" | "Gift" | "Other";
   description: string;
-  receipt: File | null;
+  receipt?: File | null;
   status: "rejected" | "rejectedF" | "pending" | "approved" | "processed";
   date: string;
   claimed_by: string;

@@ -37,6 +37,8 @@ const UserPage = ({
     Cookies.remove("userRole");
     Cookies.remove("userID");
     Cookies.remove("flagged_password_change");
+    setTimeout(() => {
+    }, 3000);
     router.push("/Login");
   };
 
